@@ -40,4 +40,12 @@ describe('UI: Welcome', () => {
 
     expect(buttonAction).toHaveBeenCalledTimes(1);
   });
+
+  test('should show planning image with success', () => {
+    const { getByTestId } = render(<WelcomeView buttonAction={() => {}} />);
+
+    const planningImage = getByTestId('planning_image_id');
+
+    expect(planningImage).toBeTruthy();
+  });
 });

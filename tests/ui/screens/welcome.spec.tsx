@@ -9,4 +9,11 @@ describe('UI: Welcome', () => {
     const title = getByText('PLANSELF');
     expect(title).toBeTruthy();
   });
+
+  test('should show subtitle with success', () => {
+    const { getByTestId } = render(<WelcomeView />);
+
+    const subtitle = getByTestId('subtitle_id');
+    expect(subtitle).toBeTruthy();
+  });
 });

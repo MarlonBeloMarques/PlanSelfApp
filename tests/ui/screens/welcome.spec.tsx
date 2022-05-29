@@ -16,4 +16,15 @@ describe('UI: Welcome', () => {
     const subtitle = getByTestId('subtitle_id');
     expect(subtitle).toBeTruthy();
   });
+
+  test('should show button with label', () => {
+    const { getByTestId } = render(<WelcomeView />);
+
+    const button = getByTestId('button_id');
+    const label = getByTestId('button_label_id');
+
+    expect(button).toBeTruthy();
+    expect(label).toBeTruthy();
+    expect(label.props.children).toBeTruthy();
+  });
 });

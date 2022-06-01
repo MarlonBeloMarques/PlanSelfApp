@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Switch, Text, TouchableOpacity, View } from 'react-native';
 import { PlanningImage } from '~/presentation/assets/images';
 
 type Props = {
@@ -14,6 +14,7 @@ const Welcome: React.FC<Props> = ({ buttonAction }) => {
       <Text testID="subtitle_id">
         You need to plan for have success in your life
       </Text>
+      <Switch testID="components_switch_id" />
       <TouchableOpacity
         testID="button_id"
         onPress={buttonAction}

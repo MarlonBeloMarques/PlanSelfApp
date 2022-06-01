@@ -48,4 +48,12 @@ describe('UI: Welcome', () => {
 
     expect(planningImage).toBeTruthy();
   });
+
+  test('should show switch with success', () => {
+    const { getByTestId } = render(<WelcomeView buttonAction={() => {}} />);
+
+    const componentsSwitch = getByTestId('components_switch_id');
+
+    expect(componentsSwitch).toBeTruthy();
+  });
 });

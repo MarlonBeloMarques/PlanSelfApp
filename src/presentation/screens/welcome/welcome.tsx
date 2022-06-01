@@ -4,9 +4,15 @@ import { PlanningImage } from '~/presentation/assets/images';
 
 type Props = {
   buttonAction: () => void;
+  componentsToggle: () => void;
+  toggleEnabled: boolean;
 };
 
-const Welcome: React.FC<Props> = ({ buttonAction }) => {
+const Welcome: React.FC<Props> = ({
+  buttonAction,
+  componentsToggle,
+  toggleEnabled,
+}) => {
   return (
     <View style={{ flex: 1 }}>
       <Image testID="planning_image_id" source={PlanningImage} />
@@ -14,7 +20,11 @@ const Welcome: React.FC<Props> = ({ buttonAction }) => {
       <Text testID="subtitle_id">
         You need to plan for have success in your life
       </Text>
-      <Switch testID="components_switch_id" />
+      <Switch
+        testID="components_switch_id"
+        onValueChange={componentsToggle}
+        value={toggleEnabled}
+      />
       <TouchableOpacity
         testID="button_id"
         onPress={buttonAction}

@@ -120,4 +120,21 @@ describe('UI: Welcome', () => {
 
     expect(componentsSwitch.props.value).toBe(false);
   });
+
+  test('should call function that enable the switch', () => {
+    const componentsToggle = jest.fn();
+    const { getByTestId } = render(
+      <WelcomeView
+        buttonAction={() => {}}
+        componentsToggle={componentsToggle}
+        toggleEnabled={false}
+      />,
+    );
+
+    const componentsSwitch = getByTestId('components_switch_id');
+
+    fireEvent(componentsSwitch, 'onValueChange', true);
+
+    expect(componentsToggle).toHaveBeenCalledTimes(1);
+  });
 });

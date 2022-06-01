@@ -106,4 +106,18 @@ describe('UI: Welcome', () => {
 
     expect(componentsSwitch.props.value).toBe(true);
   });
+
+  test('should not is enabled the switch', () => {
+    const { getByTestId } = render(
+      <WelcomeView
+        buttonAction={() => {}}
+        componentsToggle={() => {}}
+        toggleEnabled={false}
+      />,
+    );
+
+    const componentsSwitch = getByTestId('components_switch_id');
+
+    expect(componentsSwitch.props.value).toBe(false);
+  });
 });

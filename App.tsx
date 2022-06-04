@@ -1,15 +1,8 @@
 import React from 'react';
-import { StatusBar, View } from 'react-native';
-import { Welcome } from '~/presentation/screens';
-import { spacings } from '~/presentation/themes';
+import Main from '~/main';
 
 const App = () => {
-  return (
-    <View style={{ flex: 1, padding: spacings.largeSpacing }}>
-      <StatusBar barStyle={'dark-content'} />
-      <Welcome />
-    </View>
-  );
+  return <Main />;
 };
 
 export default App;

@@ -8,6 +8,7 @@ module.exports = {
     '.+\\.(css|style|less|sass|scss|png|jpg|ttf|woff|woff2)$':
       'identity-obj-proxy',
   },
+  setupFiles: ['<rootDir>/jest.setup.js'],
   transformIgnorePatterns: [
     'node_modules/(?!(@react-native|react-native|react-native-size-matters)/)',
   ],

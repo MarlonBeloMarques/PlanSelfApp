@@ -7,9 +7,11 @@ jest.mock('../../../src/presentation/assets/images');
 describe('UI: Welcome', () => {
   test('should show title with success', () => {
     const { getByText } = makeSut();
-    const title = getByText('PLANSELF');
+    const titlePlan = getByText('PLAN');
+    const titleSelf = getByText('SELF');
 
-    expect(title).toBeTruthy();
+    expect(titlePlan).toBeTruthy();
+    expect(titleSelf).toBeTruthy();
   });
 
   test('should show subtitle with success', () => {

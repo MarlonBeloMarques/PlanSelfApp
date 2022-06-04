@@ -5,8 +5,12 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/'],
   moduleNameMapper: {
-    '.+\\.(css|style|less|sass|scss|png|jpg|ttf|woff|woff2)$':'identity-obj-proxy',
+    '.+\\.(css|style|less|sass|scss|png|jpg|ttf|woff|woff2)$':
+      'identity-obj-proxy',
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(@react-native|react-native|react-native-size-matters)/)',
+  ],
   testRegex: '\\.spec\\.ts',
   collectCoverage: true,
   coverageThreshold: {

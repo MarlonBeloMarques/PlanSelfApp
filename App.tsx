@@ -1,14 +1,14 @@
 import React from 'react';
-import { SafeAreaView, StatusBar, Text } from 'react-native';
+import { StatusBar, View } from 'react-native';
+import { Welcome } from '~/presentation/screens';
+import { spacings } from '~/presentation/themes';
 
 const App = () => {
   return (
-    <SafeAreaView
-      style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-    >
-      <StatusBar barStyle={'light-content'} />
-      <Text>PLANSELF</Text>
-    </SafeAreaView>
+    <View style={{ flex: 1, padding: spacings.largeSpacing }}>
+      <StatusBar barStyle={'dark-content'} />
+      <Welcome />
+    </View>
   );
 };
 

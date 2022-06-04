@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Welcome from './welcome';
 
 const WelcomePresenter: React.FC = () => {
-  return <Welcome />;
+  const [toggleEnabled, componentsToggle] = useState(false);
+  return (
+    <Welcome
+      buttonAction={() => {}}
+      componentsToggle={componentsToggle}
+      toggleEnabled={toggleEnabled}
+    />
+  );
 };
 
 export default WelcomePresenter;

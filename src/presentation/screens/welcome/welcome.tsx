@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Switch, View } from 'react-native';
 import { PlanningImage } from '~/presentation/assets/images';
 import {
@@ -17,7 +17,7 @@ import {
 
 type Props = {
   buttonAction: () => void;
-  componentsToggle: () => void;
+  componentsToggle: Dispatch<SetStateAction<boolean>>;
   toggleEnabled: boolean;
 };
 

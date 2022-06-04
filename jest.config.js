@@ -12,7 +12,6 @@ module.exports = {
     'node_modules/(?!(@react-native|react-native|react-native-size-matters)/)',
   ],
   testRegex: '\\.spec\\.ts',
-  collectCoverage: true,
   coverageThreshold: {
     global: {
       branches: 90,

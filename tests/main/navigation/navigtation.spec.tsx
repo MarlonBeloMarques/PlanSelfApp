@@ -10,12 +10,7 @@ import {
 
 describe('Main: Navigation', () => {
   test('should dispatch navigate action with success', async () => {
-    const setTopLevelNavigatorSpy = jest.spyOn(
-      NavigationActions,
-      'setTopLevelNavigator',
-    );
-    const navigateSpy = jest.spyOn(CommonActions, 'navigate');
-    render(<Main initialRouteName={Routes.WELCOME} />);
+    const { navigateSpy, setTopLevelNavigatorSpy } = makeSut();
 
     await waitFor(() => {
       expect(setTopLevelNavigatorSpy).toHaveBeenCalled();
@@ -26,11 +21,20 @@ describe('Main: Navigation', () => {
 
   test('should pass initialRouteName via props correctly for Navigation', () => {
     const welcomeRoutes = Routes.WELCOME;
-    const { UNSAFE_getByType } = render(
-      <Main initialRouteName={welcomeRoutes} />,
-    );
+    const { sut } = makeSut(welcomeRoutes);
 
-    const navigation = UNSAFE_getByType(Navigation);
+    const navigation = sut.UNSAFE_getByType(Navigation);
     expect(navigation.props.initialRouteName).toEqual(welcomeRoutes);
   });
 });
+
+const makeSut = (initialRouteName = Routes.WELCOME) => {
+  const setTopLevelNavigatorSpy = jest.spyOn(
+    NavigationActions,
+    'setTopLevelNavigator',
+  );
+  const navigateSpy = jest.spyOn(CommonActions, 'navigate');
+  const sut = render(<Main initialRouteName={initialRouteName} />);
+
+  return { setTopLevelNavigatorSpy, navigateSpy, sut };
+};

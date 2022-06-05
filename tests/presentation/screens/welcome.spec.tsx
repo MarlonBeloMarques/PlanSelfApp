@@ -4,8 +4,6 @@ import Main from '../../../src/main';
 import WelcomeView from '../../../src/presentation/screens/welcome/welcome';
 import { NavigationActions, Routes } from '../../../src/main/navigation';
 
-jest.mock('../../../src/presentation/assets/images');
-
 describe('Presentation: Welcome', () => {
   test('should call componentsToggle function updating toggleEnabled with success', () => {
     const { UNSAFE_getByType, getByTestId } = render(

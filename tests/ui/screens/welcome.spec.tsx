@@ -2,8 +2,6 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import WelcomeView from '../../../src/presentation/screens/welcome/welcome';
 
-jest.mock('../../../src/presentation/assets/images');
-
 describe('UI: Welcome', () => {
   test('should show title with success', () => {
     const { getByText } = makeSut();

@@ -8,8 +8,6 @@ import {
   Routes,
 } from '../../../src/main/navigation';
 
-jest.mock('../../../src/presentation/assets/images');
-
 describe('Main: Navigation', () => {
   test('should dispatch navigate action with success', async () => {
     const setTopLevelNavigatorSpy = jest.spyOn(

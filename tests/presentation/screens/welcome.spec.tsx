@@ -6,10 +6,7 @@ import { NavigationActions, Routes } from '../../../src/main/navigation';
 
 describe('Presentation: Welcome', () => {
   test('should call componentsToggle function updating toggleEnabled with success', () => {
-    const { UNSAFE_getByType, getByTestId } = render(
-      <Main initialRouteName={Routes.WELCOME} />,
-    );
-
+    const { UNSAFE_getByType, getByTestId } = makeSut();
     const view = UNSAFE_getByType(WelcomeView);
     const componentsSwitch = getByTestId('components_switch_id');
 
@@ -20,12 +17,15 @@ describe('Presentation: Welcome', () => {
 
   test('should navigate with success when button press', () => {
     const navigateSpy = jest.spyOn(NavigationActions, 'navigate');
-    const { getByTestId } = render(<Main initialRouteName={Routes.WELCOME} />);
-
+    const { getByTestId } = makeSut();
     const button = getByTestId('button_id');
 
     fireEvent.press(button);
-
     expect(navigateSpy).toHaveBeenCalledTimes(1);
   });
 });
+
+const makeSut = () => {
+  const sut = render(<Main initialRouteName={Routes.WELCOME} />);
+  return sut;
+};

@@ -2,10 +2,14 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 import { NavigationContainerRef } from '@react-navigation/native';
-import { Navigation, NavigationActions, Routes } from '~/main/navigation';
+import { Navigation, NavigationActions } from '~/main/navigation';
 import { spacings } from '~/presentation/themes';
 
-const Main: React.FC = () => {
+type Props = {
+  initialRouteName: keyof StackParams;
+};
+
+const Main: React.FC<Props> = ({ initialRouteName }) => {
   return (
     <WrapperScreen>
       <StatusBar barStyle="dark-content" />
@@ -13,7 +17,7 @@ const Main: React.FC = () => {
         setNavigationTop={(navigationRef: NavigationContainerRef<any>) =>
           NavigationActions.setTopLevelNavigator(navigationRef)
         }
-        initialRouteName={Routes.WELCOME}
+        initialRouteName={initialRouteName}
       />
     </WrapperScreen>
   );

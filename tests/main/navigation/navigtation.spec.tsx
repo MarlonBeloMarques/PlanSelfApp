@@ -2,7 +2,11 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 import { CommonActions } from '@react-navigation/native';
 import Main from '../../../src/main';
-import { NavigationActions } from '../../../src/main/navigation';
+import {
+  Navigation,
+  NavigationActions,
+  Routes,
+} from '../../../src/main/navigation';
 
 jest.mock('../../../src/presentation/assets/images');
 
@@ -13,12 +17,22 @@ describe('Main: Navigation', () => {
       'setTopLevelNavigator',
     );
     const navigateSpy = jest.spyOn(CommonActions, 'navigate');
-    render(<Main />);
+    render(<Main initialRouteName={Routes.WELCOME} />);
 
     await waitFor(() => {
       expect(setTopLevelNavigatorSpy).toHaveBeenCalled();
       NavigationActions.navigate('WELCOME');
       expect(navigateSpy).toHaveBeenCalledTimes(1);
     });
+  });
+
+  test('should pass initialRouteName via props correctly for Navigation', () => {
+    const welcomeRoutes = Routes.WELCOME;
+    const { UNSAFE_getByType } = render(
+      <Main initialRouteName={welcomeRoutes} />,
+    );
+
+    const navigation = UNSAFE_getByType(Navigation);
+    expect(navigation.props.initialRouteName).toEqual(welcomeRoutes);
   });
 });

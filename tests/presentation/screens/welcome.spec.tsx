@@ -2,13 +2,15 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import Main from '../../../src/main';
 import WelcomeView from '../../../src/presentation/screens/welcome/welcome';
-import { NavigationActions } from '../../../src/main/navigation';
+import { NavigationActions, Routes } from '../../../src/main/navigation';
 
 jest.mock('../../../src/presentation/assets/images');
 
 describe('Presentation: Welcome', () => {
   test('should call componentsToggle function updating toggleEnabled with success', () => {
-    const { UNSAFE_getByType, getByTestId } = render(<Main />);
+    const { UNSAFE_getByType, getByTestId } = render(
+      <Main initialRouteName={Routes.WELCOME} />,
+    );
 
     const view = UNSAFE_getByType(WelcomeView);
     const componentsSwitch = getByTestId('components_switch_id');
@@ -20,7 +22,7 @@ describe('Presentation: Welcome', () => {
 
   test('should navigate with success when button press', () => {
     const navigateSpy = jest.spyOn(NavigationActions, 'navigate');
-    const { getByTestId } = render(<Main />);
+    const { getByTestId } = render(<Main initialRouteName={Routes.WELCOME} />);
 
     const button = getByTestId('button_id');
 

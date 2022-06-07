@@ -5,7 +5,20 @@ export class getStatusAddPlanRemoteConfig implements GetStatusAddPlan {
   constructor(private readonly getRemoteConfig: GetRemoteConfig) {}
 
   async get(param: string): Promise<boolean> {
-    const result = await this.getRemoteConfig.get(param);
-    return result;
+    try {
+      const result = await this.getRemoteConfig.get(param);
+      return result;
+    } catch (error) {
+      throw new UnexpectedError();
+    }
+  }
+}
+
+export class UnexpectedError extends Error {
+  constructor() {
+    super();
+    this.message =
+      'Unexpected error. Please check your internet and try again.';
+    this.name = 'UnexpectedError';
   }
 }

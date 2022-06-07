@@ -5,7 +5,7 @@ export class getStatusAddPlanRemoteConfig implements GetStatusAddPlan {
   constructor(private readonly getRemoteConfig: GetRemoteConfig) {}
 
   async get(param: string): Promise<boolean> {
-    this.getRemoteConfig.get(param);
-    return true;
+    const result = await this.getRemoteConfig.get(param);
+    return result;
   }
 }

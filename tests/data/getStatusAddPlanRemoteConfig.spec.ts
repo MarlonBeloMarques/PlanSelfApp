@@ -8,17 +8,30 @@ describe('Data: GetStatusAddPlanRemoteConfig', () => {
     await sut.get('addPlan');
     expect(remoteConfigSpy.param).toEqual('addPlan');
   });
+
+  test('should get with GetRemoteConfig returning successfully', async () => {
+    const remoteConfigSpy = new RemoteConfigSpy();
+    const sut = new getStatusAddPlanRemoteConfig(remoteConfigSpy);
+    remoteConfigSpy.completeWithStatus(true);
+    const result = await sut.get('addPlan');
+    expect(result).toBe(true);
+  });
 });
 
 class RemoteConfigSpy implements GetRemoteConfig {
   private _param!: string;
+  private result = false;
 
   async get(param: string): Promise<any> {
     this._param = param;
-    return true;
+    return this.result;
   }
 
   get param(): string {
     return this._param;
+  }
+
+  completeWithStatus(status: boolean) {
+    this.result = status;
   }
 }

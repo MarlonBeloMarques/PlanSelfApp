@@ -1,3 +1,3 @@
 export interface GetStatusAddPlan {
-  get(): Promise<boolean>;
+  get(param: string): Promise<boolean>;
 }

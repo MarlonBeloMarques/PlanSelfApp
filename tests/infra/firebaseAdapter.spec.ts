@@ -5,6 +5,7 @@ import { GetRemoteConfig } from '../../src/data/remoteConfig';
 
 jest.mock('@react-native-firebase/remote-config', () => () => ({
   setDefaults: () => jest.fn(),
+  fetchAndActivate: () => jest.fn().mockReturnValueOnce(false),
 }));
 
 describe('Infra: FirebaseAdapter', () => {
@@ -23,6 +24,25 @@ describe('Infra: FirebaseAdapter', () => {
 
     expect(setDefaultsSpy).toHaveBeenCalledWith({ addPlan: true });
   });
+
+  test('should fetch and active the values of remote config returning result with success', async () => {
+    const remoteConfig = firebaseRemoteConfig();
+
+    const remoteConfigMocked = remoteConfig as jest.Mocked<typeof remoteConfig>;
+
+    const fetchAndActivateResponse = true;
+
+    const fetchAndActivateSpy = jest
+      .spyOn(remoteConfigMocked, 'fetchAndActivate')
+      .mockResolvedValueOnce(fetchAndActivateResponse);
+
+    const sut = new FirebaseAdapter(remoteConfig);
+
+    const result = await sut.fetchAndActivate();
+
+    expect(fetchAndActivateSpy).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(fetchAndActivateResponse);
+  });
 });
 
 class FirebaseAdapter implements GetRemoteConfig {
@@ -40,5 +60,9 @@ class FirebaseAdapter implements GetRemoteConfig {
     await this.remoteConfig.setDefaults({
       addPlan: true,
     });
+  }
+
+  async fetchAndActivate(): Promise<boolean> {
+    return await this.remoteConfig.fetchAndActivate();
   }
 }

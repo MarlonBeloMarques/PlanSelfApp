@@ -21,6 +21,9 @@
     ]
   },
   "dependencies": {
+    "@react-native-firebase/analytics": "^14.11.0",
+    "@react-native-firebase/app": "^14.11.0",
+    "@react-native-firebase/remote-config": "^14.11.0",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
     "install": "^0.13.0",

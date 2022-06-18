@@ -1,9 +1,15 @@
 import { MyPlanModel } from '../models';
 
 export interface GetMyPlans {
-  get(): Promise<GetMyPlans.List>;
+  get(reference: GetMyPlans.Reference): Promise<GetMyPlans.List>;
 }
 
 export namespace GetMyPlans {
   export type List = Array<MyPlanModel>;
+  export type Reference = {
+    user: User;
+  };
+  type User = {
+    myPlans: 'myPlans';
+  };
 }

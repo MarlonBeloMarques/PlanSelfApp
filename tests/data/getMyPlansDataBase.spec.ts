@@ -10,7 +10,7 @@ describe('Data: GetMyPlansDatabase', () => {
     getDatabase.completeWithMyPlans(myPlans);
 
     const sut = new GetMyPlansDatabase(getDatabase);
-    const response = await sut.get();
+    const response = await sut.get({ user: { myPlans: 'myPlans' } });
     expect(response).toEqual(myPlans);
   });
 
@@ -21,20 +21,32 @@ describe('Data: GetMyPlansDatabase', () => {
     const sut = new GetMyPlansDatabase(getDatabase);
 
     try {
-      await sut.get();
+      await sut.get({ user: { myPlans: 'myPlans' } });
       throw new Error('something unexpected occurred in your test');
     } catch (error) {
       expect(error).toEqual(new GetMyPlansDatabaseError());
     }
   });
+
+  test('should get with GetMyPlans call correct param', async () => {
+    const myPlans = [
+      { progress: 50, startDate: new Date(), title: 'any_title' },
+    ];
+    const getDatabase = new GetDatabaseSpy();
+    getDatabase.completeWithMyPlans(myPlans);
+
+    const reference = { user: { myPlans: 'myPlans' } } as GetMyPlans.Reference;
+    const sut = new GetMyPlansDatabase(getDatabase);
+    await sut.get(reference);
+    expect(reference).toEqual(getDatabase.reference);
+  });
 });
 
 class GetMyPlansDatabase implements GetMyPlans {
   constructor(private readonly getDataBase: GetDatabase<GetMyPlans.List>) {}
-
-  async get() {
+  get(reference: GetMyPlans.Reference): Promise<GetMyPlans.List> {
     try {
-      return this.getDataBase.get();
+      return this.getDataBase.get(reference);
     } catch (error) {
       throw new GetMyPlansDatabaseError();
     }
@@ -43,10 +55,12 @@ class GetMyPlansDatabase implements GetMyPlans {
 
 class GetDatabaseSpy implements GetDatabase<GetMyPlans.List> {
   private _myPlans: GetMyPlans.List = [];
+  private _reference = {} as GetMyPlans.Reference;
   private unexpectedErrorOccurred = false;
 
-  async get() {
+  async get(reference: GetMyPlans.Reference) {
     if (this.unexpectedErrorOccurred) throw new GetMyPlansDatabaseError();
+    this._reference = reference;
     return this._myPlans;
   }
 
@@ -60,6 +74,10 @@ class GetDatabaseSpy implements GetDatabase<GetMyPlans.List> {
 
   get myPlans(): GetMyPlans.List {
     return this._myPlans;
+  }
+
+  get reference(): GetMyPlans.Reference {
+    return this._reference;
   }
 }
 

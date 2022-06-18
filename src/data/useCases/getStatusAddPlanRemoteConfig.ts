@@ -6,7 +6,7 @@ export class getStatusAddPlanRemoteConfig implements GetStatusAddPlan {
 
   async get(param: string): Promise<boolean> {
     try {
-      const result = await this.getRemoteConfig.get(param);
+      const result = await this.getRemoteConfig.getConfig(param);
       return result;
     } catch (error) {
       throw new UnexpectedError();

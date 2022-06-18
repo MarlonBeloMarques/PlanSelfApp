@@ -46,7 +46,7 @@ class GetMyPlansDatabase implements GetMyPlans {
   constructor(private readonly getDataBase: GetDatabase<GetMyPlans.List>) {}
   get(reference: GetMyPlans.Reference): Promise<GetMyPlans.List> {
     try {
-      return this.getDataBase.get(reference);
+      return this.getDataBase.getData(reference);
     } catch (error) {
       throw new GetMyPlansDatabaseError();
     }
@@ -58,7 +58,7 @@ class GetDatabaseSpy implements GetDatabase<GetMyPlans.List> {
   private _reference = {} as GetMyPlans.Reference;
   private unexpectedErrorOccurred = false;
 
-  async get(reference: GetMyPlans.Reference) {
+  async getData(reference: GetMyPlans.Reference) {
     if (this.unexpectedErrorOccurred) throw new GetMyPlansDatabaseError();
     this._reference = reference;
     return this._myPlans;

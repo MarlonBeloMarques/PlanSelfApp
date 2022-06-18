@@ -1,3 +1,3 @@
 export interface GetRemoteConfig<R = any> {
-  get(param: string): Promise<R>;
+  getConfig(param: string): Promise<R>;
 }

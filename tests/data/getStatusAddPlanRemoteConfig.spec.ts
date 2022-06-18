@@ -40,7 +40,7 @@ class RemoteConfigSpy implements GetRemoteConfig {
   private result = false;
   private unexpectedErrorOccurred = false;
 
-  async get(param: string): Promise<any> {
+  async getConfig(param: string): Promise<any> {
     if (this.unexpectedErrorOccurred) throw new UnexpectedError();
     this._param = param;
     return this.result;

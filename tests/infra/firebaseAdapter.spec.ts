@@ -86,20 +86,24 @@ describe('Infra: FirebaseAdapter', () => {
   });
 
   test('should update path for the reference of database with success when call getData', async () => {
-    const remoteConfig = firebaseRemoteConfig();
-    const database = firebaseDatabase();
-    const databaseReference = database.ref();
+    const path = FirebaseAdapter.convertToPath({
+      user: 'user',
+      myPlans: 'myPlans',
+    });
 
-    const sut = new FirebaseAdapter(remoteConfig, databaseReference);
-
-    await sut.getData({ user: 'user', myPlans: 'myPlans' });
-    expect(sut.path).toEqual('user/myPlans/');
+    expect(path).toEqual('user/myPlans/');
   });
 
   test('should call getData using reference of Database returning value with success', async () => {
     const remoteConfig = firebaseRemoteConfig();
     const database = firebaseDatabase();
-    const databaseReference = database.ref();
+
+    const path = FirebaseAdapter.convertToPath({
+      user: 'user',
+      myPlans: 'myPlans',
+    });
+
+    const databaseReference = database.ref(path);
 
     const getDataResponse = {
       progress: 50,
@@ -113,7 +117,7 @@ describe('Infra: FirebaseAdapter', () => {
 
     const sut = new FirebaseAdapter(remoteConfig, databaseReference);
 
-    const data = await sut.getData({ user: 'user', myPlans: 'myPlans' });
+    const data = await sut.getData();
     expect(data?.val()).toEqual(getDataResponse);
   });
 });
@@ -123,11 +127,19 @@ class FirebaseAdapter
     GetRemoteConfig<FirebaseRemoteConfigTypes.ConfigValue>,
     GetDatabase
 {
-  path = '';
   constructor(
     readonly remoteConfig: FirebaseRemoteConfigTypes.Module,
     readonly databaseReference: FirebaseDatabaseTypes.Reference,
   ) {}
+
+  static convertToPath(reference: GetDatabase.Reference) {
+    let path = '';
+    Object.entries(reference).forEach((line) => {
+      path += `${line[1]}/`;
+    });
+
+    return path;
+  }
 
   async startConfigDefault(): Promise<void> {
     await this.startRemoteConfigDefault();
@@ -137,22 +149,9 @@ class FirebaseAdapter
     return this.remoteConfig.getValue(param);
   }
 
-  async getData(
-    reference: GetDatabase.Reference,
-  ): Promise<FirebaseDatabaseTypes.DataSnapshot | undefined> {
-    this.convertToPath(reference);
-
-    try {
-      const snapshot = await this.databaseReference.once('value');
-      return snapshot;
-    } catch (error) {}
-  }
-
-  private convertToPath(reference: GetDatabase.Reference) {
-    this.path = '';
-    Object.entries(reference).forEach((line) => {
-      this.path += `${line[1]}/`;
-    });
+  async getData(): Promise<FirebaseDatabaseTypes.DataSnapshot | undefined> {
+    const snapshot = await this.databaseReference.once('value');
+    return snapshot;
   }
 
   private async startRemoteConfigDefault(): Promise<void> {

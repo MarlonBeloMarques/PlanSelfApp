@@ -1,5 +1,5 @@
 export interface GetDatabase<R = any> {
-  getData(reference: GetDatabase.Reference): Promise<R>;
+  getData(): Promise<R>;
 }
 
 export namespace GetDatabase {

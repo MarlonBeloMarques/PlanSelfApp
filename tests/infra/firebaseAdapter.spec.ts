@@ -20,38 +20,17 @@ jest.mock('@react-native-firebase/database', () => () => ({
 
 describe('Infra: FirebaseAdapter', () => {
   test('should start the default remote configuration correctly', async () => {
-    const remoteConfig = firebaseRemoteConfig();
-    const database = firebaseDatabase();
-    const databaseReference = database.ref();
-
-    const remoteConfigMocked = remoteConfig as jest.Mocked<typeof remoteConfig>;
-
-    const setDefaultsSpy = jest
-      .spyOn(remoteConfigMocked, 'setDefaults')
-      .mockImplementationOnce(() => Promise.resolve(null));
-
-    const sut = new FirebaseAdapter(remoteConfig, databaseReference);
-
+    const { sut, setDefaultsSpy } = makeSut({} as MakeSutParams);
     await sut.startConfigDefault();
 
     expect(setDefaultsSpy).toHaveBeenCalledWith({ addPlan: true });
   });
 
   test('should fetch and active the values of remote config returning result with success', async () => {
-    const remoteConfig = firebaseRemoteConfig();
-    const database = firebaseDatabase();
-    const databaseReference = database.ref();
-
-    const remoteConfigMocked = remoteConfig as jest.Mocked<typeof remoteConfig>;
-
     const fetchAndActivateResponse = true;
-
-    const fetchAndActivateSpy = jest
-      .spyOn(remoteConfigMocked, 'fetchAndActivate')
-      .mockResolvedValueOnce(fetchAndActivateResponse);
-
-    const sut = new FirebaseAdapter(remoteConfig, databaseReference);
-
+    const { sut, fetchAndActivateSpy } = makeSut({
+      fetchAndActivateResponse,
+    } as MakeSutParams);
     const result = await sut.fetchAndActivate();
 
     expect(fetchAndActivateSpy).toHaveBeenCalledTimes(1);
@@ -59,25 +38,10 @@ describe('Infra: FirebaseAdapter', () => {
   });
 
   test('should get values of remote config reading values and returning with success', async () => {
-    const remoteConfig = firebaseRemoteConfig();
-    const database = firebaseDatabase();
-    const databaseReference = database.ref();
-
-    const remoteConfigMocked = remoteConfig as jest.Mocked<typeof remoteConfig>;
-
-    const valueObject = {
-      param: 'addPlan',
-      result: false,
-    };
-
-    const getValueSpy = jest
-      .spyOn(remoteConfigMocked, 'getValue')
-      .mockReturnValueOnce({
-        asBoolean: () => valueObject.result,
-      } as FirebaseRemoteConfigTypes.ConfigValue);
-
-    const sut = new FirebaseAdapter(remoteConfig, databaseReference);
-
+    const valueObject: ValueObject = { param: 'addPlan', result: false };
+    const { sut, getValueSpy } = makeSut({
+      valueObject,
+    } as MakeSutParams);
     const value = await sut.getConfig(valueObject.param);
 
     expect(getValueSpy).toHaveBeenCalledTimes(1);
@@ -94,29 +58,77 @@ describe('Infra: FirebaseAdapter', () => {
   });
 
   test('should call getData using reference of Database returning value with success', async () => {
-    const remoteConfig = firebaseRemoteConfig();
-    const database = firebaseDatabase();
-
     const path = FirebaseAdapter.convertToPath({
       user: 'user',
       myPlans: 'myPlans',
     });
 
-    const databaseReference = database.ref(path);
-
-    const getDataResponse = {
+    const dataResponse: DataResponse = {
       progress: 50,
       startDate: '24/09/1997',
       title: 'any_title',
     };
 
-    jest.spyOn(databaseReference, 'once').mockReturnValueOnce({
-      val: () => getDataResponse,
-    } as unknown as Promise<FirebaseDatabaseTypes.DataSnapshot>);
-
-    const sut = new FirebaseAdapter(remoteConfig, databaseReference);
+    const { sut } = makeSut({ path, dataResponse } as MakeSutParams);
 
     const data = await sut.getData();
-    expect(data?.val()).toEqual(getDataResponse);
+    expect(data?.val()).toEqual(dataResponse);
   });
 });
+
+type MakeSutParams = {
+  fetchAndActivateResponse: boolean;
+  valueObject?: ValueObject;
+  path: string;
+  dataResponse?: DataResponse;
+};
+
+const makeSut = ({
+  fetchAndActivateResponse = false,
+  valueObject = {} as ValueObject,
+  path = '',
+  dataResponse = {} as DataResponse,
+}: MakeSutParams) => {
+  let getValueSpy;
+
+  const remoteConfig = firebaseRemoteConfig();
+  const database = firebaseDatabase();
+  const databaseReference = database.ref(path);
+
+  const remoteConfigMocked = remoteConfig as jest.Mocked<typeof remoteConfig>;
+
+  const setDefaultsSpy = jest
+    .spyOn(remoteConfigMocked, 'setDefaults')
+    .mockImplementationOnce(() => Promise.resolve(null));
+
+  const fetchAndActivateSpy = jest
+    .spyOn(remoteConfigMocked, 'fetchAndActivate')
+    .mockResolvedValueOnce(fetchAndActivateResponse);
+
+  if (valueObject) {
+    getValueSpy = jest
+      .spyOn(remoteConfigMocked, 'getValue')
+      .mockReturnValueOnce({
+        asBoolean: () => valueObject.result,
+      } as FirebaseRemoteConfigTypes.ConfigValue);
+  }
+
+  jest.spyOn(databaseReference, 'once').mockReturnValueOnce({
+    val: () => dataResponse,
+  } as unknown as Promise<FirebaseDatabaseTypes.DataSnapshot>);
+
+  const sut = new FirebaseAdapter(remoteConfig, databaseReference);
+
+  return { sut, setDefaultsSpy, fetchAndActivateSpy, getValueSpy };
+};
+
+type ValueObject = {
+  param: string;
+  result: boolean;
+};
+
+type DataResponse = {
+  progress: number;
+  startDate: string;
+  title: string;
+};

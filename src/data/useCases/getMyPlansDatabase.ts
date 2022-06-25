@@ -4,9 +4,9 @@ import { GetMyPlansDatabaseError } from '../errors';
 
 export class GetMyPlansDatabase implements GetMyPlans {
   constructor(private readonly getDataBase: GetDatabase<GetMyPlans.List>) {}
-  get(): Promise<GetMyPlans.List> {
+  async get(): Promise<GetMyPlans.List> {
     try {
-      return this.getDataBase.getData();
+      return await this.getDataBase.getData();
     } catch (error) {
       throw new GetMyPlansDatabaseError();
     }

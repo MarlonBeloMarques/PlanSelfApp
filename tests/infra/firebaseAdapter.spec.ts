@@ -4,8 +4,7 @@ import firebaseRemoteConfig, {
 import firebaseDatabase, {
   FirebaseDatabaseTypes,
 } from '@react-native-firebase/database';
-import { GetDatabase } from '../../src/data/database';
-import { GetRemoteConfig } from '../../src/data/remoteConfig';
+import FirebaseAdapter from '../../src/infra/firebaseAdapter';
 
 jest.mock('@react-native-firebase/remote-config', () => () => ({
   setDefaults: () => jest.fn(),
@@ -121,46 +120,3 @@ describe('Infra: FirebaseAdapter', () => {
     expect(data?.val()).toEqual(getDataResponse);
   });
 });
-
-class FirebaseAdapter
-  implements
-    GetRemoteConfig<FirebaseRemoteConfigTypes.ConfigValue>,
-    GetDatabase
-{
-  constructor(
-    readonly remoteConfig: FirebaseRemoteConfigTypes.Module,
-    readonly databaseReference: FirebaseDatabaseTypes.Reference,
-  ) {}
-
-  static convertToPath(reference: GetDatabase.Reference) {
-    let path = '';
-    Object.entries(reference).forEach((line) => {
-      path += `${line[1]}/`;
-    });
-
-    return path;
-  }
-
-  async startConfigDefault(): Promise<void> {
-    await this.startRemoteConfigDefault();
-  }
-
-  async getConfig(param: string) {
-    return this.remoteConfig.getValue(param);
-  }
-
-  async getData(): Promise<FirebaseDatabaseTypes.DataSnapshot | undefined> {
-    const snapshot = await this.databaseReference.once('value');
-    return snapshot;
-  }
-
-  private async startRemoteConfigDefault(): Promise<void> {
-    await this.remoteConfig.setDefaults({
-      addPlan: true,
-    });
-  }
-
-  async fetchAndActivate(): Promise<boolean> {
-    return await this.remoteConfig.fetchAndActivate();
-  }
-}

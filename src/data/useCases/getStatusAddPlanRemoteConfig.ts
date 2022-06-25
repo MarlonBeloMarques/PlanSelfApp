@@ -1,4 +1,5 @@
 import { GetStatusAddPlan } from '~/domain/useCases';
+import { GetStatusAddPlanRemoteConfigError } from '../errors';
 import { GetRemoteConfig } from '../remoteConfig';
 
 export class getStatusAddPlanRemoteConfig implements GetStatusAddPlan {
@@ -9,16 +10,7 @@ export class getStatusAddPlanRemoteConfig implements GetStatusAddPlan {
       const result = await this.getRemoteConfig.getConfig(param);
       return result;
     } catch (error) {
-      throw new UnexpectedError();
+      throw new GetStatusAddPlanRemoteConfigError();
     }
-  }
-}
-
-export class UnexpectedError extends Error {
-  constructor() {
-    super();
-    this.message =
-      'Unexpected error. Please check your internet and try again.';
-    this.name = 'UnexpectedError';
   }
 }

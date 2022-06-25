@@ -1,8 +1,6 @@
+import { GetStatusAddPlanRemoteConfigError } from '../../src/data/errors';
 import { GetRemoteConfig } from '../../src/data/remoteConfig';
-import {
-  UnexpectedError,
-  getStatusAddPlanRemoteConfig,
-} from '../../src/data/useCases';
+import { getStatusAddPlanRemoteConfig } from '../../src/data/useCases';
 
 describe('Data: GetStatusAddPlanRemoteConfig', () => {
   test('should get with GetRemoteConfig call correct param', async () => {
@@ -30,7 +28,7 @@ describe('Data: GetStatusAddPlanRemoteConfig', () => {
       await sut.get('addPlan');
       throw new Error('something unexpected occurred in your test');
     } catch (error) {
-      expect(error).toEqual(new UnexpectedError());
+      expect(error).toEqual(new GetStatusAddPlanRemoteConfigError());
     }
   });
 });
@@ -41,7 +39,8 @@ class RemoteConfigSpy implements GetRemoteConfig {
   private unexpectedErrorOccurred = false;
 
   async getConfig(param: string): Promise<any> {
-    if (this.unexpectedErrorOccurred) throw new UnexpectedError();
+    if (this.unexpectedErrorOccurred)
+      throw new GetStatusAddPlanRemoteConfigError();
     this._param = param;
     return this.result;
   }

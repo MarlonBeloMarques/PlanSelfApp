@@ -67,6 +67,9 @@
       "~/data/database": [
         "src/data/database"
       ],
+      "~/data/useCases": [
+        "src/data/useCases"
+      ],
       "~/infra": [
         "src/infra"
       ],

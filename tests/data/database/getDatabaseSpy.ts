@@ -18,8 +18,4 @@ export default class GetDatabaseSpy implements GetDatabase<GetMyPlans.List> {
   completeWithUnexpectedError() {
     this.unexpectedErrorOccurred = true;
   }
-
-  get myPlans(): GetMyPlans.List {
-    return this._myPlans;
-  }
 }

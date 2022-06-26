@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { NavigationActions, Routes } from '~/main/navigation';
+import { Navigate } from '~/domain/useCases';
 import Welcome from './welcome';
 
-const WelcomePresenter: React.FC = () => {
+type Props = {
+  navigate: Navigate;
+};
+
+const WelcomePresenter: React.FC<Props> = ({ navigate }) => {
   const [toggleEnabled, componentsToggle] = useState(false);
 
   const buttonAction = () => {
-    NavigationActions.navigate(Routes.ACTIVITY);
+    navigate.navigateToMyPlans();
   };
 
   return (

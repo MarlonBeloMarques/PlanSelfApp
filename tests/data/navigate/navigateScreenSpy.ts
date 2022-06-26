@@ -8,7 +8,6 @@ export class NavigateScreenSpy implements NavigateScreen {
   constructor(navigationRef: any) {
     this.navigationRef = navigationRef;
   }
-
   navigate(routeName: string, params?: GenericObject | undefined): void {
     this.routeName = routeName;
     this.params = params;

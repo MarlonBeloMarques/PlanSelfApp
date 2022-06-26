@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { Navigate } from '~/domain/useCases';
-import { RouteParams } from '../../../src/domain/models';
+import { NavigateScreenMyPlans } from '../../../src/data/useCases';
 import { Navigation, Routes } from '../../../src/main/navigation';
+import { NavigateScreenSpy } from '../navigate/navigateScreenSpy';
 
 describe('Data: NavigateScreenMyPlans', () => {
   test('should call navigateToMyPlans passing the params correctly to navigate of NavigateScreen', () => {
@@ -24,32 +24,3 @@ describe('Data: NavigateScreenMyPlans', () => {
     expect(navigateScreen.params).toEqual({ param: 'any_param' });
   });
 });
-
-class NavigateScreenMyPlans implements Navigate {
-  constructor(readonly navigateScreen: NavigateScreen) {}
-
-  navigateToMyPlans(params?: RouteParams | undefined): void {
-    this.navigateScreen.navigate(Routes.ACTIVITY, params);
-  }
-}
-
-class NavigateScreenSpy implements NavigateScreen {
-  navigationRef: any;
-  routeName!: string;
-  params!: any;
-
-  constructor(navigationRef: any) {
-    this.navigationRef = navigationRef;
-  }
-
-  navigate(routeName: string, params?: GenericObject | undefined): void {
-    this.routeName = routeName;
-    this.params = params;
-  }
-}
-
-interface NavigateScreen {
-  navigate(routeName: string, params?: GenericObject | undefined): void;
-}
-
-type GenericObject = { [key: string]: any };

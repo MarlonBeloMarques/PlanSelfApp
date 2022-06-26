@@ -1,1 +1,2 @@
-export * from './MyPlanModel';
+export * from './myPlanModel';
+export * from './routeParams';

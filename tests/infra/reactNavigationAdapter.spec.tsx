@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/native';
 import { render } from '@testing-library/react-native';
 import { Navigation, Routes } from '~/main/navigation';
-import { NavigateScreen } from '../../src/data/navigate';
+import { ReactNavigationAdapter } from '~/infra';
 
 describe('Infra: ReactNavigationAdapter', () => {
   test('should dispatch navigate action of React Navigation', () => {
@@ -29,13 +29,3 @@ describe('Infra: ReactNavigationAdapter', () => {
     });
   });
 });
-
-class ReactNavigationAdapter implements NavigateScreen {
-  constructor(readonly navigation: NavigationContainerRef<any>) {}
-
-  navigate(routeName: string, params?: GenericObject | undefined): void {
-    this.navigation.dispatch(
-      CommonActions.navigate({ name: routeName, params: params }),
-    );
-  }
-}

@@ -9,23 +9,33 @@ import { ReactNavigationAdapter } from '~/infra';
 
 describe('Infra: ReactNavigationAdapter', () => {
   test('should dispatch navigate action of React Navigation', () => {
-    let navigation = {} as NavigationContainerRef<any>;
-    const navigateSpy = jest.spyOn(CommonActions, 'navigate');
+    const { sut, navigateSpy } = makeSut();
 
-    render(
-      <Navigation
-        setNavigationTop={(navigationRef) => (navigation = navigationRef)}
-        initialRouteName={Routes.WELCOME}
-      />,
-    );
+    const routeName = Routes.WELCOME;
+    const params = { param: 'any_param' };
 
-    const sut = new ReactNavigationAdapter(navigation);
-    sut.navigate('WELCOME', { param: 'any_param' });
+    sut.navigate(routeName, params);
 
     expect(navigateSpy).toHaveBeenCalledTimes(1);
     expect(navigateSpy).toHaveBeenCalledWith({
-      name: 'WELCOME',
-      params: { param: 'any_param' },
+      name: routeName,
+      params: params,
     });
   });
 });
+
+const makeSut = () => {
+  let navigation = {} as NavigationContainerRef<any>;
+  const navigateSpy = jest.spyOn(CommonActions, 'navigate');
+
+  render(
+    <Navigation
+      setNavigationTop={(navigationRef) => (navigation = navigationRef)}
+      initialRouteName={Routes.WELCOME}
+    />,
+  );
+
+  const sut = new ReactNavigationAdapter(navigation);
+
+  return { sut, navigateSpy };
+};

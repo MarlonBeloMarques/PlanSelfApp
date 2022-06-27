@@ -7,19 +7,16 @@ describe('Data: GetMyPlansDatabase', () => {
     const myPlans = [
       { progress: 50, startDate: new Date(), title: 'any_title' },
     ];
-    const getDatabase = new GetDatabaseSpy();
-    getDatabase.completeWithMyPlans(myPlans);
+    const { sut, getDatabase } = makeSut();
 
-    const sut = new GetMyPlansDatabase(getDatabase);
+    getDatabase.completeWithMyPlans(myPlans);
     const response = await sut.get();
     expect(response).toEqual(myPlans);
   });
 
   test('should get with GetMyPlans the returning GetMyPlansDatabaseError exception', async () => {
-    const getDatabase = new GetDatabaseSpy();
+    const { sut, getDatabase } = makeSut();
     getDatabase.completeWithUnexpectedError();
-
-    const sut = new GetMyPlansDatabase(getDatabase);
 
     try {
       await sut.get();
@@ -29,3 +26,11 @@ describe('Data: GetMyPlansDatabase', () => {
     }
   });
 });
+
+const makeSut = () => {
+  const getDatabase = new GetDatabaseSpy();
+
+  const sut = new GetMyPlansDatabase(getDatabase);
+
+  return { sut, getDatabase };
+};

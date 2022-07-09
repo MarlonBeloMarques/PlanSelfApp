@@ -7,6 +7,7 @@ const width = Dimensions.get('screen').width;
 export const SceneWrapper = styled.View`
   flex: 1;
   justify-content: center;
+  margin: ${spacings.largeSpacing}px;
 `;
 
 export const ImageWrapper = styled.View`

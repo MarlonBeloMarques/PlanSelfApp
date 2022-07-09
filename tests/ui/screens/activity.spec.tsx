@@ -18,6 +18,7 @@ describe('UI: Activity', () => {
     );
     const headerTitle = getByTestId('header_title_id');
     expect(headerTitle).toBeTruthy();
+    expect(headerTitle.props.children).toEqual('My Plans');
   });
 
   test('should show list of my Plans with success', () => {

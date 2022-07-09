@@ -15,7 +15,13 @@ const Activity: React.FC<Props> = ({ myPlans }) => {
       <FlatList
         testID="list_my_plans_id"
         data={myPlans}
-        renderItem={() => <View />}
+        renderItem={({ item, index }) => (
+          <View>
+            <View>
+              <Text testID={`title_my_plan_${index}_id`}>{item.title}</Text>
+            </View>
+          </View>
+        )}
       />
     </View>
   );

@@ -35,6 +35,16 @@ describe('UI: Activity', () => {
     const listMyPlans = getByTestId('list_my_plans_id');
     expect(listMyPlans.props.data).toEqual(myPlans);
   });
+
+  test('should show title correct of list of my Plans', () => {
+    const myPlans = myPlansFake();
+    const { getByTestId } = render(<ActivityView myPlans={myPlans} />);
+
+    myPlans.forEach((plan, index) => {
+      const titleMyPlan = getByTestId(`title_my_plan_${index}_id`);
+      expect(titleMyPlan.props.children).toEqual(plan.title);
+    });
+  });
 });
 
 const myPlansFake = (): GetMyPlans.List => {

@@ -5,7 +5,7 @@ const Activity: React.FC = () => {
   return (
     <View>
       <View testID="header_container_id">
-        <Text>My Plans</Text>
+        <Text testID="header_title_id">My Plans</Text>
       </View>
     </View>
   );

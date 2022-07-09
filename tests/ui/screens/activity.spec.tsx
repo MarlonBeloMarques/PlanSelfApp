@@ -8,4 +8,10 @@ describe('UI: Activity', () => {
     const headerContainer = getByTestId('header_container_id');
     expect(headerContainer).toBeTruthy();
   });
+
+  test('should show header title with success', () => {
+    const { getByTestId } = render(<ActivityView />);
+    const headerTitle = getByTestId('header_title_id');
+    expect(headerTitle).toBeTruthy();
+  });
 });

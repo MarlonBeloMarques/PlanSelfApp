@@ -79,6 +79,19 @@ describe('UI: Activity', () => {
     expect(onPressMore).toHaveBeenCalledTimes(1);
     expect(onPressMore).toHaveBeenCalledWith(myPlans[0]);
   });
+
+  test('should show progress correct of my Plan', () => {
+    const myPlans = myPlansFake();
+    const { getByTestId } = render(
+      <ActivityView myPlans={myPlans} onPressMore={() => {}} />,
+    );
+
+    myPlans.forEach((plan, index) => {
+      const progress = getByTestId(`progress_my_plan_${index}_id`);
+      expect(progress).toBeTruthy();
+      expect(progress.props.style.width).toEqual(`${plan.progress}%`);
+    });
+  });
 });
 
 const myPlansFake = (): GetMyPlans.List => {

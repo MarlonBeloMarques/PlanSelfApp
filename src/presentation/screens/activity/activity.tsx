@@ -35,6 +35,15 @@ const Activity: React.FC<Props> = ({ myPlans, onPressMore }) => {
                 />
               </TouchableOpacity>
             </View>
+            <View>
+              <View>
+                <View
+                  testID={`progress_my_plan_${index}_id`}
+                  style={{ width: `${item.progress}%` }}
+                />
+                <View />
+              </View>
+            </View>
           </View>
         )}
       />

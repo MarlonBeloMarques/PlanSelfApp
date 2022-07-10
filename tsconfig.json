@@ -19,7 +19,7 @@
     // "incremental": true,                   /* Enable incremental compilation */
     // "importHelpers": true,                 /* Import emit helpers from 'tslib'. */
     // "downlevelIteration": true,            /* Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'. */
-    "isolatedModules": true, /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
+    "isolatedModules": false, /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
     /* Strict Type-Checking Options */
     "strict": true, /* Enable all strict type-checking options. */
     // "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
@@ -55,6 +55,9 @@
       "~/main/helpers": [
         "src/main/helpers"
       ],
+      "~/main/modules": [
+        "src/main/modules"
+      ],
       "~/main": [
         "src/main"
       ],
@@ -72,7 +75,7 @@
       ],
       "~/infra": [
         "src/infra"
-      ],
+      ]
     }, /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */

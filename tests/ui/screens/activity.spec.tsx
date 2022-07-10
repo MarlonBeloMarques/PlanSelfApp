@@ -45,6 +45,20 @@ describe('UI: Activity', () => {
       expect(titleMyPlan.props.children).toEqual(plan.title);
     });
   });
+
+  test('should show more button of list of my Plans with success', () => {
+    const myPlans = myPlansFake();
+    const { getByTestId } = render(<ActivityView myPlans={myPlans} />);
+
+    myPlans.forEach((plan, index) => {
+      const moreButtonMyPlan = getByTestId(`more_button_my_plan_${index}_id`);
+      const moreIconButtonMyPlan = getByTestId(
+        `more_icon_button_my_plan_${index}_id`,
+      );
+      expect(moreButtonMyPlan).toBeTruthy();
+      expect(moreIconButtonMyPlan.props.name).toEqual('more-horiz');
+    });
+  });
 });
 
 const myPlansFake = (): GetMyPlans.List => {

@@ -10,6 +10,10 @@ type Props = {
 };
 
 const Activity: React.FC<Props> = ({ myPlans, onPressMore }) => {
+  const formatStartDate = (date: Date): string => {
+    return date.toDateString();
+  };
+
   return (
     <View>
       <View testID="header_container_id">
@@ -35,6 +39,9 @@ const Activity: React.FC<Props> = ({ myPlans, onPressMore }) => {
                 />
               </TouchableOpacity>
             </View>
+            <Text testID={`start_date_my_plan_${index}_id`}>
+              {formatStartDate(item.startDate)}
+            </Text>
             <View>
               <View>
                 <View

@@ -105,23 +105,34 @@ describe('UI: Activity', () => {
       expect(progressText.props.children).toEqual('50%');
     });
   });
+
+  test('should show correct start date of my Plan', () => {
+    const myPlans = myPlansFake();
+    const { getByTestId } = render(
+      <ActivityView myPlans={myPlans} onPressMore={() => {}} />,
+    );
+
+    const startDate = getByTestId('start_date_my_plan_0_id');
+    expect(startDate).toBeTruthy();
+    expect(startDate.props.children).toEqual('Fri Nov 05 2021');
+  });
 });
 
 const myPlansFake = (): GetMyPlans.List => {
   return [
     {
       progress: 50,
-      startDate: new Date('05/11/2021'),
+      startDate: new Date('11/5/2021'),
       title: 'Study Swift',
     },
     {
       progress: 75,
-      startDate: new Date('12/09/2021'),
+      startDate: new Date('9/12/2021'),
       title: 'Study React Native',
     },
     {
       progress: 10,
-      startDate: new Date('04/09/2021'),
+      startDate: new Date('9/04/2021'),
       title: 'Documentation New App',
     },
   ];

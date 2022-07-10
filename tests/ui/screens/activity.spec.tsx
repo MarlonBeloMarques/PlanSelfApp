@@ -92,6 +92,19 @@ describe('UI: Activity', () => {
       expect(progress.props.style.width).toEqual(`${plan.progress}%`);
     });
   });
+
+  test('should show text of progress correct of my Plan', () => {
+    const myPlans = myPlansFake();
+    const { getByTestId } = render(
+      <ActivityView myPlans={myPlans} onPressMore={() => {}} />,
+    );
+
+    myPlans.forEach((plan, index) => {
+      const progressText = getByTestId(`progress_text_my_plan_${index}_id`);
+      expect(progressText).toBeTruthy();
+      expect(progressText.props.children).toEqual('50%');
+    });
+  });
 });
 
 const myPlansFake = (): GetMyPlans.List => {

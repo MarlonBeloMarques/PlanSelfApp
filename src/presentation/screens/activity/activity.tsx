@@ -43,6 +43,7 @@ const Activity: React.FC<Props> = ({ myPlans, onPressMore }) => {
                 />
                 <View />
               </View>
+              <Text testID={`progress_text_my_plan_${index}_id`}>50%</Text>
             </View>
           </View>
         )}

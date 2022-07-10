@@ -9,10 +9,48 @@ type Props = {
   onPressMore: (plan: GetMyPlans.MyPlan) => void;
 };
 
+type MyCardProps = {
+  myPlan: GetMyPlans.MyPlan;
+  index: number;
+};
+
 const Activity: React.FC<Props> = ({ myPlans, onPressMore }) => {
   const formatStartDate = (date: Date): string => {
     return date.toDateString();
   };
+
+  const MyPlanCard = ({ myPlan, index }: MyCardProps) => (
+    <View>
+      <View>
+        <Text testID={`title_my_plan_${index}_id`}>{myPlan.title}</Text>
+        <TouchableOpacity
+          testID={`more_button_my_plan_${index}_id`}
+          onPress={() => onPressMore(myPlan)}
+          activeOpacity={0.8}
+        >
+          <Icons.MaterialIcons
+            testID={`more_icon_button_my_plan_${index}_id`}
+            name="more-horiz"
+            size={typography.title1.fontSize}
+            color={colors.text}
+          />
+        </TouchableOpacity>
+      </View>
+      <Text testID={`start_date_my_plan_${index}_id`}>
+        {formatStartDate(myPlan.startDate)}
+      </Text>
+      <View>
+        <View>
+          <View
+            testID={`progress_my_plan_${index}_id`}
+            style={{ width: `${myPlan.progress}%` }}
+          />
+          <View />
+        </View>
+        <Text testID={`progress_text_my_plan_${index}_id`}>50%</Text>
+      </View>
+    </View>
+  );
 
   return (
     <View>
@@ -23,36 +61,7 @@ const Activity: React.FC<Props> = ({ myPlans, onPressMore }) => {
         testID="list_my_plans_id"
         data={myPlans}
         renderItem={({ item, index }) => (
-          <View>
-            <View>
-              <Text testID={`title_my_plan_${index}_id`}>{item.title}</Text>
-              <TouchableOpacity
-                testID={`more_button_my_plan_${index}_id`}
-                onPress={() => onPressMore(item)}
-                activeOpacity={0.8}
-              >
-                <Icons.MaterialIcons
-                  testID={`more_icon_button_my_plan_${index}_id`}
-                  name="more-horiz"
-                  size={typography.title1.fontSize}
-                  color={colors.text}
-                />
-              </TouchableOpacity>
-            </View>
-            <Text testID={`start_date_my_plan_${index}_id`}>
-              {formatStartDate(item.startDate)}
-            </Text>
-            <View>
-              <View>
-                <View
-                  testID={`progress_my_plan_${index}_id`}
-                  style={{ width: `${item.progress}%` }}
-                />
-                <View />
-              </View>
-              <Text testID={`progress_text_my_plan_${index}_id`}>50%</Text>
-            </View>
-          </View>
+          <MyPlanCard myPlan={item} index={index} />
         )}
       />
     </View>

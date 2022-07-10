@@ -6,9 +6,10 @@ import { colors, typography } from '~/presentation/themes';
 
 type Props = {
   myPlans: GetMyPlans.List;
+  onPressMore: (plan: GetMyPlans.MyPlan) => void;
 };
 
-const Activity: React.FC<Props> = ({ myPlans }) => {
+const Activity: React.FC<Props> = ({ myPlans, onPressMore }) => {
   return (
     <View>
       <View testID="header_container_id">
@@ -23,6 +24,7 @@ const Activity: React.FC<Props> = ({ myPlans }) => {
               <Text testID={`title_my_plan_${index}_id`}>{item.title}</Text>
               <TouchableOpacity
                 testID={`more_button_my_plan_${index}_id`}
+                onPress={() => onPressMore(item)}
                 activeOpacity={0.8}
               >
                 <Icons.MaterialIcons

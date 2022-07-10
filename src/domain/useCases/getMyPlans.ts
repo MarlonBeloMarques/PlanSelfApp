@@ -5,6 +5,7 @@ export interface GetMyPlans {
 }
 
 export namespace GetMyPlans {
+  export type MyPlan = MyPlanModel;
   export type List = Array<MyPlanModel>;
   export type Reference = {
     user: User;

@@ -89,7 +89,7 @@ describe('UI: Activity', () => {
     myPlans.forEach((plan, index) => {
       const progress = getByTestId(`progress_my_plan_${index}_id`);
       expect(progress).toBeTruthy();
-      expect(progress.props.style.width).toEqual(`${plan.progress}%`);
+      expect(progress.props.width).toEqual(plan.progress);
     });
   });
 

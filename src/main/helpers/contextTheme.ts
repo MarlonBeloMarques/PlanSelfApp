@@ -6,7 +6,7 @@ const contextTheme: Theme = {
   colors: {
     primary: colors.primary,
     background: colors.white,
-    card: colors.primary,
+    card: colors.white,
     text: colors.text,
     border: colors.primary,
     notification: colors.primary,

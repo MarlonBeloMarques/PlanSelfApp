@@ -1,8 +1,22 @@
 import React from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { GetMyPlans } from '~/domain/useCases';
-import { Icons } from '~/main/modules';
-import { colors, typography } from '~/presentation/themes';
+import {
+  ContainerMyPlan,
+  ContainerMyPlanProgress,
+  IconMore,
+  MyPlanButtonMore,
+  MyPlanList,
+  MyPlanProgress,
+  MyPlanProgressBackground,
+  MyPlanProgressText,
+  MyPlanStartDate,
+  MyPlanTitle,
+  SceneWrapper,
+  Title,
+  TitleWrapper,
+  WrapperMyPlanProgress,
+  WrapperMyPlanTitle,
+} from './styles';
 
 type Props = {
   myPlans: GetMyPlans.List;
@@ -20,51 +34,49 @@ const Activity: React.FC<Props> = ({ myPlans, onPressMore }) => {
   };
 
   const MyPlanCard = ({ myPlan, index }: MyCardProps) => (
-    <View>
-      <View>
-        <Text testID={`title_my_plan_${index}_id`}>{myPlan.title}</Text>
-        <TouchableOpacity
+    <ContainerMyPlan>
+      <WrapperMyPlanTitle>
+        <MyPlanTitle testID={`title_my_plan_${index}_id`}>
+          {myPlan.title}
+        </MyPlanTitle>
+        <MyPlanButtonMore
           testID={`more_button_my_plan_${index}_id`}
           onPress={() => onPressMore(myPlan)}
-          activeOpacity={0.8}
         >
-          <Icons.MaterialIcons
-            testID={`more_icon_button_my_plan_${index}_id`}
-            name="more-horiz"
-            size={typography.title1.fontSize}
-            color={colors.text}
-          />
-        </TouchableOpacity>
-      </View>
-      <Text testID={`start_date_my_plan_${index}_id`}>
+          <IconMore testID={`more_icon_button_my_plan_${index}_id`} />
+        </MyPlanButtonMore>
+      </WrapperMyPlanTitle>
+      <MyPlanStartDate testID={`start_date_my_plan_${index}_id`}>
         {formatStartDate(myPlan.startDate)}
-      </Text>
-      <View>
-        <View>
-          <View
+      </MyPlanStartDate>
+      <ContainerMyPlanProgress>
+        <WrapperMyPlanProgress>
+          <MyPlanProgress
             testID={`progress_my_plan_${index}_id`}
-            style={{ width: `${myPlan.progress}%` }}
+            width={myPlan.progress}
           />
-          <View />
-        </View>
-        <Text testID={`progress_text_my_plan_${index}_id`}>50%</Text>
-      </View>
-    </View>
+          <MyPlanProgressBackground />
+        </WrapperMyPlanProgress>
+        <MyPlanProgressText testID={`progress_text_my_plan_${index}_id`}>
+          50%
+        </MyPlanProgressText>
+      </ContainerMyPlanProgress>
+    </ContainerMyPlan>
   );
 
   return (
-    <View>
-      <View testID="header_container_id">
-        <Text testID="header_title_id">My Plans</Text>
-      </View>
-      <FlatList
+    <SceneWrapper>
+      <TitleWrapper testID="header_container_id">
+        <Title testID="header_title_id">My Plans</Title>
+      </TitleWrapper>
+      <MyPlanList
         testID="list_my_plans_id"
         data={myPlans}
         renderItem={({ item, index }) => (
           <MyPlanCard myPlan={item} index={index} />
         )}
       />
-    </View>
+    </SceneWrapper>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { WelcomeFactory } from '~/main/factories';
+import { ActivityFactory, WelcomeFactory } from '~/main/factories';
 import { colors } from '~/presentation/themes';
 import { Routes } from './routes';
 
@@ -17,14 +17,18 @@ const StackNavigation: React.FC<StackNavigationParams> = ({
     <Stack.Navigator
       initialRouteName={initialRouteName}
       screenOptions={{
-        headerTransparent: true,
+        headerTransparent: false,
         headerBackTitleVisible: false,
         headerTintColor: colors.text,
         title: '',
+        headerShadowVisible: false,
       }}
     >
       <Stack.Screen name={Routes.WELCOME}>
         {(props) => <WelcomeFactory {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name={Routes.ACTIVITY}>
+        {(props) => <ActivityFactory {...props} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

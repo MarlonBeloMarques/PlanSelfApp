@@ -102,7 +102,7 @@ describe('UI: Activity', () => {
     myPlans.forEach((plan, index) => {
       const progressText = getByTestId(`progress_text_my_plan_${index}_id`);
       expect(progressText).toBeTruthy();
-      expect(progressText.props.children).toEqual('50%');
+      expect(progressText.props.children).toEqual(`${plan.progress}%`);
     });
   });
 

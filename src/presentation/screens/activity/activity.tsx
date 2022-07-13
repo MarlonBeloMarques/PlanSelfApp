@@ -58,7 +58,7 @@ const Activity: React.FC<Props> = ({ myPlans, onPressMore }) => {
           <MyPlanProgressBackground />
         </WrapperMyPlanProgress>
         <MyPlanProgressText testID={`progress_text_my_plan_${index}_id`}>
-          50%
+          {`${myPlan.progress}%`}
         </MyPlanProgressText>
       </ContainerMyPlanProgress>
     </ContainerMyPlan>

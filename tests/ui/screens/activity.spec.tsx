@@ -6,7 +6,11 @@ import ActivityView from '../../../src/presentation/screens/activity/activity';
 describe('UI: Activity', () => {
   test('should show header container with success', () => {
     const { getByTestId } = render(
-      <ActivityView myPlans={[] as GetMyPlans.List} onPressMore={() => {}} />,
+      <ActivityView
+        myPlans={[] as GetMyPlans.List}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+      />,
     );
     const headerContainer = getByTestId('header_container_id');
     expect(headerContainer).toBeTruthy();
@@ -14,7 +18,11 @@ describe('UI: Activity', () => {
 
   test('should show header title with success', () => {
     const { getByTestId } = render(
-      <ActivityView myPlans={[] as GetMyPlans.List} onPressMore={() => {}} />,
+      <ActivityView
+        myPlans={[] as GetMyPlans.List}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+      />,
     );
     const headerTitle = getByTestId('header_title_id');
     expect(headerTitle).toBeTruthy();
@@ -23,7 +31,11 @@ describe('UI: Activity', () => {
 
   test('should show list of my Plans with success', () => {
     const { getByTestId } = render(
-      <ActivityView myPlans={[] as GetMyPlans.List} onPressMore={() => {}} />,
+      <ActivityView
+        myPlans={[] as GetMyPlans.List}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+      />,
     );
     const listMyPlans = getByTestId('list_my_plans_id');
     expect(listMyPlans).toBeTruthy();
@@ -32,7 +44,11 @@ describe('UI: Activity', () => {
   test('should show list of my Plans with data prop correct', () => {
     const myPlans = myPlansFake();
     const { getByTestId } = render(
-      <ActivityView myPlans={myPlans} onPressMore={() => {}} />,
+      <ActivityView
+        myPlans={myPlans}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+      />,
     );
     const listMyPlans = getByTestId('list_my_plans_id');
     expect(listMyPlans.props.data).toEqual(myPlans);
@@ -41,7 +57,11 @@ describe('UI: Activity', () => {
   test('should show title correct of list of my Plans', () => {
     const myPlans = myPlansFake();
     const { getByTestId } = render(
-      <ActivityView myPlans={myPlans} onPressMore={() => {}} />,
+      <ActivityView
+        myPlans={myPlans}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+      />,
     );
 
     myPlans.forEach((plan, index) => {
@@ -53,7 +73,11 @@ describe('UI: Activity', () => {
   test('should show more button of list of my Plans with success', () => {
     const myPlans = myPlansFake();
     const { getByTestId } = render(
-      <ActivityView myPlans={myPlans} onPressMore={() => {}} />,
+      <ActivityView
+        myPlans={myPlans}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+      />,
     );
 
     myPlans.forEach((plan, index) => {
@@ -70,7 +94,11 @@ describe('UI: Activity', () => {
     const myPlans = myPlansFake();
     const onPressMore = jest.fn();
     const { getByTestId } = render(
-      <ActivityView myPlans={myPlans} onPressMore={onPressMore} />,
+      <ActivityView
+        myPlans={myPlans}
+        onPressMore={onPressMore}
+        onPressAddPlan={() => {}}
+      />,
     );
 
     const moreButtonMyPlan = getByTestId('more_button_my_plan_0_id');
@@ -83,7 +111,11 @@ describe('UI: Activity', () => {
   test('should show progress correct of my Plan', () => {
     const myPlans = myPlansFake();
     const { getByTestId } = render(
-      <ActivityView myPlans={myPlans} onPressMore={() => {}} />,
+      <ActivityView
+        myPlans={myPlans}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+      />,
     );
 
     myPlans.forEach((plan, index) => {
@@ -96,7 +128,11 @@ describe('UI: Activity', () => {
   test('should show text of progress correct of my Plan', () => {
     const myPlans = myPlansFake();
     const { getByTestId } = render(
-      <ActivityView myPlans={myPlans} onPressMore={() => {}} />,
+      <ActivityView
+        myPlans={myPlans}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+      />,
     );
 
     myPlans.forEach((plan, index) => {
@@ -109,7 +145,11 @@ describe('UI: Activity', () => {
   test('should show correct start date of my Plan', () => {
     const myPlans = myPlansFake();
     const { getByTestId } = render(
-      <ActivityView myPlans={myPlans} onPressMore={() => {}} />,
+      <ActivityView
+        myPlans={myPlans}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+      />,
     );
 
     const startDate = getByTestId('start_date_my_plan_0_id');
@@ -120,13 +160,36 @@ describe('UI: Activity', () => {
   test('should show correct icon of button add plan', () => {
     const myPlans = myPlansFake();
     const { getByTestId } = render(
-      <ActivityView myPlans={myPlans} onPressMore={() => {}} />,
+      <ActivityView
+        myPlans={myPlans}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+      />,
     );
 
     const iconAddPlan = getByTestId('icon_add_plan_id');
 
     expect(iconAddPlan).toBeTruthy();
     expect(iconAddPlan.props.name).toEqual('add');
+  });
+
+  test('should call function when press add plan with success', () => {
+    const onPressAddPlan = jest.fn();
+
+    const myPlans = myPlansFake();
+    const { getByTestId } = render(
+      <ActivityView
+        myPlans={myPlans}
+        onPressMore={() => {}}
+        onPressAddPlan={onPressAddPlan}
+      />,
+    );
+
+    const buttonAddPlan = getByTestId('icon_button_add_plan_id');
+
+    fireEvent.press(buttonAddPlan);
+
+    expect(onPressAddPlan).toHaveBeenCalledTimes(1);
   });
 });
 

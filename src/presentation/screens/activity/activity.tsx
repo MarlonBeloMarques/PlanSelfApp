@@ -24,6 +24,7 @@ import {
 type Props = {
   myPlans: GetMyPlans.List;
   onPressMore: (plan: GetMyPlans.MyPlan) => void;
+  onPressAddPlan: () => void;
 };
 
 type MyCardProps = {
@@ -31,7 +32,11 @@ type MyCardProps = {
   index: number;
 };
 
-const Activity: React.FC<Props> = ({ myPlans, onPressMore }) => {
+const Activity: React.FC<Props> = ({
+  myPlans,
+  onPressMore,
+  onPressAddPlan,
+}) => {
   const formatStartDate = (date: Date): string => {
     return date.toDateString();
   };
@@ -78,6 +83,7 @@ const Activity: React.FC<Props> = ({ myPlans, onPressMore }) => {
         }}
       >
         <TouchableOpacity
+          testID="icon_button_add_plan_id"
           style={{
             width: 59,
             height: 59,
@@ -87,6 +93,7 @@ const Activity: React.FC<Props> = ({ myPlans, onPressMore }) => {
             alignItems: 'center',
           }}
           activeOpacity={0.8}
+          onPress={onPressAddPlan}
         >
           <Icons.MaterialIcons
             testID="icon_add_plan_id"

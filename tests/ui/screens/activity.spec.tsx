@@ -116,6 +116,18 @@ describe('UI: Activity', () => {
     expect(startDate).toBeTruthy();
     expect(startDate.props.children).toEqual('Fri Nov 05 2021');
   });
+
+  test('should show correct icon of button add plan', () => {
+    const myPlans = myPlansFake();
+    const { getByTestId } = render(
+      <ActivityView myPlans={myPlans} onPressMore={() => {}} />,
+    );
+
+    const iconAddPlan = getByTestId('icon_add_plan_id');
+
+    expect(iconAddPlan).toBeTruthy();
+    expect(iconAddPlan.props.name).toEqual('add');
+  });
 });
 
 const myPlansFake = (): GetMyPlans.List => {

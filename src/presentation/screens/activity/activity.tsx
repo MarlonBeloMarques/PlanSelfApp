@@ -1,5 +1,8 @@
 import React from 'react';
+import { TouchableOpacity, View } from 'react-native';
 import { GetMyPlans } from '~/domain/useCases';
+import { Icons } from '~/main/modules';
+import { colors } from '~/presentation/themes';
 import {
   ContainerMyPlan,
   ContainerMyPlanProgress,
@@ -66,6 +69,33 @@ const Activity: React.FC<Props> = ({ myPlans, onPressMore }) => {
 
   return (
     <SceneWrapper>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 40,
+          right: 26,
+          zIndex: 3,
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            width: 59,
+            height: 59,
+            backgroundColor: colors.primary,
+            borderRadius: 59,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          activeOpacity={0.8}
+        >
+          <Icons.MaterialIcons
+            testID="icon_add_plan_id"
+            name="add"
+            color={colors.white}
+            size={41}
+          />
+        </TouchableOpacity>
+      </View>
       <TitleWrapper testID="header_container_id">
         <Title testID="header_title_id">My Plans</Title>
       </TitleWrapper>

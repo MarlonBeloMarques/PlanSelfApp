@@ -1,11 +1,10 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
 import { GetMyPlans } from '~/domain/useCases';
-import { Icons } from '~/main/modules';
-import { colors } from '~/presentation/themes';
 import {
+  AddPlanButton,
   ContainerMyPlan,
   ContainerMyPlanProgress,
+  IconAdd,
   IconMore,
   MyPlanButtonMore,
   MyPlanList,
@@ -17,6 +16,7 @@ import {
   SceneWrapper,
   Title,
   TitleWrapper,
+  WrapperAddPlan,
   WrapperMyPlanProgress,
   WrapperMyPlanTitle,
 } from './styles';
@@ -74,35 +74,14 @@ const Activity: React.FC<Props> = ({
 
   return (
     <SceneWrapper>
-      <View
-        style={{
-          position: 'absolute',
-          bottom: 40,
-          right: 26,
-          zIndex: 3,
-        }}
-      >
-        <TouchableOpacity
+      <WrapperAddPlan>
+        <AddPlanButton
           testID="icon_button_add_plan_id"
-          style={{
-            width: 59,
-            height: 59,
-            backgroundColor: colors.primary,
-            borderRadius: 59,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          activeOpacity={0.8}
           onPress={onPressAddPlan}
         >
-          <Icons.MaterialIcons
-            testID="icon_add_plan_id"
-            name="add"
-            color={colors.white}
-            size={41}
-          />
-        </TouchableOpacity>
-      </View>
+          <IconAdd testID="icon_add_plan_id" />
+        </AddPlanButton>
+      </WrapperAddPlan>
       <TitleWrapper testID="header_container_id">
         <Title testID="header_title_id">My Plans</Title>
       </TitleWrapper>

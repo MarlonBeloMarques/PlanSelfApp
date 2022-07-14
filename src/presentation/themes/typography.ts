@@ -3,6 +3,10 @@ export default {
     fontSize: 48,
     lineHeight: 55,
   },
+  title: {
+    fontSize: 41,
+    lineHeight: 48,
+  },
   title1: {
     fontSize: 24,
     lineHeight: 28,

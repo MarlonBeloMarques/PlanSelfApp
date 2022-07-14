@@ -7,6 +7,7 @@ const sceneSpacing = spacings.sceneSpacing;
 const minimumSpacing = spacings.minimumSpacing;
 const smallSpacing = spacings.smallSpacing;
 
+const title = typography.title;
 const title1 = typography.title1;
 const title3 = typography.title3;
 const callout = typography.callout;
@@ -29,6 +30,13 @@ export const WrapperMyPlanTitle = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+`;
+
+export const WrapperAddPlan = styled.View`
+  position: absolute;
+  bottom: 40px;
+  right: 26px;
+  z-index: 3;
 `;
 
 export const WrapperMyPlanProgress = styled.View`
@@ -90,10 +98,27 @@ export const MyPlanProgressBackground = styled.View`
 
 export const MyPlanButtonMore = styled.TouchableOpacity``;
 
+export const AddPlanButton = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.8,
+})`
+  width: 59px;
+  height: 59px;
+  background-color: ${primary};
+  border-radius: 59px;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const IconMore = styled(Icons.MaterialIcons).attrs({
   name: 'more-horiz',
   size: title1.fontSize,
   color: colors.text,
+})``;
+
+export const IconAdd = styled(Icons.MaterialIcons).attrs({
+  name: 'add',
+  size: title.fontSize,
+  color: colors.white,
 })``;
 
 export const MyPlanList = styled.FlatList`` as unknown as typeof FlatList;

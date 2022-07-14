@@ -2,13 +2,13 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 import { NavigationContainerRef } from '@react-navigation/native';
-import { Navigation, Routes, setTopLevelNavigator } from '~/main/navigation';
+import { Navigation, setTopLevelNavigator } from '~/main/navigation';
 
 type Props = {
-  initialRouteName?: keyof StackParams;
+  initialRouteName: keyof StackParams;
 };
 
-const Main: React.FC<Props> = ({ initialRouteName = Routes.WELCOME }) => {
+const Main: React.FC<Props> = ({ initialRouteName }) => {
   return (
     <WrapperScreen>
       <StatusBar barStyle="dark-content" />

@@ -1,5 +1,5 @@
 import { GetStatusAddPlanRemoteConfigError } from '../../../src/data/errors';
-import { getStatusAddPlanRemoteConfig } from '../../../src/data/useCases';
+import { GetStatusAddPlanRemoteConfig } from '../../../src/data/useCases';
 import { RemoteConfigSpy } from '../remoteConfig/remoteConfigSpy';
 
 describe('Data: GetStatusAddPlanRemoteConfig', () => {
@@ -32,7 +32,7 @@ describe('Data: GetStatusAddPlanRemoteConfig', () => {
 
 const makeSut = () => {
   const remoteConfigSpy = new RemoteConfigSpy();
-  const sut = new getStatusAddPlanRemoteConfig(remoteConfigSpy);
+  const sut = new GetStatusAddPlanRemoteConfig(remoteConfigSpy);
 
   return { sut, remoteConfigSpy };
 };

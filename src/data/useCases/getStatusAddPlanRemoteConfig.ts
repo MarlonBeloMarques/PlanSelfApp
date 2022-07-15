@@ -2,7 +2,7 @@ import { GetStatusAddPlan } from '~/domain/useCases';
 import { GetStatusAddPlanRemoteConfigError } from '../errors';
 import { GetRemoteConfig } from '../remoteConfig';
 
-export class getStatusAddPlanRemoteConfig implements GetStatusAddPlan {
+export class GetStatusAddPlanRemoteConfig implements GetStatusAddPlan {
   constructor(private readonly getRemoteConfig: GetRemoteConfig) {}
 
   async get(param: string): Promise<boolean> {

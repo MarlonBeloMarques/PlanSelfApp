@@ -12,6 +12,7 @@ const ActivityPresentation: React.FC<Props> = ({
   getStatusAddPlan,
 }) => {
   const [myPlans, setMyPlans] = useState<GetMyPlans.List>([]);
+  const [statusAddPlan, setStatusAddPlan] = useState<boolean>(false);
 
   useEffect(() => {
     requestMyPlans();
@@ -24,12 +25,14 @@ const ActivityPresentation: React.FC<Props> = ({
   };
 
   const requestStatusAddPlan = async () => {
-    await getStatusAddPlan.get('');
+    const response = await getStatusAddPlan.get('');
+    setStatusAddPlan(response);
   };
 
   return (
     <Activity
       myPlans={myPlans}
+      statusAddPlanButton={statusAddPlan}
       onPressMore={() => {}}
       onPressAddPlan={() => {}}
     />

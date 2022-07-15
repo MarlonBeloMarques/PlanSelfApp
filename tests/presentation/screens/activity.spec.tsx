@@ -63,4 +63,25 @@ describe('Presentation: Activity', () => {
 
     expect(getStatusAddPlanSpy).toHaveBeenCalledTimes(1);
   });
+
+  test('should call getStatusAddPlan of GetStatusAddPlanRemoteConfig return status with success', async () => {
+    const statusAddPlan = true;
+    const remoteConfig = new RemoteConfigSpy();
+    const getDatabase = new GetDatabaseSpy();
+
+    const getMyPlans = new GetMyPlansDatabase(getDatabase);
+    const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
+
+    jest.spyOn(getStatusAddPlan, 'get').mockResolvedValueOnce(statusAddPlan);
+
+    const { UNSAFE_getByType } = render(
+      <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,
+    );
+
+    const activityView = UNSAFE_getByType(ActivityView);
+
+    await waitFor(() => {
+      expect(activityView.props.statusAddPlanButton).toEqual(statusAddPlan);
+    });
+  });
 });

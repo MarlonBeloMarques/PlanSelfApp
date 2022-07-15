@@ -23,6 +23,7 @@ import {
 
 type Props = {
   myPlans: GetMyPlans.List;
+  statusAddPlanButton: boolean;
   onPressMore: (plan: GetMyPlans.MyPlan) => void;
   onPressAddPlan: () => void;
 };

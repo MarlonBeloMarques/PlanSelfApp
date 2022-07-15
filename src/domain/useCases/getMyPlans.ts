@@ -11,6 +11,6 @@ export namespace GetMyPlans {
     user: User;
   };
   type User = {
-    myPlans: 'myPlans';
+    myPlans: string;
   };
 }

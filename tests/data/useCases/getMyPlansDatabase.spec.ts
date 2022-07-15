@@ -1,12 +1,12 @@
 import { GetMyPlansDatabaseError } from '../../../src/data/errors';
 import { GetMyPlansDatabase } from '../../../src/data/useCases';
 import GetDatabaseSpy from '../database/getDatabaseSpy';
+import { myPlansFake } from '../helpers';
+
+const myPlans = myPlansFake();
 
 describe('Data: GetMyPlansDatabase', () => {
   test('should get with GetMyPlans the returning of values with success', async () => {
-    const myPlans = [
-      { progress: 50, startDate: new Date(), title: 'any_title' },
-    ];
     const { sut, getDatabase } = makeSut();
 
     getDatabase.completeWithMyPlans(myPlans);

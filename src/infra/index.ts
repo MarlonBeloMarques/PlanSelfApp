@@ -1,2 +1,2 @@
-export * from './firebaseAdapter';
-export * from './reactNavigationAdapter';
+export { default as FirebaseAdapter } from './firebaseAdapter';
+export { default as ReactNavigationAdapter } from './reactNavigationAdapter';

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GetMyPlans } from '~/domain/useCases';
 import Activity from './activity';
 
@@ -7,16 +7,23 @@ type Props = {
 };
 
 const ActivityPresentation: React.FC<Props> = ({ getMyPlans }) => {
+  const [myPlans, setMyPlans] = useState<GetMyPlans.List>([]);
+
   useEffect(() => {
     requestMyPlans();
   }, []);
 
   const requestMyPlans = async () => {
-    await getMyPlans.get({ user: { myPlans: '' } });
+    const response = await getMyPlans.get({ user: { myPlans: '' } });
+    setMyPlans(response);
   };
 
   return (
-    <Activity myPlans={[]} onPressMore={() => {}} onPressAddPlan={() => {}} />
+    <Activity
+      myPlans={myPlans}
+      onPressMore={() => {}}
+      onPressAddPlan={() => {}}
+    />
   );
 };
 

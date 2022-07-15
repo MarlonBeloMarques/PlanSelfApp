@@ -40,8 +40,8 @@
       "~/presentation/assets/images": [
         "src/presentation/assets/images"
       ],
-      "~/presentation/screens": [
-        "src/presentation/screens"
+      "~/presentation/screens*": [
+        "src/presentation/screens*", "src/presentation/screens"
       ],
       "~/presentation/themes": [
         "src/presentation/themes"

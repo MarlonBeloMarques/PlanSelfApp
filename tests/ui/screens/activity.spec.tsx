@@ -219,6 +219,22 @@ describe('UI: Activity', () => {
 
     expect(buttonAddPlan).toBeTruthy();
   });
+
+  test('should not show add plan button if statusAddPlanButton is false', () => {
+    const myPlans = myPlansFake();
+    const { queryByTestId } = render(
+      <ActivityView
+        myPlans={myPlans}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+        statusAddPlanButton={false}
+      />,
+    );
+
+    const buttonAddPlan = queryByTestId('icon_button_add_plan_id');
+
+    expect(buttonAddPlan).not.toBeTruthy();
+  });
 });
 
 const myPlansFake = (): GetMyPlans.List => {

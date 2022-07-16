@@ -25,7 +25,7 @@ const ActivityPresentation: React.FC<Props> = ({
   };
 
   const requestStatusAddPlan = async () => {
-    const response = await getStatusAddPlan.get('');
+    const response = await getStatusAddPlan.get('addPlan');
     setStatusAddPlan(response);
   };
 

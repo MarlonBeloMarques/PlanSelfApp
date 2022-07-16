@@ -84,4 +84,23 @@ describe('Presentation: Activity', () => {
       expect(activityView.props.statusAddPlanButton).toEqual(statusAddPlan);
     });
   });
+
+  test('should call getStatusAddPlan of GetStatusAddPlanRemoteConfig with correct param', async () => {
+    const statusAddPlan = true;
+    const remoteConfig = new RemoteConfigSpy();
+    const getDatabase = new GetDatabaseSpy();
+
+    const getMyPlans = new GetMyPlansDatabase(getDatabase);
+    const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
+
+    const getStatusAddPlanSpy = jest
+      .spyOn(getStatusAddPlan, 'get')
+      .mockResolvedValueOnce(statusAddPlan);
+
+    render(
+      <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,
+    );
+
+    expect(getStatusAddPlanSpy).toHaveBeenCalledWith('addPlan');
+  });
 });

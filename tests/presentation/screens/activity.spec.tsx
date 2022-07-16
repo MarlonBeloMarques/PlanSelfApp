@@ -27,6 +27,24 @@ describe('Presentation: Activity', () => {
     expect(getMyPlansSpy).toHaveBeenCalledTimes(1);
   });
 
+  test('should call getMyPlans of GetMyPlansDatabase with correct param', async () => {
+    const remoteConfig = new RemoteConfigSpy();
+    const getDatabase = new GetDatabaseSpy();
+
+    const getMyPlans = new GetMyPlansDatabase(getDatabase);
+    const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
+
+    const getMyPlansSpy = jest.spyOn(getMyPlans, 'get');
+
+    render(
+      <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,
+    );
+
+    expect(getMyPlansSpy).toHaveBeenCalledWith({
+      user: { myPlans: 'myPlans' },
+    });
+  });
+
   test('should call getMyPlans of GetMyPlansDatabase return my plans with success', async () => {
     const myPlans = myPlansFake();
     const remoteConfig = new RemoteConfigSpy();

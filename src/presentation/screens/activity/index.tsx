@@ -20,7 +20,7 @@ const ActivityPresentation: React.FC<Props> = ({
   }, []);
 
   const requestMyPlans = async () => {
-    const response = await getMyPlans.get({ user: { myPlans: '' } });
+    const response = await getMyPlans.get({ user: { myPlans: 'myPlans' } });
     setMyPlans(response);
   };
 

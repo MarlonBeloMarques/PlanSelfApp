@@ -1,4 +1,4 @@
-const myPlansFake = (startDateIsTypeDate = false) => {
+const myPlansFake = (startDateIsTypeDate: boolean) => {
   return [
     {
       progress: 50,

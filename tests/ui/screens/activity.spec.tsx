@@ -10,6 +10,7 @@ describe('UI: Activity', () => {
         myPlans={[] as GetMyPlans.List}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
+        statusAddPlanButton={false}
       />,
     );
     const headerContainer = getByTestId('header_container_id');
@@ -22,6 +23,7 @@ describe('UI: Activity', () => {
         myPlans={[] as GetMyPlans.List}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
+        statusAddPlanButton={false}
       />,
     );
     const headerTitle = getByTestId('header_title_id');
@@ -35,6 +37,7 @@ describe('UI: Activity', () => {
         myPlans={[] as GetMyPlans.List}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
+        statusAddPlanButton={false}
       />,
     );
     const listMyPlans = getByTestId('list_my_plans_id');
@@ -48,6 +51,7 @@ describe('UI: Activity', () => {
         myPlans={myPlans}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
+        statusAddPlanButton={false}
       />,
     );
     const listMyPlans = getByTestId('list_my_plans_id');
@@ -61,6 +65,7 @@ describe('UI: Activity', () => {
         myPlans={myPlans}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
+        statusAddPlanButton={false}
       />,
     );
 
@@ -77,6 +82,7 @@ describe('UI: Activity', () => {
         myPlans={myPlans}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
+        statusAddPlanButton={false}
       />,
     );
 
@@ -98,6 +104,7 @@ describe('UI: Activity', () => {
         myPlans={myPlans}
         onPressMore={onPressMore}
         onPressAddPlan={() => {}}
+        statusAddPlanButton={false}
       />,
     );
 
@@ -115,6 +122,7 @@ describe('UI: Activity', () => {
         myPlans={myPlans}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
+        statusAddPlanButton={false}
       />,
     );
 
@@ -132,6 +140,7 @@ describe('UI: Activity', () => {
         myPlans={myPlans}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
+        statusAddPlanButton={false}
       />,
     );
 
@@ -149,6 +158,7 @@ describe('UI: Activity', () => {
         myPlans={myPlans}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
+        statusAddPlanButton={false}
       />,
     );
 
@@ -164,6 +174,7 @@ describe('UI: Activity', () => {
         myPlans={myPlans}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
+        statusAddPlanButton={true}
       />,
     );
 
@@ -182,6 +193,7 @@ describe('UI: Activity', () => {
         myPlans={myPlans}
         onPressMore={() => {}}
         onPressAddPlan={onPressAddPlan}
+        statusAddPlanButton={true}
       />,
     );
 
@@ -190,6 +202,22 @@ describe('UI: Activity', () => {
     fireEvent.press(buttonAddPlan);
 
     expect(onPressAddPlan).toHaveBeenCalledTimes(1);
+  });
+
+  test('should show add plan button if statusAddPlanButton is true', () => {
+    const myPlans = myPlansFake();
+    const { getByTestId } = render(
+      <ActivityView
+        myPlans={myPlans}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+        statusAddPlanButton={true}
+      />,
+    );
+
+    const buttonAddPlan = getByTestId('icon_button_add_plan_id');
+
+    expect(buttonAddPlan).toBeTruthy();
   });
 });
 

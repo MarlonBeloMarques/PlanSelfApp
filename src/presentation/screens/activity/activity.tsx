@@ -35,6 +35,7 @@ type MyCardProps = {
 
 const Activity: React.FC<Props> = ({
   myPlans,
+  statusAddPlanButton,
   onPressMore,
   onPressAddPlan,
 }) => {
@@ -75,14 +76,17 @@ const Activity: React.FC<Props> = ({
 
   return (
     <SceneWrapper>
-      <WrapperAddPlan>
-        <AddPlanButton
-          testID="icon_button_add_plan_id"
-          onPress={onPressAddPlan}
-        >
-          <IconAdd testID="icon_add_plan_id" />
-        </AddPlanButton>
-      </WrapperAddPlan>
+      {statusAddPlanButton && (
+        <WrapperAddPlan>
+          <AddPlanButton
+            testID="icon_button_add_plan_id"
+            onPress={onPressAddPlan}
+          >
+            <IconAdd testID="icon_add_plan_id" />
+          </AddPlanButton>
+        </WrapperAddPlan>
+      )}
+
       <TitleWrapper testID="header_container_id">
         <Title testID="header_title_id">My Plans</Title>
       </TitleWrapper>

@@ -30,9 +30,9 @@ export default class FirebaseAdapter
     return this.remoteConfig.getValue(param);
   }
 
-  async getData(): Promise<FirebaseDatabaseTypes.DataSnapshot | undefined> {
+  async getData(): Promise<any | undefined> {
     const snapshot = await this.databaseReference.once('value');
-    return snapshot;
+    return snapshot.val();
   }
 
   private async startRemoteConfigDefault(): Promise<void> {

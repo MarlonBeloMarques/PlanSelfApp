@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import { GetMyPlans } from '~/domain/useCases';
 import ActivityView from '../../../src/presentation/screens/activity/activity';
+import { myPlansFake } from '../../data/helpers';
 
 describe('UI: Activity', () => {
   test('should show header container with success', () => {
@@ -236,23 +237,3 @@ describe('UI: Activity', () => {
     expect(buttonAddPlan).not.toBeTruthy();
   });
 });
-
-const myPlansFake = (): GetMyPlans.List => {
-  return [
-    {
-      progress: 50,
-      startDate: new Date('11/5/2021'),
-      title: 'Study Swift',
-    },
-    {
-      progress: 75,
-      startDate: new Date('9/12/2021'),
-      title: 'Study React Native',
-    },
-    {
-      progress: 10,
-      startDate: new Date('9/04/2021'),
-      title: 'Documentation New App',
-    },
-  ];
-};

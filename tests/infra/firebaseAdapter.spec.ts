@@ -60,7 +60,7 @@ describe('Infra: FirebaseAdapter', () => {
     const { sut } = makeSut({ path, dataResponse } as MakeSutParams);
 
     const data = await sut.getData();
-    expect(data?.val()).toEqual(dataResponse);
+    expect(data).toEqual(dataResponse);
   });
 });
 

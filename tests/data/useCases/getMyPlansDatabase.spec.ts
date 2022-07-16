@@ -1,3 +1,4 @@
+import { GetMyPlans } from '~/domain/useCases';
 import { GetMyPlansDatabaseError } from '../../../src/data/errors';
 import { GetMyPlansDatabase } from '../../../src/data/useCases';
 import GetDatabaseSpy from '../database/getDatabaseSpy';
@@ -24,6 +25,17 @@ describe('Data: GetMyPlansDatabase', () => {
     } catch (error) {
       expect(error).toEqual(new GetMyPlansDatabaseError());
     }
+  });
+
+  test('should get with GetMyPlans the return of values without nulls', async () => {
+    const { sut, getDatabase } = makeSut();
+
+    getDatabase.completeWithMyPlans([
+      null as unknown as GetMyPlans.MyPlan,
+      ...myPlans,
+    ]);
+    const response = await sut.get();
+    expect(response).not.toContain(null);
   });
 });
 

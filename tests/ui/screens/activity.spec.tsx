@@ -4,6 +4,12 @@ import { GetMyPlans } from '~/domain/useCases';
 import ActivityView from '../../../src/presentation/screens/activity/activity';
 import { myPlansFake } from '../../data/helpers';
 
+type MyPlansTypeDate = Array<{
+  progress: number;
+  startDate: Date;
+  title: string;
+}>;
+
 describe('UI: Activity', () => {
   test('should show header container with success', () => {
     const { getByTestId } = render(
@@ -46,10 +52,10 @@ describe('UI: Activity', () => {
   });
 
   test('should show list of my Plans with data prop correct', () => {
-    const myPlans = myPlansFake();
+    const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
-        myPlans={myPlans}
+        myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
         statusAddPlanButton={false}
@@ -60,10 +66,10 @@ describe('UI: Activity', () => {
   });
 
   test('should show title correct of list of my Plans', () => {
-    const myPlans = myPlansFake();
+    const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
-        myPlans={myPlans}
+        myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
         statusAddPlanButton={false}
@@ -77,10 +83,10 @@ describe('UI: Activity', () => {
   });
 
   test('should show more button of list of my Plans with success', () => {
-    const myPlans = myPlansFake();
+    const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
-        myPlans={myPlans}
+        myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
         statusAddPlanButton={false}
@@ -98,11 +104,11 @@ describe('UI: Activity', () => {
   });
 
   test('should call function when press more button of list of my Plans', () => {
-    const myPlans = myPlansFake();
+    const myPlans = myPlansFake(true);
     const onPressMore = jest.fn();
     const { getByTestId } = render(
       <ActivityView
-        myPlans={myPlans}
+        myPlans={myPlans as MyPlansTypeDate}
         onPressMore={onPressMore}
         onPressAddPlan={() => {}}
         statusAddPlanButton={false}
@@ -117,10 +123,10 @@ describe('UI: Activity', () => {
   });
 
   test('should show progress correct of my Plan', () => {
-    const myPlans = myPlansFake();
+    const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
-        myPlans={myPlans}
+        myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
         statusAddPlanButton={false}
@@ -135,10 +141,10 @@ describe('UI: Activity', () => {
   });
 
   test('should show text of progress correct of my Plan', () => {
-    const myPlans = myPlansFake();
+    const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
-        myPlans={myPlans}
+        myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
         statusAddPlanButton={false}
@@ -153,10 +159,10 @@ describe('UI: Activity', () => {
   });
 
   test('should show correct start date of my Plan', () => {
-    const myPlans = myPlansFake();
+    const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
-        myPlans={myPlans}
+        myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
         statusAddPlanButton={false}
@@ -169,10 +175,10 @@ describe('UI: Activity', () => {
   });
 
   test('should show correct icon of button add plan', () => {
-    const myPlans = myPlansFake();
+    const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
-        myPlans={myPlans}
+        myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
         statusAddPlanButton={true}
@@ -188,10 +194,10 @@ describe('UI: Activity', () => {
   test('should call function when press add plan with success', () => {
     const onPressAddPlan = jest.fn();
 
-    const myPlans = myPlansFake();
+    const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
-        myPlans={myPlans}
+        myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={onPressAddPlan}
         statusAddPlanButton={true}
@@ -206,10 +212,10 @@ describe('UI: Activity', () => {
   });
 
   test('should show add plan button if statusAddPlanButton is true', () => {
-    const myPlans = myPlansFake();
+    const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
-        myPlans={myPlans}
+        myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
         statusAddPlanButton={true}
@@ -222,10 +228,10 @@ describe('UI: Activity', () => {
   });
 
   test('should not show add plan button if statusAddPlanButton is false', () => {
-    const myPlans = myPlansFake();
+    const myPlans = myPlansFake(true);
     const { queryByTestId } = render(
       <ActivityView
-        myPlans={myPlans}
+        myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
         statusAddPlanButton={false}

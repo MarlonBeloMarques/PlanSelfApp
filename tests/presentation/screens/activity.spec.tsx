@@ -6,6 +6,7 @@ import {
 } from '~/data/useCases';
 import { Activity } from '~/presentation/screens';
 import ActivityView from '~/presentation/screens/activity/activity';
+import { GetMyPlans } from '~/domain/useCases';
 import { RemoteConfigSpy } from '../../data/remoteConfig/remoteConfigSpy';
 import GetDatabaseSpy from '../../data/database/getDatabaseSpy';
 import { myPlansFake } from '../../data/helpers';
@@ -46,14 +47,16 @@ describe('Presentation: Activity', () => {
   });
 
   test('should call getMyPlans of GetMyPlansDatabase return my plans with success', async () => {
-    const myPlans = myPlansFake();
+    const myPlans = myPlansFake(true);
     const remoteConfig = new RemoteConfigSpy();
     const getDatabase = new GetDatabaseSpy();
 
     const getMyPlans = new GetMyPlansDatabase(getDatabase);
     const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
 
-    jest.spyOn(getMyPlans, 'get').mockResolvedValueOnce(myPlans);
+    jest
+      .spyOn(getMyPlans, 'get')
+      .mockResolvedValueOnce(myPlans as GetMyPlans.List);
 
     const { UNSAFE_getByType } = render(
       <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,

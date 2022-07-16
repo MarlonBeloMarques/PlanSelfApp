@@ -4,9 +4,7 @@ import { GetDatabase } from '~/data/database';
 import { GetRemoteConfig } from '~/data/remoteConfig';
 
 export default class FirebaseAdapter
-  implements
-    GetRemoteConfig<FirebaseRemoteConfigTypes.ConfigValue>,
-    GetDatabase
+  implements GetRemoteConfig<boolean>, GetDatabase
 {
   constructor(
     readonly remoteConfig: FirebaseRemoteConfigTypes.Module,
@@ -27,7 +25,8 @@ export default class FirebaseAdapter
   }
 
   async getConfig(param: string) {
-    return this.remoteConfig.getValue(param);
+    const value = this.remoteConfig.getValue(param);
+    return value.asBoolean();
   }
 
   async getData(): Promise<any | undefined> {

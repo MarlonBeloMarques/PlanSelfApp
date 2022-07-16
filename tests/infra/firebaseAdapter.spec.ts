@@ -33,7 +33,7 @@ describe('Infra: FirebaseAdapter', () => {
     const value = await sut.getConfig(valueObject.param);
 
     expect(getValueSpy).toHaveBeenCalledTimes(1);
-    expect(value.asBoolean()).toEqual(valueObject.result);
+    expect(value).toEqual(valueObject.result);
   });
 
   test('should update path for the reference of database with success when call getData', async () => {

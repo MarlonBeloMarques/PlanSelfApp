@@ -11,7 +11,7 @@ const ActivityPresentation: React.FC<Props> = ({
   getMyPlans,
   getStatusAddPlan,
 }) => {
-  const [myPlans, setMyPlans] = useState<GetMyPlans.List>([]);
+  const [myPlans, setMyPlans] = useState<GetMyPlans.List<Date>>([]);
   const [statusAddPlan, setStatusAddPlan] = useState<boolean>(false);
 
   useEffect(() => {

@@ -8,8 +8,8 @@ export class GetMyPlansDatabase implements GetMyPlans {
       Array<{ progress: number; startDate: string; title: string }>
     >,
   ) {}
-  async get(): Promise<GetMyPlans.List> {
-    const myPlans = [] as GetMyPlans.List;
+  async get(): Promise<GetMyPlans.List<Date>> {
+    const myPlans = [] as GetMyPlans.List<Date>;
     try {
       let data = await this.getDataBase.getData();
 

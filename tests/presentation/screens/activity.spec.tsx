@@ -56,7 +56,7 @@ describe('Presentation: Activity', () => {
 
     jest
       .spyOn(getMyPlans, 'get')
-      .mockResolvedValueOnce(myPlans as GetMyPlans.List);
+      .mockResolvedValueOnce(myPlans as GetMyPlans.List<Date>);
 
     const { UNSAFE_getByType } = render(
       <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,

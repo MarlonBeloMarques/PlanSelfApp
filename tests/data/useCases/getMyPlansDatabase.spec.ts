@@ -1,13 +1,8 @@
+import { GetMyPlans } from '~/domain/useCases';
 import { GetMyPlansDatabaseError } from '../../../src/data/errors';
 import { GetMyPlansDatabase } from '../../../src/data/useCases';
-import GetDatabaseSpy, { MyPlan } from '../database/getDatabaseSpy';
+import GetDatabaseSpy from '../database/getDatabaseSpy';
 import { myPlansFake } from '../helpers';
-
-type MyPlansTypeString = Array<{
-  progress: number;
-  startDate: string;
-  title: string;
-}>;
 
 const myPlans = myPlansFake(false);
 
@@ -15,7 +10,7 @@ describe('Data: GetMyPlansDatabase', () => {
   test('should get with GetMyPlans the returning of values with success', async () => {
     const { sut, getDatabase } = makeSut();
 
-    getDatabase.completeWithMyPlans(myPlans as MyPlansTypeString);
+    getDatabase.completeWithMyPlans(myPlans as GetMyPlans.List<string>);
     const response = await sut.get();
 
     response.forEach((plan) => {
@@ -43,8 +38,8 @@ describe('Data: GetMyPlansDatabase', () => {
     const { sut, getDatabase } = makeSut();
 
     getDatabase.completeWithMyPlans([
-      null as unknown as MyPlan,
-      ...(myPlans as MyPlansTypeString),
+      null as unknown as GetMyPlans.MyPlan<string>,
+      ...(myPlans as GetMyPlans.List<string>),
     ]);
     const response = await sut.get();
     expect(response).not.toContain(null);

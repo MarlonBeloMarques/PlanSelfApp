@@ -1,5 +1,5 @@
-export type MyPlanModel = {
+export type MyPlanModel<StartDateType> = {
   title: string;
-  startDate: Date;
+  startDate: StartDateType;
   progress: number;
 };

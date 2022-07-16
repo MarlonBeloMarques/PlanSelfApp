@@ -1,10 +1,11 @@
+import { GetMyPlans } from '~/domain/useCases';
 import { GetMyPlansDatabaseError } from '../../../src/data/errors';
 import { GetDatabase } from '../../../src/data/database';
 
-export type MyPlan = { progress: number; startDate: string; title: string };
-
-export default class GetDatabaseSpy implements GetDatabase<Array<MyPlan>> {
-  private _myPlans: Array<MyPlan> = [];
+export default class GetDatabaseSpy
+  implements GetDatabase<GetMyPlans.List<string>>
+{
+  private _myPlans: GetMyPlans.List<string> = [];
   private unexpectedErrorOccurred = false;
 
   async getData() {
@@ -12,7 +13,7 @@ export default class GetDatabaseSpy implements GetDatabase<Array<MyPlan>> {
     return this._myPlans;
   }
 
-  completeWithMyPlans(myPlans: Array<MyPlan>) {
+  completeWithMyPlans(myPlans: GetMyPlans.List<string>) {
     this._myPlans = myPlans;
   }
 

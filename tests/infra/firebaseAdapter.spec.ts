@@ -6,18 +6,6 @@ import firebaseDatabase, {
 } from '@react-native-firebase/database';
 import FirebaseAdapter from '../../src/infra/firebaseAdapter';
 
-jest.mock('@react-native-firebase/remote-config', () => () => ({
-  setDefaults: () => jest.fn(),
-  fetchAndActivate: () => jest.fn().mockReturnValueOnce(false),
-  getValue: () => jest.fn(),
-}));
-
-jest.mock('@react-native-firebase/database', () => () => ({
-  ref: () => {
-    return { once: () => jest.fn() };
-  },
-}));
-
 describe('Infra: FirebaseAdapter', () => {
   test('should start the default remote configuration correctly', async () => {
     const { sut, setDefaultsSpy } = makeSut({} as MakeSutParams);

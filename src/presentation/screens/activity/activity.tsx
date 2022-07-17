@@ -1,7 +1,6 @@
 import React from 'react';
-import LinearGradient from 'react-native-linear-gradient';
-import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import { GetMyPlans } from '~/domain/useCases';
+import { LoadingAnimation } from '../../components';
 import {
   AddPlanButton,
   ContainerMyPlan,
@@ -94,13 +93,7 @@ const Activity: React.FC<Props> = ({
       <TitleWrapper testID="header_container_id">
         <Title testID="header_title_id">My Plans</Title>
       </TitleWrapper>
-      {isLoading && (
-        <ShimmerPlaceHolder
-          LinearGradient={LinearGradient}
-          width={'100%'}
-          height={40}
-        />
-      )}
+      {isLoading && <LoadingAnimation />}
       <MyPlanList
         testID="list_my_plans_id"
         data={myPlans}

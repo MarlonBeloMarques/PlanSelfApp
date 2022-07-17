@@ -31,6 +31,7 @@ const ActivityPresentation: React.FC<Props> = ({
 
   return (
     <Activity
+      isLoading={myPlans.length === 0}
       myPlans={myPlans}
       statusAddPlanButton={statusAddPlan}
       onPressMore={() => {}}

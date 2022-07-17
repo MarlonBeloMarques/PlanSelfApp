@@ -25,7 +25,7 @@ jest.mock('react-native-shimmer-placeholder', () => {
     default: jest
       .fn()
       .mockReturnValue(
-        <View testID='loading_animation_id'></View>
+        <View ></View>
       ),
   };
 });

@@ -29,9 +29,11 @@ const ActivityPresentation: React.FC<Props> = ({
     setStatusAddPlan(response);
   };
 
+  const isLoading = () => myPlans.length === 0;
+
   return (
     <Activity
-      isLoading={myPlans.length === 0}
+      isLoading={isLoading()}
       myPlans={myPlans}
       statusAddPlanButton={statusAddPlan}
       onPressMore={() => {}}

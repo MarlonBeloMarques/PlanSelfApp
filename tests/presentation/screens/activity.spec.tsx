@@ -124,4 +124,24 @@ describe('Presentation: Activity', () => {
 
     expect(getStatusAddPlanSpy).toHaveBeenCalledWith('addPlan');
   });
+
+  test('should isLoading prop be true if myPlans is empty', async () => {
+    const remoteConfig = new RemoteConfigSpy();
+    const getDatabase = new GetDatabaseSpy();
+
+    const getMyPlans = new GetMyPlansDatabase(getDatabase);
+    const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
+
+    jest
+      .spyOn(getMyPlans, 'get')
+      .mockResolvedValueOnce([] as GetMyPlans.List<Date>);
+
+    const { UNSAFE_getByType } = render(
+      <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,
+    );
+
+    const activityView = UNSAFE_getByType(ActivityView);
+
+    expect(activityView.props.isLoading).toEqual(true);
+  });
 });

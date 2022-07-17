@@ -14,7 +14,8 @@ describe('UI: Activity', () => {
   test('should show header container with success', () => {
     const { getByTestId } = render(
       <ActivityView
-        myPlans={[] as GetMyPlans.List}
+        isLoading={false}
+        myPlans={[] as GetMyPlans.List<Date>}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
         statusAddPlanButton={false}
@@ -27,7 +28,8 @@ describe('UI: Activity', () => {
   test('should show header title with success', () => {
     const { getByTestId } = render(
       <ActivityView
-        myPlans={[] as GetMyPlans.List}
+        isLoading={false}
+        myPlans={[] as GetMyPlans.List<Date>}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
         statusAddPlanButton={false}
@@ -41,7 +43,8 @@ describe('UI: Activity', () => {
   test('should show list of my Plans with success', () => {
     const { getByTestId } = render(
       <ActivityView
-        myPlans={[] as GetMyPlans.List}
+        isLoading={false}
+        myPlans={[] as GetMyPlans.List<Date>}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
         statusAddPlanButton={false}
@@ -55,6 +58,7 @@ describe('UI: Activity', () => {
     const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
+        isLoading={false}
         myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
@@ -69,6 +73,7 @@ describe('UI: Activity', () => {
     const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
+        isLoading={false}
         myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
@@ -86,6 +91,7 @@ describe('UI: Activity', () => {
     const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
+        isLoading={false}
         myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
@@ -108,6 +114,7 @@ describe('UI: Activity', () => {
     const onPressMore = jest.fn();
     const { getByTestId } = render(
       <ActivityView
+        isLoading={false}
         myPlans={myPlans as MyPlansTypeDate}
         onPressMore={onPressMore}
         onPressAddPlan={() => {}}
@@ -126,6 +133,7 @@ describe('UI: Activity', () => {
     const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
+        isLoading={false}
         myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
@@ -144,6 +152,7 @@ describe('UI: Activity', () => {
     const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
+        isLoading={false}
         myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
@@ -162,6 +171,7 @@ describe('UI: Activity', () => {
     const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
+        isLoading={false}
         myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
@@ -178,6 +188,7 @@ describe('UI: Activity', () => {
     const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
+        isLoading={false}
         myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
@@ -197,6 +208,7 @@ describe('UI: Activity', () => {
     const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
+        isLoading={false}
         myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={onPressAddPlan}
@@ -215,6 +227,7 @@ describe('UI: Activity', () => {
     const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
+        isLoading={false}
         myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
@@ -231,6 +244,7 @@ describe('UI: Activity', () => {
     const myPlans = myPlansFake(true);
     const { queryByTestId } = render(
       <ActivityView
+        isLoading={false}
         myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}
@@ -241,5 +255,22 @@ describe('UI: Activity', () => {
     const buttonAddPlan = queryByTestId('icon_button_add_plan_id');
 
     expect(buttonAddPlan).not.toBeTruthy();
+  });
+
+  test('should show loading animation if isLoading is true', () => {
+    const myPlans = myPlansFake(true);
+    const { getByTestId } = render(
+      <ActivityView
+        isLoading={true}
+        myPlans={myPlans as MyPlansTypeDate}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+        statusAddPlanButton={false}
+      />,
+    );
+
+    const loadingSkeleton = getByTestId('loading_animation_id');
+
+    expect(loadingSkeleton).toBeTruthy();
   });
 });

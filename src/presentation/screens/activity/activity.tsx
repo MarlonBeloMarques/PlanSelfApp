@@ -1,4 +1,6 @@
 import React from 'react';
+import LinearGradient from 'react-native-linear-gradient';
+import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import { GetMyPlans } from '~/domain/useCases';
 import {
   AddPlanButton,
@@ -22,20 +24,22 @@ import {
 } from './styles';
 
 type Props = {
-  myPlans: GetMyPlans.List;
+  myPlans: GetMyPlans.List<Date>;
   statusAddPlanButton: boolean;
-  onPressMore: (plan: GetMyPlans.MyPlan) => void;
+  isLoading: boolean;
+  onPressMore: (plan: GetMyPlans.MyPlan<Date>) => void;
   onPressAddPlan: () => void;
 };
 
 type MyCardProps = {
-  myPlan: GetMyPlans.MyPlan;
+  myPlan: GetMyPlans.MyPlan<Date>;
   index: number;
 };
 
 const Activity: React.FC<Props> = ({
   myPlans,
   statusAddPlanButton,
+  isLoading,
   onPressMore,
   onPressAddPlan,
 }) => {
@@ -90,6 +94,13 @@ const Activity: React.FC<Props> = ({
       <TitleWrapper testID="header_container_id">
         <Title testID="header_title_id">My Plans</Title>
       </TitleWrapper>
+      {isLoading && (
+        <ShimmerPlaceHolder
+          LinearGradient={LinearGradient}
+          width={'100%'}
+          height={40}
+        />
+      )}
       <MyPlanList
         testID="list_my_plans_id"
         data={myPlans}

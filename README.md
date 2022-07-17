@@ -6,7 +6,7 @@ If you want more details about the methodologies used, you can find it in this [
 
 ### A little more about the project
 
-As already mentioned, the objective of this project is to continue in the process of using good development and architecture practices. In the beginning, the focus of this project, in addition to the already mentioned, was to consume Firebase services following the concepts of Clean Architecture. However, during development he decides to try something else that brought an article to life (How to decouple Navigation in React Native). Here is the result of that project.
+As already mentioned, the objective of this project is to continue in the process of using good development and architecture practices. In the beginning, the focus of this project, in addition to the already mentioned, was to consume Firebase services following the concepts of Clean Architecture. However, during development I decides to try something else that brought an article to life (How to decouple Navigation in React Native). Here is the result of that project.
 
 ### About architecture
 

@@ -20,6 +20,15 @@ To write the tests, **jest** and **react-native-testing-library** were used.
 
 ![PlanSelf-Tests.png](PlanSelf-Tests.png)
 
+### About the Project
+
+PlanSelf is an application for you to manage your goals, adding progress, start date, etc.
+
+<p align="flex-start">
+  <img src="PlanSelf-Welcome.png" width="225" height="487" />
+  <img src="PlanSelf-Activity.png" width="225" height="487" />
+</p>
+
 ### Build
 
 Now the grand finale, in the root of the project, run:

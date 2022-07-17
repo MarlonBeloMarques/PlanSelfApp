@@ -49,8 +49,8 @@
       "~/main/navigation": [
         "src/main/navigation"
       ],
-      "~/main/factories": [
-        "src/main/factories"
+      "~/main/factories/presentation": [
+        "src/main/factories/presentation"
       ],
       "~/main/helpers": [
         "src/main/helpers"

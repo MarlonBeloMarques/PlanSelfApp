@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ActivityFactory, WelcomeFactory } from '~/main/factories';
+import { ActivityFactory, WelcomeFactory } from '~/main/factories/presentation';
 import { colors } from '~/presentation/themes';
 import { Routes } from './routes';
 

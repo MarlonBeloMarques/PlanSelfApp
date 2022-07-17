@@ -3,7 +3,7 @@ import { fireEvent, render } from '@testing-library/react-native';
 import { NavigationContainerRef } from '@react-navigation/native';
 import { Welcome } from '~/presentation/screens';
 import { NavigateScreenMyPlans } from '~/data/useCases';
-import WelcomeView from '../../../src/presentation/screens/welcome/welcome';
+import WelcomeView from '~/presentation/screens/welcome/welcome';
 import { Navigation, Routes } from '../../../src/main/navigation';
 
 describe('Presentation: Welcome', () => {

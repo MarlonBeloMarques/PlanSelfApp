@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 import { NavigationContainerRef } from '@react-navigation/native';
 import { Navigation, setTopLevelNavigator } from '~/main/navigation';
+import {
+  firebaseAdapterFactory,
+  startFirebaseRemoteConfig,
+} from './factories/infra';
 
 type Props = {
   initialRouteName: keyof StackParams;
 };
 
 const Main: React.FC<Props> = ({ initialRouteName }) => {
+  useEffect(() => {
+    startFirebaseRemoteConfig(firebaseAdapterFactory());
+  }, []);
+
   return (
     <WrapperScreen>
       <StatusBar barStyle="dark-content" />

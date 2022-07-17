@@ -79,7 +79,7 @@ const Activity: React.FC<Props> = ({
 
   return (
     <SceneWrapper>
-      {statusAddPlanButton && (
+      {statusAddPlanButton && !isLoading && (
         <WrapperAddPlan>
           <AddPlanButton
             testID="icon_button_add_plan_id"

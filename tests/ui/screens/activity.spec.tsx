@@ -223,7 +223,7 @@ describe('UI: Activity', () => {
     expect(onPressAddPlan).toHaveBeenCalledTimes(1);
   });
 
-  test('should show add plan button if statusAddPlanButton is true', () => {
+  test('should show add plan button if statusAddPlanButton is true and isLoading is false', () => {
     const myPlans = myPlansFake(true);
     const { getByTestId } = render(
       <ActivityView
@@ -240,11 +240,11 @@ describe('UI: Activity', () => {
     expect(buttonAddPlan).toBeTruthy();
   });
 
-  test('should not show add plan button if statusAddPlanButton is false', () => {
+  test('should not show add plan button if statusAddPlanButton is false and isLoading is true', () => {
     const myPlans = myPlansFake(true);
     const { queryByTestId } = render(
       <ActivityView
-        isLoading={false}
+        isLoading={true}
         myPlans={myPlans as MyPlansTypeDate}
         onPressMore={() => {}}
         onPressAddPlan={() => {}}

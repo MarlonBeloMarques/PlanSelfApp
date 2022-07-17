@@ -8,6 +8,18 @@ If you want more details about the methodologies used, you can find it in this [
 
 As already mentioned, the objective of this project is to continue in the process of using good development and architecture practices. In the beginning, the focus of this project, in addition to the already mentioned, was to consume Firebase services following the concepts of Clean Architecture. However, during development he decides to try something else that brought an article to life (How to decouple Navigation in React Native). Here is the result of that project.
 
+### About architecture
+
+This was the Architecture diagram built to follow as a basis for development:
+
+![PlanSelf-Arch.png](PlanSelf-Arch.png)
+
+### About the Tests
+
+To write the tests, **jest** and **react-native-testing-library** were used.
+
+![PlanSelf-Tests.png](PlanSelf-Tests.png)
+
 ### Build
 
 Now the grand finale, in the root of the project, run:

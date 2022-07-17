@@ -273,4 +273,21 @@ describe('UI: Activity', () => {
 
     expect(loadingSkeleton).toBeTruthy();
   });
+
+  test('should not show loading animation if isLoading is false', () => {
+    const myPlans = myPlansFake(true);
+    const { queryByTestId } = render(
+      <ActivityView
+        isLoading={false}
+        myPlans={myPlans as MyPlansTypeDate}
+        onPressMore={() => {}}
+        onPressAddPlan={() => {}}
+        statusAddPlanButton={false}
+      />,
+    );
+
+    const loadingSkeleton = queryByTestId('loading_animation_id');
+
+    expect(loadingSkeleton).not.toBeTruthy();
+  });
 });

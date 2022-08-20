@@ -4,6 +4,18 @@ import { colors, spacings, typography } from '~/presentation/themes';
 
 const width = Dimensions.get('screen').width;
 
+type WrapperProps = {
+  flex?: number;
+};
+
+export const Wrapper = styled.View<WrapperProps>`
+  ${({ flex }) =>
+    flex &&
+    `
+    flex: ${flex}
+  `}
+`;
+
 export const SceneWrapper = styled.View`
   flex: 1;
   justify-content: center;

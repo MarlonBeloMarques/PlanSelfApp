@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { Switch, View } from 'react-native';
+import { Switch } from 'react-native';
 import { PlanningImage } from '~/presentation/assets/images';
 import {
   Button,
@@ -12,6 +12,7 @@ import {
   SubtitleText,
   SwitchWrapper,
   TitleWrapper,
+  Wrapper,
   styleSheet,
 } from './styles';
 
@@ -28,7 +29,7 @@ const Welcome: React.FC<Props> = ({
 }) => {
   return (
     <SceneWrapper>
-      <View style={{ flex: 0.8 }}>
+      <Wrapper flex={0.8}>
         <ImageWrapper>
           <PlanningIcon
             testID="planning_image_id"
@@ -40,11 +41,11 @@ const Welcome: React.FC<Props> = ({
           <PlanText>PLAN</PlanText>
           <SelfText>SELF</SelfText>
         </TitleWrapper>
-        <View style={{ marginBottom: 30 }}>
+        <Wrapper style={{ marginBottom: 30 }}>
           <SubtitleText testID="subtitle_id">
             You need to plan for have success in your life
           </SubtitleText>
-        </View>
+        </Wrapper>
         <SwitchWrapper>
           <Switch
             testID="components_switch_id"
@@ -54,12 +55,12 @@ const Welcome: React.FC<Props> = ({
             value={toggleEnabled}
           />
         </SwitchWrapper>
-      </View>
-      <View>
+      </Wrapper>
+      <Wrapper>
         <Button testID="button_id" onPress={buttonAction}>
           <ButtonLabel testID="button_label_id">I WANT TO PLAN</ButtonLabel>
         </Button>
-      </View>
+      </Wrapper>
     </SceneWrapper>
   );
 };

@@ -9,9 +9,7 @@ module.exports = {
       'identity-obj-proxy',
   },
   setupFiles: ['<rootDir>/jest.setup.js'],
-  transformIgnorePatterns: [
-    'node_modules/(?!(@react-native|react-native|react-native-size-matters)/)',
-  ],
+  transformIgnorePatterns: [],
   testRegex: '\\.spec\\.ts',
   coverageThreshold: {
     global: {

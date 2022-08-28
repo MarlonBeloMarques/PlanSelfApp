@@ -1,11 +1,19 @@
-import { Dimensions } from 'react-native';
+import Animated from 'react-native-reanimated';
 import styled from 'styled-components/native';
 import { colors, spacings, typography } from '~/presentation/themes';
 
-const width = Dimensions.get('screen').width;
+interface AnimatedWrapperProps {
+  position?: 'relative' | 'absolute' | 'fixed';
+}
+
+export const WrapperAnimated = styled(Animated.View)<AnimatedWrapperProps>`
+  position: ${({ position }) => position || 'relative'};
+`;
 
 type WrapperProps = {
   flex?: number;
+  width?: number;
+  height?: number;
 };
 
 export const Wrapper = styled.View<WrapperProps>`
@@ -13,6 +21,16 @@ export const Wrapper = styled.View<WrapperProps>`
     flex &&
     `
     flex: ${flex}
+  `}
+  ${({ width }) =>
+    width &&
+    `
+    width: ${width}px
+  `}
+  ${({ height }) =>
+    height &&
+    `
+    height: ${height}px
   `}
 `;
 
@@ -32,9 +50,22 @@ export const SwitchWrapper = styled.View`
   margin: ${spacings.topSpacing}px ${spacings.bottomSpacing}px;
 `;
 
-export const PlanningIcon = styled.Image`
-  width: ${width}px;
-  height: 161px;
+type PlanningIconProps = {
+  width: number;
+  height: number;
+};
+
+export const PlanningIcon = styled.Image<PlanningIconProps>`
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
+`;
+
+type PlanningIconAnimatedProps = AnimatedWrapperProps;
+
+export const PlanningIconAnimated = styled(
+  Animated.Image,
+)<PlanningIconAnimatedProps>`
+  position: ${({ position }) => position || 'relative'};
 `;
 
 export const TitleWrapper = styled.View`
@@ -58,7 +89,6 @@ export const SelfText = styled.Text`
 `;
 
 export const SubtitleText = styled.Text`
-  text-align: center;
   font-size: ${typography.title3.fontSize}px;
   font-weight: bold;
   line-height: ${typography.title3.lineHeight}px;

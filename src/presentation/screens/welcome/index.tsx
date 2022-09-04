@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   Easing,
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -15,18 +14,20 @@ type Props = {
 
 const WelcomePresenter: React.FC<Props> = ({ navigate }) => {
   const [toggleEnabled, componentsToggle] = useState(false);
-  const [showComponents, setShowComponents] = useState(false);
 
-  const [newButtonTranslateXValue, setNewButtonTranslateXValue] = useState(0);
-  const [newSubtitleTranslateValue, setNewSubtitleTranslateValue] = useState({
+  const [valueTranslateButton, setValueTranslateButton] = useState({
     x: 0,
     y: 0,
   });
-  const [newTitleTranslateValue, setNewTitleTranslateValue] = useState({
+  const [valueTranslateSubtitle, setValueTranslateSubtitle] = useState({
     x: 0,
     y: 0,
   });
-  const [newIconTranslateValue, setNewIconTranslateValue] = useState({
+  const [valueTranslateTitle, setValueTranslateTitle] = useState({
+    x: 0,
+    y: 0,
+  });
+  const [valueTranslateIcon, setValueTranslateIcon] = useState({
     x: 0,
     y: 0,
   });
@@ -94,68 +95,50 @@ const WelcomePresenter: React.FC<Props> = ({ navigate }) => {
 
   useEffect(() => {
     if (toggleEnabled) {
-      // button
-      buttonAnimationRotate.value = withTiming(
-        '0deg',
-        {
-          duration: 1000,
-          easing: Easing.linear,
-        },
-        (finished) => {
-          if (finished) {
-            runOnJS(setShowComponents)(true);
-          }
-        },
-      );
-      buttonAnimationTranslateX.value = withTiming(newButtonTranslateXValue, {
+      buttonAnimationRotate.value = withTiming('0deg', {
+        duration: 1000,
+        easing: Easing.linear,
+      });
+      buttonAnimationTranslateX.value = withTiming(valueTranslateButton.x, {
         duration: 1000,
         easing: Easing.linear,
       });
 
-      // subtitle
       subtitleAnimationRotate.value = withTiming('0deg', {
         duration: 1000,
         easing: Easing.linear,
       });
-      subtitleAnimationTranslateX.value = withTiming(
-        newSubtitleTranslateValue.x,
-        {
-          duration: 1000,
-          easing: Easing.linear,
-        },
-      );
-      subtitleAnimationTranslateY.value = withTiming(
-        newSubtitleTranslateValue.y,
-        {
-          duration: 1000,
-          easing: Easing.linear,
-        },
-      );
+      subtitleAnimationTranslateX.value = withTiming(valueTranslateSubtitle.x, {
+        duration: 1000,
+        easing: Easing.linear,
+      });
+      subtitleAnimationTranslateY.value = withTiming(valueTranslateSubtitle.y, {
+        duration: 1000,
+        easing: Easing.linear,
+      });
 
-      // title
       titleAnimationRotate.value = withTiming('0deg', {
         duration: 1000,
         easing: Easing.linear,
       });
-      titleAnimationTranslateX.value = withTiming(newTitleTranslateValue.x, {
+      titleAnimationTranslateX.value = withTiming(valueTranslateTitle.x, {
         duration: 1000,
         easing: Easing.linear,
       });
-      titleAnimationTranslateY.value = withTiming(newTitleTranslateValue.y, {
+      titleAnimationTranslateY.value = withTiming(valueTranslateTitle.y, {
         duration: 1000,
         easing: Easing.linear,
       });
 
-      // icon
       iconAnimationRotate.value = withTiming('0deg', {
         duration: 1000,
         easing: Easing.linear,
       });
-      iconAnimationTranslateX.value = withTiming(newIconTranslateValue.x, {
+      iconAnimationTranslateX.value = withTiming(valueTranslateIcon.x, {
         duration: 1000,
         easing: Easing.linear,
       });
-      iconAnimationTranslateY.value = withTiming(newIconTranslateValue.y, {
+      iconAnimationTranslateY.value = withTiming(valueTranslateIcon.y, {
         duration: 1000,
         easing: Easing.linear,
       });
@@ -179,11 +162,10 @@ const WelcomePresenter: React.FC<Props> = ({ navigate }) => {
       subtitleAnimatedStyle={subtitleAnimatedStyle}
       titleAnimatedStyle={titleAnimatedStyle}
       iconAnimatedStyle={iconAnimatedStyle}
-      showComponents={showComponents}
-      setNewButtonTranslateXValue={setNewButtonTranslateXValue}
-      setNewSubtitleTranslateValue={setNewSubtitleTranslateValue}
-      setNewTitleTranslateValue={setNewTitleTranslateValue}
-      setNewIconTranslateValue={setNewIconTranslateValue}
+      setValueTranslateButton={setValueTranslateButton}
+      setValueTranslateIcon={setValueTranslateIcon}
+      setValueTranslateSubtitle={setValueTranslateSubtitle}
+      setValueTranslateTitle={setValueTranslateTitle}
     />
   );
 };

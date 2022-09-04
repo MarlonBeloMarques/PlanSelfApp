@@ -8,7 +8,6 @@ import {
   ButtonLabel,
   ImageWrapper,
   PlanText,
-  PlanningIcon,
   PlanningIconAnimated,
   SceneWrapper,
   SelfText,
@@ -24,14 +23,11 @@ const width = Dimensions.get('screen').width;
 type Props = {
   buttonAction: () => void;
   componentsToggle: Dispatch<SetStateAction<boolean>>;
-  setNewButtonTranslateXValue: Dispatch<SetStateAction<number>>;
-  setNewSubtitleTranslateValue: Dispatch<
-    SetStateAction<{ x: number; y: number }>
-  >;
-  setNewTitleTranslateValue: Dispatch<SetStateAction<{ x: number; y: number }>>;
-  setNewIconTranslateValue: Dispatch<SetStateAction<{ x: number; y: number }>>;
+  setValueTranslateButton: Dispatch<SetStateAction<{ x: number; y: number }>>;
+  setValueTranslateSubtitle: Dispatch<SetStateAction<{ x: number; y: number }>>;
+  setValueTranslateTitle: Dispatch<SetStateAction<{ x: number; y: number }>>;
+  setValueTranslateIcon: Dispatch<SetStateAction<{ x: number; y: number }>>;
   toggleEnabled: boolean;
-  showComponents: boolean;
   buttonAnimatedStyle: AnimatedStyleProp<ViewStyle>;
   subtitleAnimatedStyle: AnimatedStyleProp<ViewStyle>;
   titleAnimatedStyle: AnimatedStyleProp<ViewStyle>;
@@ -41,12 +37,11 @@ type Props = {
 const Welcome: React.FC<Props> = ({
   buttonAction,
   componentsToggle,
-  setNewButtonTranslateXValue,
-  setNewSubtitleTranslateValue,
-  setNewTitleTranslateValue,
-  setNewIconTranslateValue,
+  setValueTranslateButton,
+  setValueTranslateSubtitle,
+  setValueTranslateTitle,
+  setValueTranslateIcon,
   toggleEnabled,
-  showComponents,
   buttonAnimatedStyle,
   subtitleAnimatedStyle,
   titleAnimatedStyle,
@@ -70,20 +65,10 @@ const Welcome: React.FC<Props> = ({
             onLayout={({ nativeEvent }) => {
               if (nativeEvent) {
                 const { x, y } = nativeEvent.layout;
-                setNewIconTranslateValue({ x, y });
+                setValueTranslateIcon({ x, y });
               }
             }}
-          >
-            {showComponents && (
-              <PlanningIcon
-                height={161}
-                width={width}
-                testID="planning_image_id"
-                source={PlanningImage}
-                resizeMode={'contain'}
-              />
-            )}
-          </ImageWrapper>
+          ></ImageWrapper>
         </Wrapper>
       </Wrapper>
     );
@@ -103,18 +88,10 @@ const Welcome: React.FC<Props> = ({
           onLayout={({ nativeEvent }) => {
             if (nativeEvent) {
               const { x, y } = nativeEvent.layout;
-              console.log(nativeEvent);
-              setNewTitleTranslateValue({ x, y });
+              setValueTranslateTitle({ x, y });
             }
           }}
-        >
-          {showComponents && (
-            <>
-              <PlanText>PLAN</PlanText>
-              <SelfText>SELF</SelfText>
-            </>
-          )}
-        </TitleWrapper>
+        ></TitleWrapper>
       </Wrapper>
     );
   };
@@ -140,16 +117,10 @@ const Welcome: React.FC<Props> = ({
           onLayout={({ nativeEvent }) => {
             if (nativeEvent) {
               const { x, y } = nativeEvent.layout;
-              setNewSubtitleTranslateValue({ x, y });
+              setValueTranslateSubtitle({ x, y });
             }
           }}
-        >
-          {showComponents && (
-            <SubtitleText testID="subtitle_id">
-              You need to plan for have success in your life
-            </SubtitleText>
-          )}
-        </Wrapper>
+        ></Wrapper>
       </Wrapper>
     );
   };
@@ -172,17 +143,11 @@ const Welcome: React.FC<Props> = ({
           height={65}
           onLayout={({ nativeEvent }) => {
             if (nativeEvent) {
-              const { x } = nativeEvent.layout;
-              setNewButtonTranslateXValue(x);
+              const { x, y } = nativeEvent.layout;
+              setValueTranslateButton({ x, y });
             }
           }}
-        >
-          {showComponents && (
-            <Button testID="button_id" onPress={buttonAction}>
-              <ButtonLabel testID="button_label_id">I WANT TO PLAN</ButtonLabel>
-            </Button>
-          )}
-        </Wrapper>
+        ></Wrapper>
       </Wrapper>
     );
   };

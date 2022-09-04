@@ -50,16 +50,6 @@ export const SwitchWrapper = styled.View`
   margin: ${spacings.topSpacing}px ${spacings.bottomSpacing}px;
 `;
 
-type PlanningIconProps = {
-  width: number;
-  height: number;
-};
-
-export const PlanningIcon = styled.Image<PlanningIconProps>`
-  width: ${({ width }) => width}px;
-  height: ${({ height }) => height}px;
-`;
-
 type PlanningIconAnimatedProps = AnimatedWrapperProps;
 
 export const PlanningIconAnimated = styled(

@@ -62,6 +62,7 @@ const Welcome: React.FC<Props> = ({
         />
         <Wrapper height={161}>
           <ImageWrapper
+            testID="planning_image_wrapper_id"
             onLayout={({ nativeEvent }) => {
               if (nativeEvent) {
                 const { x, y } = nativeEvent.layout;

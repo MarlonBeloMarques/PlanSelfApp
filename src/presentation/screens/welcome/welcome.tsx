@@ -141,6 +141,7 @@ const Welcome: React.FC<Props> = ({
           </Button>
         </WrapperAnimated>
         <Wrapper
+          testID="button_wrapper_id"
           height={65}
           onLayout={({ nativeEvent }) => {
             if (nativeEvent) {

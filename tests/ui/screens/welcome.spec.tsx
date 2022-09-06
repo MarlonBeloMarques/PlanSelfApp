@@ -100,7 +100,7 @@ describe('UI: Welcome', () => {
       toggleEnabled: false,
       componentsToggle,
       setValueTranslateIcon,
-    } as MakeSutParams);
+    } as unknown as MakeSutParams);
 
     const wrapper = getByTestId('planning_image_wrapper_id');
 
@@ -118,6 +118,35 @@ describe('UI: Welcome', () => {
       y: 300,
     });
   });
+
+  test('should call setValueTranslateButton with correct params', async () => {
+    const buttonAction = () => {};
+    const componentsToggle = jest.fn();
+    const setValueTranslateButton = jest.fn();
+
+    const { getByTestId } = makeSut({
+      buttonAction,
+      toggleEnabled: false,
+      componentsToggle,
+      setValueTranslateButton,
+    } as unknown as MakeSutParams);
+
+    const wrapper = getByTestId('button_wrapper_id');
+
+    fireEvent(wrapper, 'layout', {
+      nativeEvent: {
+        layout: {
+          x: 300,
+          y: 300,
+        },
+      },
+    });
+
+    expect(setValueTranslateButton).toHaveBeenCalledWith({
+      x: 300,
+      y: 300,
+    });
+  });
 });
 
 type MakeSutParams = {
@@ -130,6 +159,12 @@ type MakeSutParams = {
       y: number;
     }>,
   ) => void;
+  setValueTranslateButton: (
+    value: React.SetStateAction<{
+      x: number;
+      y: number;
+    }>,
+  ) => void;
 };
 
 const makeSut = ({
@@ -137,13 +172,13 @@ const makeSut = ({
   toggleEnabled,
   componentsToggle,
   setValueTranslateIcon,
+  setValueTranslateButton,
 }: MakeSutParams) => {
   const buttonAnimatedStyle = {} as AnimatedStyleProp<ViewStyle>;
   const subtitleAnimatedStyle = {} as AnimatedStyleProp<ViewStyle>;
   const titleAnimatedStyle = {} as AnimatedStyleProp<ViewStyle>;
   const iconAnimatedStyle = {} as AnimatedStyleProp<ImageStyle>;
 
-  const setValueTranslateButton = jest.fn();
   const setValueTranslateSubtitle = jest.fn();
   const setValueTranslateTitle = jest.fn();
 

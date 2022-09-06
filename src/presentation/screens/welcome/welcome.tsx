@@ -85,6 +85,7 @@ const Welcome: React.FC<Props> = ({
           </TitleWrapper>
         </WrapperAnimated>
         <TitleWrapper
+          testID="title_wrapper_id"
           style={{ height: 28 }}
           onLayout={({ nativeEvent }) => {
             if (nativeEvent) {

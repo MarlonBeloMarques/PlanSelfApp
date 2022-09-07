@@ -134,7 +134,7 @@ const Welcome: React.FC<Props> = ({
         <WrapperAnimated
           position="absolute"
           style={[
-            { width: width - spacings.largeSpacing * 2 },
+            { width: width - spacings.largeSpacing * 2, zIndex: 2 },
             buttonAnimatedStyle,
           ]}
         >

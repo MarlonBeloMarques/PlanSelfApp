@@ -26,8 +26,8 @@ type Props = {
   myPlans: GetMyPlans.List<Date>;
   statusAddPlanButton: boolean;
   isLoading: boolean;
-  onPressMore: (plan: GetMyPlans.MyPlan<Date>) => void;
-  onPressAddPlan: () => void;
+  onPressMore?: (plan: GetMyPlans.MyPlan<Date>) => void;
+  onPressAddPlan?: () => void;
 };
 
 type MyCardProps = {
@@ -54,7 +54,7 @@ const Activity: React.FC<Props> = ({
         </MyPlanTitle>
         <MyPlanButtonMore
           testID={`more_button_my_plan_${index}_id`}
-          onPress={() => onPressMore(myPlan)}
+          onPress={() => onPressMore && onPressMore(myPlan)}
         >
           <IconMore testID={`more_icon_button_my_plan_${index}_id`} />
         </MyPlanButtonMore>

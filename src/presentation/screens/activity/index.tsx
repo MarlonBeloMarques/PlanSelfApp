@@ -36,8 +36,6 @@ const ActivityPresentation: React.FC<Props> = ({
       isLoading={isLoading()}
       myPlans={myPlans}
       statusAddPlanButton={statusAddPlan}
-      onPressMore={() => {}}
-      onPressAddPlan={() => {}}
     />
   );
 };

@@ -7,7 +7,7 @@ interface AnimatedWrapperProps {
 }
 
 export const WrapperAnimated = styled(Animated.View)<AnimatedWrapperProps>`
-  position: ${({ position }) => position || 'relative'};
+  position: ${({ position }) => position};
 `;
 
 type WrapperProps = {
@@ -21,11 +21,6 @@ export const Wrapper = styled.View<WrapperProps>`
     flex &&
     `
     flex: ${flex}
-  `}
-  ${({ width }) =>
-    width &&
-    `
-    width: ${width}px
   `}
   ${({ height }) =>
     height &&
@@ -55,7 +50,7 @@ type PlanningIconAnimatedProps = AnimatedWrapperProps;
 export const PlanningIconAnimated = styled(
   Animated.Image,
 )<PlanningIconAnimatedProps>`
-  position: ${({ position }) => position || 'relative'};
+  position: ${({ position }) => position};
 `;
 
 export const TitleWrapper = styled.View`

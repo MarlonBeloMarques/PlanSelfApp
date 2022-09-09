@@ -1,18 +1,73 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
+import { Easing, SharedValue, withTiming } from 'react-native-reanimated';
 import { Navigate } from '~/domain/useCases';
 import Welcome from './welcome';
 
+type Transform = (
+  | {
+      translateY: number;
+      translateX?: undefined;
+      rotate?: undefined;
+    }
+  | {
+      translateX: number;
+      translateY?: undefined;
+      rotate?: undefined;
+    }
+  | {
+      rotate: string;
+      translateY?: undefined;
+      translateX?: undefined;
+    }
+)[];
+
 type Props = {
   navigate: Navigate;
+  buttonAnimatedStyle: {
+    transform: Transform;
+  };
+  subtitleAnimatedStyle: {
+    transform: Transform;
+  };
+  titleAnimatedStyle: {
+    transform: Transform;
+  };
+  iconAnimatedStyle: {
+    transform: Transform;
+  };
+  buttonAnimationRotate: SharedValue<string>;
+  buttonAnimationTranslateX: SharedValue<number>;
+  subtitleAnimationRotate: SharedValue<string>;
+  subtitleAnimationTranslateX: SharedValue<number>;
+  subtitleAnimationTranslateY: SharedValue<number>;
+  titleAnimationRotate: SharedValue<string>;
+  titleAnimationTranslateX: SharedValue<number>;
+  titleAnimationTranslateY: SharedValue<number>;
+  iconAnimationRotate: SharedValue<string>;
+  iconAnimationTranslateX: SharedValue<number>;
+  iconAnimationTranslateY: SharedValue<number>;
+  iconAnimationHeight: SharedValue<number>;
 };
 
-const WelcomePresenter: React.FC<Props> = ({ navigate }) => {
+const WelcomePresenter: React.FC<Props> = ({
+  navigate,
+  buttonAnimatedStyle,
+  buttonAnimationRotate,
+  buttonAnimationTranslateX,
+  subtitleAnimatedStyle,
+  subtitleAnimationRotate,
+  subtitleAnimationTranslateX,
+  subtitleAnimationTranslateY,
+  titleAnimatedStyle,
+  titleAnimationRotate,
+  titleAnimationTranslateX,
+  titleAnimationTranslateY,
+  iconAnimatedStyle,
+  iconAnimationHeight,
+  iconAnimationRotate,
+  iconAnimationTranslateX,
+  iconAnimationTranslateY,
+}) => {
   const [toggleEnabled, componentsToggle] = useState(false);
 
   const [valueTranslateButton, setValueTranslateButton] = useState({
@@ -30,67 +85,6 @@ const WelcomePresenter: React.FC<Props> = ({ navigate }) => {
   const [valueTranslateIcon, setValueTranslateIcon] = useState({
     x: 0,
     y: 0,
-  });
-
-  const buttonAnimationRotate = useSharedValue('-20deg');
-  const buttonAnimationTranslateX = useSharedValue(160);
-
-  const subtitleAnimationRotate = useSharedValue('10deg');
-  const subtitleAnimationTranslateX = useSharedValue(-40);
-  const subtitleAnimationTranslateY = useSharedValue(220);
-
-  const titleAnimationRotate = useSharedValue('-20deg');
-  const titleAnimationTranslateX = useSharedValue(160);
-  const titleAnimationTranslateY = useSharedValue(-60);
-
-  const iconAnimationRotate = useSharedValue('-40deg');
-  const iconAnimationTranslateX = useSharedValue(-180);
-  const iconAnimationTranslateY = useSharedValue(-60);
-  const iconAnimationHeight = useSharedValue(200);
-
-  const buttonAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          translateY: 0,
-        },
-        {
-          translateX: buttonAnimationTranslateX.value,
-        },
-        { rotate: buttonAnimationRotate.value },
-      ],
-    };
-  });
-
-  const subtitleAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        { translateY: subtitleAnimationTranslateY.value },
-        { translateX: subtitleAnimationTranslateX.value },
-        { rotate: subtitleAnimationRotate.value },
-      ],
-    };
-  });
-
-  const titleAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        { translateY: titleAnimationTranslateY.value },
-        { translateX: titleAnimationTranslateX.value },
-        { rotate: titleAnimationRotate.value },
-      ],
-    };
-  });
-
-  const iconAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        { translateY: iconAnimationTranslateY.value },
-        { translateX: iconAnimationTranslateX.value },
-        { rotate: iconAnimationRotate.value },
-      ],
-      height: iconAnimationHeight.value,
-    };
   });
 
   useEffect(() => {

@@ -40,6 +40,58 @@ const makeSut = () => {
 
   const navigateToMyPlansSpy = jest.spyOn(navigate, 'navigateToMyPlans');
 
-  const sut = render(<Welcome navigate={navigate} />);
+  const sut = render(
+    <Welcome
+      navigate={navigate}
+      buttonAnimatedStyle={{
+        transform: [],
+      }}
+      subtitleAnimatedStyle={{
+        transform: [],
+      }}
+      titleAnimatedStyle={{
+        transform: [],
+      }}
+      iconAnimatedStyle={{
+        transform: [],
+      }}
+      buttonAnimationRotate={{
+        value: '20deg',
+      }}
+      buttonAnimationTranslateX={{
+        value: 1,
+      }}
+      subtitleAnimationRotate={{
+        value: '20deg',
+      }}
+      subtitleAnimationTranslateX={{
+        value: 1,
+      }}
+      subtitleAnimationTranslateY={{
+        value: 1,
+      }}
+      titleAnimationRotate={{
+        value: '20deg',
+      }}
+      titleAnimationTranslateX={{
+        value: 1,
+      }}
+      titleAnimationTranslateY={{
+        value: 1,
+      }}
+      iconAnimationRotate={{
+        value: '20deg',
+      }}
+      iconAnimationTranslateX={{
+        value: 1,
+      }}
+      iconAnimationTranslateY={{
+        value: 1,
+      }}
+      iconAnimationHeight={{
+        value: 1,
+      }}
+    />,
+  );
   return { sut, navigateToMyPlansSpy };
 };

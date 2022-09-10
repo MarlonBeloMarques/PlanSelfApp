@@ -53,26 +53,6 @@ export const PlanningIconAnimated = styled(
   position: ${({ position }) => position};
 `;
 
-export const TitleWrapper = styled.View`
-  justify-content: center;
-  flex-direction: row;
-  margin-bottom: ${spacings.baseSpacing * 2}px;
-`;
-
-export const PlanText = styled.Text`
-  font-size: ${typography.title1.fontSize}px;
-  font-weight: bold;
-  line-height: ${typography.title1.lineHeight}px;
-  color: ${colors.secondary};
-`;
-
-export const SelfText = styled.Text`
-  font-size: ${typography.title1.fontSize}px;
-  font-weight: bold;
-  line-height: ${typography.title1.lineHeight}px;
-  color: ${colors.tertiary};
-`;
-
 export const SubtitleText = styled.Text`
   font-size: ${typography.title3.fontSize}px;
   font-weight: bold;

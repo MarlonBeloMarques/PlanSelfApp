@@ -3,17 +3,15 @@ import { Dimensions, ImageStyle, Switch, ViewStyle } from 'react-native';
 import { AnimatedStyleProp } from 'react-native-reanimated';
 import { PlanningImage } from '~/presentation/assets/images';
 import { spacings } from '~/presentation/themes';
+import { Title } from '../../components';
 import {
   Button,
   ButtonLabel,
   ImageWrapper,
-  PlanText,
   PlanningIconAnimated,
   SceneWrapper,
-  SelfText,
   SubtitleText,
   SwitchWrapper,
-  TitleWrapper,
   Wrapper,
   WrapperAnimated,
   styleSheet,
@@ -30,8 +28,8 @@ type Props = {
   toggleEnabled: boolean;
   buttonAnimatedStyle: AnimatedStyleProp<ViewStyle>;
   subtitleAnimatedStyle: AnimatedStyleProp<ViewStyle>;
-  titleAnimatedStyle: AnimatedStyleProp<ViewStyle>;
   iconAnimatedStyle: AnimatedStyleProp<ImageStyle>;
+  valueTranslateTitle: { x: number; y: number };
 };
 
 const Welcome: React.FC<Props> = ({
@@ -44,8 +42,8 @@ const Welcome: React.FC<Props> = ({
   toggleEnabled,
   buttonAnimatedStyle,
   subtitleAnimatedStyle,
-  titleAnimatedStyle,
   iconAnimatedStyle,
+  valueTranslateTitle,
 }) => {
   const renderIcon = () => {
     return (
@@ -71,29 +69,6 @@ const Welcome: React.FC<Props> = ({
             }}
           ></ImageWrapper>
         </Wrapper>
-      </Wrapper>
-    );
-  };
-
-  const renderTitle = () => {
-    return (
-      <Wrapper>
-        <WrapperAnimated position="absolute" style={titleAnimatedStyle}>
-          <TitleWrapper style={{ width: width - spacings.largeSpacing * 2 }}>
-            <PlanText>PLAN</PlanText>
-            <SelfText>SELF</SelfText>
-          </TitleWrapper>
-        </WrapperAnimated>
-        <TitleWrapper
-          testID="title_wrapper_id"
-          style={{ height: 28 }}
-          onLayout={({ nativeEvent }) => {
-            if (nativeEvent) {
-              const { x, y } = nativeEvent.layout;
-              setValueTranslateTitle({ x, y });
-            }
-          }}
-        ></TitleWrapper>
       </Wrapper>
     );
   };
@@ -160,7 +135,11 @@ const Welcome: React.FC<Props> = ({
     <SceneWrapper>
       <Wrapper flex={0.8}>
         {renderIcon()}
-        {renderTitle()}
+        <Title
+          setValueTranslateTitle={setValueTranslateTitle}
+          valueTranslateTitle={valueTranslateTitle}
+          toggleEnabled={toggleEnabled}
+        />
         {renderSubtitle()}
         <SwitchWrapper>
           <Switch

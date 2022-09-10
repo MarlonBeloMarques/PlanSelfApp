@@ -29,9 +29,6 @@ type Props = {
   subtitleAnimatedStyle: {
     transform: Transform;
   };
-  titleAnimatedStyle: {
-    transform: Transform;
-  };
   iconAnimatedStyle: {
     transform: Transform;
   };
@@ -40,9 +37,6 @@ type Props = {
   subtitleAnimationRotate: SharedValue<string>;
   subtitleAnimationTranslateX: SharedValue<number>;
   subtitleAnimationTranslateY: SharedValue<number>;
-  titleAnimationRotate: SharedValue<string>;
-  titleAnimationTranslateX: SharedValue<number>;
-  titleAnimationTranslateY: SharedValue<number>;
   iconAnimationRotate: SharedValue<string>;
   iconAnimationTranslateX: SharedValue<number>;
   iconAnimationTranslateY: SharedValue<number>;
@@ -58,10 +52,6 @@ const WelcomePresenter: React.FC<Props> = ({
   subtitleAnimationRotate,
   subtitleAnimationTranslateX,
   subtitleAnimationTranslateY,
-  titleAnimatedStyle,
-  titleAnimationRotate,
-  titleAnimationTranslateX,
-  titleAnimationTranslateY,
   iconAnimatedStyle,
   iconAnimationHeight,
   iconAnimationRotate,
@@ -111,19 +101,6 @@ const WelcomePresenter: React.FC<Props> = ({
         easing: Easing.linear,
       });
 
-      titleAnimationRotate.value = withTiming('0deg', {
-        duration: 1000,
-        easing: Easing.linear,
-      });
-      titleAnimationTranslateX.value = withTiming(valueTranslateTitle.x, {
-        duration: 1000,
-        easing: Easing.linear,
-      });
-      titleAnimationTranslateY.value = withTiming(valueTranslateTitle.y, {
-        duration: 1000,
-        easing: Easing.linear,
-      });
-
       iconAnimationRotate.value = withTiming('0deg', {
         duration: 1000,
         easing: Easing.linear,
@@ -154,12 +131,12 @@ const WelcomePresenter: React.FC<Props> = ({
       toggleEnabled={toggleEnabled}
       buttonAnimatedStyle={buttonAnimatedStyle}
       subtitleAnimatedStyle={subtitleAnimatedStyle}
-      titleAnimatedStyle={titleAnimatedStyle}
       iconAnimatedStyle={iconAnimatedStyle}
       setValueTranslateButton={setValueTranslateButton}
       setValueTranslateIcon={setValueTranslateIcon}
       setValueTranslateSubtitle={setValueTranslateSubtitle}
       setValueTranslateTitle={setValueTranslateTitle}
+      valueTranslateTitle={valueTranslateTitle}
     />
   );
 };

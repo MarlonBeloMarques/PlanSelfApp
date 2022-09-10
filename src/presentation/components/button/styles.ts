@@ -17,11 +17,7 @@ type WrapperProps = {
 };
 
 export const Wrapper = styled.View<WrapperProps>`
-  ${({ flex }) =>
-    flex &&
-    `
-    flex: ${flex}
-  `}
+  ${({ flex }) => flex}
   ${({ height }) =>
     height &&
     `

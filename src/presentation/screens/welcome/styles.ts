@@ -1,14 +1,5 @@
-import Animated from 'react-native-reanimated';
 import styled from 'styled-components/native';
 import { spacings } from '~/presentation/themes';
-
-interface AnimatedWrapperProps {
-  position?: 'relative' | 'absolute' | 'fixed';
-}
-
-export const WrapperAnimated = styled(Animated.View)<AnimatedWrapperProps>`
-  position: ${({ position }) => position};
-`;
 
 type WrapperProps = {
   flex?: number;
@@ -22,11 +13,7 @@ export const Wrapper = styled.View<WrapperProps>`
     `
     flex: ${flex}
   `}
-  ${({ height }) =>
-    height &&
-    `
-    height: ${height}px
-  `}
+  ${({ height }) => height}
 `;
 
 export const SceneWrapper = styled.View`

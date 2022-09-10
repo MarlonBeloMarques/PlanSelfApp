@@ -3,10 +3,8 @@ import { Dimensions, ImageStyle, Switch, ViewStyle } from 'react-native';
 import { AnimatedStyleProp } from 'react-native-reanimated';
 import { PlanningImage } from '~/presentation/assets/images';
 import { spacings } from '~/presentation/themes';
-import { Title } from '../../components';
+import { Button, Title } from '../../components';
 import {
-  Button,
-  ButtonLabel,
   ImageWrapper,
   PlanningIconAnimated,
   SceneWrapper,
@@ -26,24 +24,24 @@ type Props = {
   setValueTranslateTitle: Dispatch<SetStateAction<{ x: number; y: number }>>;
   setValueTranslateIcon: Dispatch<SetStateAction<{ x: number; y: number }>>;
   toggleEnabled: boolean;
-  buttonAnimatedStyle: AnimatedStyleProp<ViewStyle>;
   subtitleAnimatedStyle: AnimatedStyleProp<ViewStyle>;
   iconAnimatedStyle: AnimatedStyleProp<ImageStyle>;
   valueTranslateTitle: { x: number; y: number };
+  valueTranslateButton: { x: number; y: number };
 };
 
 const Welcome: React.FC<Props> = ({
   buttonAction,
   componentsToggle,
-  setValueTranslateButton,
   setValueTranslateSubtitle,
   setValueTranslateTitle,
   setValueTranslateIcon,
   toggleEnabled,
-  buttonAnimatedStyle,
   subtitleAnimatedStyle,
   iconAnimatedStyle,
   valueTranslateTitle,
+  setValueTranslateButton,
+  valueTranslateButton,
 }) => {
   const renderIcon = () => {
     return (
@@ -103,34 +101,6 @@ const Welcome: React.FC<Props> = ({
     );
   };
 
-  const renderButton = () => {
-    return (
-      <Wrapper>
-        <WrapperAnimated
-          position="absolute"
-          style={[
-            { width: width - spacings.largeSpacing * 2, zIndex: 2 },
-            buttonAnimatedStyle,
-          ]}
-        >
-          <Button testID="button_id" onPress={buttonAction}>
-            <ButtonLabel testID="button_label_id">I WANT TO PLAN</ButtonLabel>
-          </Button>
-        </WrapperAnimated>
-        <Wrapper
-          testID="button_wrapper_id"
-          height={65}
-          onLayout={({ nativeEvent }) => {
-            if (nativeEvent) {
-              const { x, y } = nativeEvent.layout;
-              setValueTranslateButton({ x, y });
-            }
-          }}
-        ></Wrapper>
-      </Wrapper>
-    );
-  };
-
   return (
     <SceneWrapper>
       <Wrapper flex={0.8}>
@@ -151,7 +121,14 @@ const Welcome: React.FC<Props> = ({
           />
         </SwitchWrapper>
       </Wrapper>
-      <Wrapper flex={0.2}>{renderButton()}</Wrapper>
+      <Wrapper flex={0.2}>
+        <Button
+          buttonAction={buttonAction}
+          setValueTranslateButton={setValueTranslateButton}
+          toggleEnabled={toggleEnabled}
+          valueTranslateButton={valueTranslateButton}
+        />
+      </Wrapper>
     </SceneWrapper>
   );
 };

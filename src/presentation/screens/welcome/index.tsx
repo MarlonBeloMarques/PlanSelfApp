@@ -23,17 +23,12 @@ type Transform = (
 
 type Props = {
   navigate: Navigate;
-  buttonAnimatedStyle: {
-    transform: Transform;
-  };
   subtitleAnimatedStyle: {
     transform: Transform;
   };
   iconAnimatedStyle: {
     transform: Transform;
   };
-  buttonAnimationRotate: SharedValue<string>;
-  buttonAnimationTranslateX: SharedValue<number>;
   subtitleAnimationRotate: SharedValue<string>;
   subtitleAnimationTranslateX: SharedValue<number>;
   subtitleAnimationTranslateY: SharedValue<number>;
@@ -45,9 +40,6 @@ type Props = {
 
 const WelcomePresenter: React.FC<Props> = ({
   navigate,
-  buttonAnimatedStyle,
-  buttonAnimationRotate,
-  buttonAnimationTranslateX,
   subtitleAnimatedStyle,
   subtitleAnimationRotate,
   subtitleAnimationTranslateX,
@@ -79,15 +71,6 @@ const WelcomePresenter: React.FC<Props> = ({
 
   useEffect(() => {
     if (toggleEnabled) {
-      buttonAnimationRotate.value = withTiming('0deg', {
-        duration: 1000,
-        easing: Easing.linear,
-      });
-      buttonAnimationTranslateX.value = withTiming(valueTranslateButton.x, {
-        duration: 1000,
-        easing: Easing.linear,
-      });
-
       subtitleAnimationRotate.value = withTiming('0deg', {
         duration: 1000,
         easing: Easing.linear,
@@ -129,7 +112,6 @@ const WelcomePresenter: React.FC<Props> = ({
       buttonAction={buttonAction}
       componentsToggle={componentsToggle}
       toggleEnabled={toggleEnabled}
-      buttonAnimatedStyle={buttonAnimatedStyle}
       subtitleAnimatedStyle={subtitleAnimatedStyle}
       iconAnimatedStyle={iconAnimatedStyle}
       setValueTranslateButton={setValueTranslateButton}
@@ -137,6 +119,7 @@ const WelcomePresenter: React.FC<Props> = ({
       setValueTranslateSubtitle={setValueTranslateSubtitle}
       setValueTranslateTitle={setValueTranslateTitle}
       valueTranslateTitle={valueTranslateTitle}
+      valueTranslateButton={valueTranslateButton}
     />
   );
 };

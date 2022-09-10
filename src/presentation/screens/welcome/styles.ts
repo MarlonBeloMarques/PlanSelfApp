@@ -1,6 +1,6 @@
 import Animated from 'react-native-reanimated';
 import styled from 'styled-components/native';
-import { colors, spacings, typography } from '~/presentation/themes';
+import { spacings, typography } from '~/presentation/themes';
 
 interface AnimatedWrapperProps {
   position?: 'relative' | 'absolute' | 'fixed';
@@ -57,24 +57,6 @@ export const SubtitleText = styled.Text`
   font-size: ${typography.title3.fontSize}px;
   font-weight: bold;
   line-height: ${typography.title3.lineHeight}px;
-`;
-
-export const ButtonLabel = styled.Text`
-  text-align: center;
-  color: ${colors.tertiary};
-  font-weight: bold;
-  font-size: ${typography.body.fontSize}px;
-  line-height: ${typography.body.lineHeight}px;
-`;
-
-export const Button = styled.TouchableOpacity.attrs({
-  activeOpacity: 0.8,
-})`
-  border-radius: ${spacings.smallSpacing}px;
-  border-width: ${spacings.minimumSpacing}px;
-  height: 65px;
-  justify-content: center;
-  border-color: ${colors.primary};
 `;
 
 export const styleSheet = {

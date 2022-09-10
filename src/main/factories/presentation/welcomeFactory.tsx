@@ -15,9 +15,6 @@ const WelcomeFactory: React.FC<Props> = () => {
   const navigate = useNavigate();
   const navigateScreen = new NavigateScreenMyPlans(navigate);
 
-  const buttonAnimationTranslateX = useSharedValue(160);
-  const buttonAnimationRotate = useSharedValue('-20deg');
-
   const subtitleAnimationRotate = useSharedValue('10deg');
   const subtitleAnimationTranslateX = useSharedValue(-40);
   const subtitleAnimationTranslateY = useSharedValue(220);
@@ -38,20 +35,6 @@ const WelcomeFactory: React.FC<Props> = () => {
     };
   });
 
-  const buttonAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          translateY: 0,
-        },
-        {
-          translateX: buttonAnimationTranslateX.value,
-        },
-        { rotate: buttonAnimationRotate.value },
-      ],
-    };
-  });
-
   const subtitleAnimatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -65,9 +48,6 @@ const WelcomeFactory: React.FC<Props> = () => {
   return (
     <Welcome
       navigate={navigateScreen}
-      buttonAnimatedStyle={buttonAnimatedStyle}
-      buttonAnimationRotate={buttonAnimationRotate}
-      buttonAnimationTranslateX={buttonAnimationTranslateX}
       subtitleAnimatedStyle={subtitleAnimatedStyle}
       subtitleAnimationRotate={subtitleAnimationRotate}
       subtitleAnimationTranslateX={subtitleAnimationTranslateX}

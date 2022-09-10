@@ -1,6 +1,6 @@
 import Animated from 'react-native-reanimated';
 import styled from 'styled-components/native';
-import { spacings, typography } from '~/presentation/themes';
+import { spacings } from '~/presentation/themes';
 
 interface AnimatedWrapperProps {
   position?: 'relative' | 'absolute' | 'fixed';
@@ -51,12 +51,6 @@ export const PlanningIconAnimated = styled(
   Animated.Image,
 )<PlanningIconAnimatedProps>`
   position: ${({ position }) => position};
-`;
-
-export const SubtitleText = styled.Text`
-  font-size: ${typography.title3.fontSize}px;
-  font-weight: bold;
-  line-height: ${typography.title3.lineHeight}px;
 `;
 
 export const styleSheet = {

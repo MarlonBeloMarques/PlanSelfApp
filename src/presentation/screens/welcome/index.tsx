@@ -23,15 +23,9 @@ type Transform = (
 
 type Props = {
   navigate: Navigate;
-  subtitleAnimatedStyle: {
-    transform: Transform;
-  };
   iconAnimatedStyle: {
     transform: Transform;
   };
-  subtitleAnimationRotate: SharedValue<string>;
-  subtitleAnimationTranslateX: SharedValue<number>;
-  subtitleAnimationTranslateY: SharedValue<number>;
   iconAnimationRotate: SharedValue<string>;
   iconAnimationTranslateX: SharedValue<number>;
   iconAnimationTranslateY: SharedValue<number>;
@@ -40,10 +34,6 @@ type Props = {
 
 const WelcomePresenter: React.FC<Props> = ({
   navigate,
-  subtitleAnimatedStyle,
-  subtitleAnimationRotate,
-  subtitleAnimationTranslateX,
-  subtitleAnimationTranslateY,
   iconAnimatedStyle,
   iconAnimationHeight,
   iconAnimationRotate,
@@ -71,19 +61,6 @@ const WelcomePresenter: React.FC<Props> = ({
 
   useEffect(() => {
     if (toggleEnabled) {
-      subtitleAnimationRotate.value = withTiming('0deg', {
-        duration: 1000,
-        easing: Easing.linear,
-      });
-      subtitleAnimationTranslateX.value = withTiming(valueTranslateSubtitle.x, {
-        duration: 1000,
-        easing: Easing.linear,
-      });
-      subtitleAnimationTranslateY.value = withTiming(valueTranslateSubtitle.y, {
-        duration: 1000,
-        easing: Easing.linear,
-      });
-
       iconAnimationRotate.value = withTiming('0deg', {
         duration: 1000,
         easing: Easing.linear,
@@ -112,7 +89,6 @@ const WelcomePresenter: React.FC<Props> = ({
       buttonAction={buttonAction}
       componentsToggle={componentsToggle}
       toggleEnabled={toggleEnabled}
-      subtitleAnimatedStyle={subtitleAnimatedStyle}
       iconAnimatedStyle={iconAnimatedStyle}
       setValueTranslateButton={setValueTranslateButton}
       setValueTranslateIcon={setValueTranslateIcon}
@@ -120,6 +96,7 @@ const WelcomePresenter: React.FC<Props> = ({
       setValueTranslateTitle={setValueTranslateTitle}
       valueTranslateTitle={valueTranslateTitle}
       valueTranslateButton={valueTranslateButton}
+      valueTranslateSubtitle={valueTranslateSubtitle}
     />
   );
 };

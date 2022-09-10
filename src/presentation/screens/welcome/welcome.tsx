@@ -1,17 +1,15 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { Dimensions, ImageStyle, Switch, ViewStyle } from 'react-native';
+import { Dimensions, ImageStyle, Switch } from 'react-native';
 import { AnimatedStyleProp } from 'react-native-reanimated';
 import { PlanningImage } from '~/presentation/assets/images';
 import { spacings } from '~/presentation/themes';
-import { Button, Title } from '../../components';
+import { Button, Subtitle, Title } from '../../components';
 import {
   ImageWrapper,
   PlanningIconAnimated,
   SceneWrapper,
-  SubtitleText,
   SwitchWrapper,
   Wrapper,
-  WrapperAnimated,
   styleSheet,
 } from './styles';
 const width = Dimensions.get('screen').width;
@@ -24,24 +22,24 @@ type Props = {
   setValueTranslateTitle: Dispatch<SetStateAction<{ x: number; y: number }>>;
   setValueTranslateIcon: Dispatch<SetStateAction<{ x: number; y: number }>>;
   toggleEnabled: boolean;
-  subtitleAnimatedStyle: AnimatedStyleProp<ViewStyle>;
   iconAnimatedStyle: AnimatedStyleProp<ImageStyle>;
   valueTranslateTitle: { x: number; y: number };
   valueTranslateButton: { x: number; y: number };
+  valueTranslateSubtitle: { x: number; y: number };
 };
 
 const Welcome: React.FC<Props> = ({
   buttonAction,
   componentsToggle,
-  setValueTranslateSubtitle,
   setValueTranslateTitle,
   setValueTranslateIcon,
   toggleEnabled,
-  subtitleAnimatedStyle,
   iconAnimatedStyle,
   valueTranslateTitle,
   setValueTranslateButton,
   valueTranslateButton,
+  valueTranslateSubtitle,
+  setValueTranslateSubtitle,
 }) => {
   const renderIcon = () => {
     return (
@@ -71,36 +69,6 @@ const Welcome: React.FC<Props> = ({
     );
   };
 
-  const renderSubtitle = () => {
-    return (
-      <Wrapper>
-        <WrapperAnimated
-          position="absolute"
-          style={[
-            {
-              marginBottom: 30,
-            },
-            subtitleAnimatedStyle,
-          ]}
-        >
-          <SubtitleText testID="subtitle_id">
-            You need to plan for have success in your life
-          </SubtitleText>
-        </WrapperAnimated>
-        <Wrapper
-          testID="subtitle_wrapper_id"
-          height={42}
-          onLayout={({ nativeEvent }) => {
-            if (nativeEvent) {
-              const { x, y } = nativeEvent.layout;
-              setValueTranslateSubtitle({ x, y });
-            }
-          }}
-        ></Wrapper>
-      </Wrapper>
-    );
-  };
-
   return (
     <SceneWrapper>
       <Wrapper flex={0.8}>
@@ -110,7 +78,11 @@ const Welcome: React.FC<Props> = ({
           valueTranslateTitle={valueTranslateTitle}
           toggleEnabled={toggleEnabled}
         />
-        {renderSubtitle()}
+        <Subtitle
+          setValueTranslateSubtitle={setValueTranslateSubtitle}
+          toggleEnabled={toggleEnabled}
+          valueTranslateSubtitle={valueTranslateSubtitle}
+        />
         <SwitchWrapper>
           <Switch
             testID="components_switch_id"

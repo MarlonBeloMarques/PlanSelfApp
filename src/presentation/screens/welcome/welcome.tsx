@@ -1,18 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { Dimensions, ImageStyle, Switch } from 'react-native';
-import { AnimatedStyleProp } from 'react-native-reanimated';
-import { PlanningImage } from '~/presentation/assets/images';
-import { spacings } from '~/presentation/themes';
-import { Button, Subtitle, Title } from '../../components';
-import {
-  ImageWrapper,
-  PlanningIconAnimated,
-  SceneWrapper,
-  SwitchWrapper,
-  Wrapper,
-  styleSheet,
-} from './styles';
-const width = Dimensions.get('screen').width;
+import { Switch } from 'react-native';
+import { Button, PlanningIcon, Subtitle, Title } from '../../components';
+import { SceneWrapper, SwitchWrapper, Wrapper, styleSheet } from './styles';
 
 type Props = {
   buttonAction: () => void;
@@ -22,10 +11,10 @@ type Props = {
   setValueTranslateTitle: Dispatch<SetStateAction<{ x: number; y: number }>>;
   setValueTranslateIcon: Dispatch<SetStateAction<{ x: number; y: number }>>;
   toggleEnabled: boolean;
-  iconAnimatedStyle: AnimatedStyleProp<ImageStyle>;
   valueTranslateTitle: { x: number; y: number };
   valueTranslateButton: { x: number; y: number };
   valueTranslateSubtitle: { x: number; y: number };
+  valueTranslateIcon: { x: number; y: number };
 };
 
 const Welcome: React.FC<Props> = ({
@@ -33,46 +22,22 @@ const Welcome: React.FC<Props> = ({
   componentsToggle,
   setValueTranslateTitle,
   setValueTranslateIcon,
-  toggleEnabled,
-  iconAnimatedStyle,
-  valueTranslateTitle,
   setValueTranslateButton,
+  setValueTranslateSubtitle,
+  toggleEnabled,
+  valueTranslateTitle,
   valueTranslateButton,
   valueTranslateSubtitle,
-  setValueTranslateSubtitle,
+  valueTranslateIcon,
 }) => {
-  const renderIcon = () => {
-    return (
-      <Wrapper>
-        <PlanningIconAnimated
-          position="absolute"
-          style={[
-            { width: width - spacings.largeSpacing * 2 },
-            iconAnimatedStyle,
-          ]}
-          testID="planning_image_id"
-          source={PlanningImage}
-          resizeMode={'contain'}
-        />
-        <Wrapper height={161}>
-          <ImageWrapper
-            testID="planning_image_wrapper_id"
-            onLayout={({ nativeEvent }) => {
-              if (nativeEvent) {
-                const { x, y } = nativeEvent.layout;
-                setValueTranslateIcon({ x, y });
-              }
-            }}
-          ></ImageWrapper>
-        </Wrapper>
-      </Wrapper>
-    );
-  };
-
   return (
     <SceneWrapper>
       <Wrapper flex={0.8}>
-        {renderIcon()}
+        <PlanningIcon
+          setValueTranslateIcon={setValueTranslateIcon}
+          toggleEnabled={toggleEnabled}
+          valueTranslateIcon={valueTranslateIcon}
+        />
         <Title
           setValueTranslateTitle={setValueTranslateTitle}
           valueTranslateTitle={valueTranslateTitle}

@@ -1,6 +1,4 @@
 import React from 'react';
-import { AnimatedStyleProp } from 'react-native-reanimated';
-import { ImageStyle, ViewStyle } from 'react-native';
 import { fireEvent, render } from '@testing-library/react-native';
 import WelcomeView from '../../../src/presentation/screens/welcome/welcome';
 
@@ -246,11 +244,6 @@ const makeSut = ({
   setValueTranslateTitle,
   setValueTranslateSubtitle,
 }: MakeSutParams) => {
-  const buttonAnimatedStyle = {} as AnimatedStyleProp<ViewStyle>;
-  const subtitleAnimatedStyle = {} as AnimatedStyleProp<ViewStyle>;
-  const titleAnimatedStyle = {} as AnimatedStyleProp<ViewStyle>;
-  const iconAnimatedStyle = {} as AnimatedStyleProp<ImageStyle>;
-
   const sut = render(
     <WelcomeView
       buttonAction={buttonAction}
@@ -276,10 +269,22 @@ const makeSut = ({
       ) => {
         setValueTranslateIcon(value);
       }}
-      buttonAnimatedStyle={buttonAnimatedStyle}
-      subtitleAnimatedStyle={subtitleAnimatedStyle}
-      titleAnimatedStyle={titleAnimatedStyle}
-      iconAnimatedStyle={iconAnimatedStyle}
+      valueTranslateTitle={{
+        x: 0,
+        y: 0,
+      }}
+      valueTranslateButton={{
+        x: 0,
+        y: 0,
+      }}
+      valueTranslateSubtitle={{
+        x: 0,
+        y: 0,
+      }}
+      valueTranslateIcon={{
+        x: 0,
+        y: 0,
+      }}
     />,
   );
 

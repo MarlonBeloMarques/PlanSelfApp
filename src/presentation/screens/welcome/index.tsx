@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Navigate } from '~/domain/useCases';
 import Welcome from './welcome';
 
@@ -25,11 +25,6 @@ const WelcomePresenter: React.FC<Props> = ({ navigate }) => {
     x: 0,
     y: 0,
   });
-
-  useEffect(() => {
-    if (toggleEnabled) {
-    }
-  }, [toggleEnabled]);
 
   const buttonAction = () => {
     navigate.navigateToMyPlans();

@@ -77,6 +77,8 @@ const Title: React.FC<Props> = ({
           if (nativeEvent) {
             const { x, y } = nativeEvent.layout;
             setValueTranslateTitle({ x, y });
+          } else {
+            setValueTranslateTitle({ x: 0, y: 0 });
           }
         }}
       ></TitleWrapper>

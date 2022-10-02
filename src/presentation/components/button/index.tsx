@@ -76,6 +76,8 @@ const Button: React.FC<Props> = ({
           if (nativeEvent) {
             const { x, y } = nativeEvent.layout;
             setValueTranslateButton({ x, y });
+          } else {
+            setValueTranslateButton({ x: 0, y: 0 });
           }
         }}
       ></Wrapper>

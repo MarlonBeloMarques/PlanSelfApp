@@ -74,6 +74,8 @@ const Subtitle: React.FC<Props> = ({
           if (nativeEvent) {
             const { x, y } = nativeEvent.layout;
             setValueTranslateSubtitle({ x, y });
+          } else {
+            setValueTranslateSubtitle({ x: 0, y: 0 });
           }
         }}
       ></Wrapper>

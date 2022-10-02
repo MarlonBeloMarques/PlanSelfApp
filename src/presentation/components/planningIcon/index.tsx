@@ -82,6 +82,8 @@ const PlanningIcon: React.FC<Props> = ({
             if (nativeEvent) {
               const { x, y } = nativeEvent.layout;
               setValueTranslateIcon({ x, y });
+            } else {
+              setValueTranslateIcon({ x: 0, y: 0 });
             }
           }}
         ></ImageWrapper>

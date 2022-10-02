@@ -117,6 +117,30 @@ describe('UI: Welcome', () => {
     });
   });
 
+  test('should call setValueTranslateIcon with params equal 0', async () => {
+    const buttonAction = () => {};
+    const componentsToggle = jest.fn();
+    const setValueTranslateIcon = jest.fn();
+
+    const { getByTestId } = makeSut({
+      buttonAction,
+      toggleEnabled: false,
+      componentsToggle,
+      setValueTranslateIcon,
+    } as unknown as MakeSutParams);
+
+    const wrapper = getByTestId('planning_image_wrapper_id');
+
+    fireEvent(wrapper, 'layout', {
+      nativeEvent: null,
+    });
+
+    expect(setValueTranslateIcon).toHaveBeenCalledWith({
+      x: 0,
+      y: 0,
+    });
+  });
+
   test('should call setValueTranslateButton with correct params', async () => {
     const buttonAction = () => {};
     const componentsToggle = jest.fn();
@@ -143,6 +167,30 @@ describe('UI: Welcome', () => {
     expect(setValueTranslateButton).toHaveBeenCalledWith({
       x: 300,
       y: 300,
+    });
+  });
+
+  test('should call setValueTranslateButton with params equal 0', async () => {
+    const buttonAction = () => {};
+    const componentsToggle = jest.fn();
+    const setValueTranslateButton = jest.fn();
+
+    const { getByTestId } = makeSut({
+      buttonAction,
+      toggleEnabled: false,
+      componentsToggle,
+      setValueTranslateButton,
+    } as unknown as MakeSutParams);
+
+    const wrapper = getByTestId('button_wrapper_id');
+
+    fireEvent(wrapper, 'layout', {
+      nativeEvent: null,
+    });
+
+    expect(setValueTranslateButton).toHaveBeenCalledWith({
+      x: 0,
+      y: 0,
     });
   });
 
@@ -175,6 +223,30 @@ describe('UI: Welcome', () => {
     });
   });
 
+  test('should call setValueTranslateTitle with params equal 0', async () => {
+    const buttonAction = () => {};
+    const componentsToggle = jest.fn();
+    const setValueTranslateTitle = jest.fn();
+
+    const { getByTestId } = makeSut({
+      buttonAction,
+      toggleEnabled: false,
+      componentsToggle,
+      setValueTranslateTitle,
+    } as unknown as MakeSutParams);
+
+    const wrapper = getByTestId('title_wrapper_id');
+
+    fireEvent(wrapper, 'layout', {
+      nativeEvent: null,
+    });
+
+    expect(setValueTranslateTitle).toHaveBeenCalledWith({
+      x: 0,
+      y: 0,
+    });
+  });
+
   test('should call setValueTranslateSubtitle with correct params', async () => {
     const buttonAction = () => {};
     const componentsToggle = jest.fn();
@@ -201,6 +273,30 @@ describe('UI: Welcome', () => {
     expect(setValueTranslateSubtitle).toHaveBeenCalledWith({
       x: 300,
       y: 300,
+    });
+  });
+
+  test('should call setValueTranslateSubtitle with params equal 0', async () => {
+    const buttonAction = () => {};
+    const componentsToggle = jest.fn();
+    const setValueTranslateSubtitle = jest.fn();
+
+    const { getByTestId } = makeSut({
+      buttonAction,
+      toggleEnabled: false,
+      componentsToggle,
+      setValueTranslateSubtitle,
+    } as unknown as MakeSutParams);
+
+    const wrapper = getByTestId('subtitle_wrapper_id');
+
+    fireEvent(wrapper, 'layout', {
+      nativeEvent: null,
+    });
+
+    expect(setValueTranslateSubtitle).toHaveBeenCalledWith({
+      x: 0,
+      y: 0,
     });
   });
 });

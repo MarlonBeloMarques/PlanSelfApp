@@ -1,6 +1,10 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import WelcomeView from '../../../src/presentation/screens/welcome/welcome';
+import {
+  makeEventData,
+  makeValueTranslateStub,
+} from '../helpers/testFactories';
 
 describe('UI: Welcome', () => {
   test('should show title with success', () => {
@@ -89,6 +93,7 @@ describe('UI: Welcome', () => {
   });
 
   test('should call setValueTranslateIcon with correct params', async () => {
+    const layout = { x: 300, y: 300 };
     const buttonAction = () => {};
     const componentsToggle = jest.fn();
     const setValueTranslateIcon = jest.fn();
@@ -103,17 +108,12 @@ describe('UI: Welcome', () => {
     const wrapper = getByTestId('planning_image_wrapper_id');
 
     fireEvent(wrapper, 'layout', {
-      nativeEvent: {
-        layout: {
-          x: 300,
-          y: 300,
-        },
-      },
+      nativeEvent: makeEventData(layout.x, layout.y),
     });
 
     expect(setValueTranslateIcon).toHaveBeenCalledWith({
-      x: 300,
-      y: 300,
+      x: layout.x,
+      y: layout.y,
     });
   });
 
@@ -142,6 +142,7 @@ describe('UI: Welcome', () => {
   });
 
   test('should call setValueTranslateButton with correct params', async () => {
+    const layout = { x: 300, y: 300 };
     const buttonAction = () => {};
     const componentsToggle = jest.fn();
     const setValueTranslateButton = jest.fn();
@@ -156,17 +157,12 @@ describe('UI: Welcome', () => {
     const wrapper = getByTestId('button_wrapper_id');
 
     fireEvent(wrapper, 'layout', {
-      nativeEvent: {
-        layout: {
-          x: 300,
-          y: 300,
-        },
-      },
+      nativeEvent: makeEventData(layout.x, layout.y),
     });
 
     expect(setValueTranslateButton).toHaveBeenCalledWith({
-      x: 300,
-      y: 300,
+      x: layout.x,
+      y: layout.y,
     });
   });
 
@@ -195,6 +191,7 @@ describe('UI: Welcome', () => {
   });
 
   test('should call setValueTranslateTitle with correct params', async () => {
+    const layout = { x: 300, y: 300 };
     const buttonAction = () => {};
     const componentsToggle = jest.fn();
     const setValueTranslateTitle = jest.fn();
@@ -209,17 +206,12 @@ describe('UI: Welcome', () => {
     const wrapper = getByTestId('title_wrapper_id');
 
     fireEvent(wrapper, 'layout', {
-      nativeEvent: {
-        layout: {
-          x: 300,
-          y: 300,
-        },
-      },
+      nativeEvent: makeEventData(layout.x, layout.y),
     });
 
     expect(setValueTranslateTitle).toHaveBeenCalledWith({
-      x: 300,
-      y: 300,
+      x: layout.x,
+      y: layout.y,
     });
   });
 
@@ -248,6 +240,7 @@ describe('UI: Welcome', () => {
   });
 
   test('should call setValueTranslateSubtitle with correct params', async () => {
+    const layout = { x: 300, y: 300 };
     const buttonAction = () => {};
     const componentsToggle = jest.fn();
     const setValueTranslateSubtitle = jest.fn();
@@ -262,17 +255,12 @@ describe('UI: Welcome', () => {
     const wrapper = getByTestId('subtitle_wrapper_id');
 
     fireEvent(wrapper, 'layout', {
-      nativeEvent: {
-        layout: {
-          x: 300,
-          y: 300,
-        },
-      },
+      nativeEvent: makeEventData(layout.x, layout.y),
     });
 
     expect(setValueTranslateSubtitle).toHaveBeenCalledWith({
-      x: 300,
-      y: 300,
+      x: layout.x,
+      y: layout.y,
     });
   });
 
@@ -301,34 +289,19 @@ describe('UI: Welcome', () => {
   });
 });
 
+type valueTranslateParam = React.SetStateAction<{
+  x: number;
+  y: number;
+}>;
+
 type MakeSutParams = {
   buttonAction: () => void;
   toggleEnabled: boolean;
   componentsToggle: () => void;
-  setValueTranslateIcon: (
-    value: React.SetStateAction<{
-      x: number;
-      y: number;
-    }>,
-  ) => void;
-  setValueTranslateButton: (
-    value: React.SetStateAction<{
-      x: number;
-      y: number;
-    }>,
-  ) => void;
-  setValueTranslateTitle: (
-    value: React.SetStateAction<{
-      x: number;
-      y: number;
-    }>,
-  ) => void;
-  setValueTranslateSubtitle: (
-    value: React.SetStateAction<{
-      x: number;
-      y: number;
-    }>,
-  ) => void;
+  setValueTranslateIcon: (value: valueTranslateParam) => void;
+  setValueTranslateButton: (value: valueTranslateParam) => void;
+  setValueTranslateTitle: (value: valueTranslateParam) => void;
+  setValueTranslateSubtitle: (value: valueTranslateParam) => void;
 };
 
 const makeSut = ({
@@ -345,42 +318,22 @@ const makeSut = ({
       buttonAction={buttonAction}
       componentsToggle={componentsToggle}
       toggleEnabled={toggleEnabled}
-      setValueTranslateButton={(
-        value: React.SetStateAction<{ x: number; y: number }>,
-      ) => {
+      setValueTranslateButton={(value: valueTranslateParam) => {
         setValueTranslateButton(value);
       }}
-      setValueTranslateSubtitle={(
-        value: React.SetStateAction<{ x: number; y: number }>,
-      ) => {
+      setValueTranslateSubtitle={(value: valueTranslateParam) => {
         setValueTranslateSubtitle(value);
       }}
-      setValueTranslateTitle={(
-        value: React.SetStateAction<{ x: number; y: number }>,
-      ) => {
+      setValueTranslateTitle={(value: valueTranslateParam) => {
         setValueTranslateTitle(value);
       }}
-      setValueTranslateIcon={(
-        value: React.SetStateAction<{ x: number; y: number }>,
-      ) => {
+      setValueTranslateIcon={(value: valueTranslateParam) => {
         setValueTranslateIcon(value);
       }}
-      valueTranslateTitle={{
-        x: 0,
-        y: 0,
-      }}
-      valueTranslateButton={{
-        x: 0,
-        y: 0,
-      }}
-      valueTranslateSubtitle={{
-        x: 0,
-        y: 0,
-      }}
-      valueTranslateIcon={{
-        x: 0,
-        y: 0,
-      }}
+      valueTranslateTitle={makeValueTranslateStub()}
+      valueTranslateButton={makeValueTranslateStub()}
+      valueTranslateSubtitle={makeValueTranslateStub()}
+      valueTranslateIcon={makeValueTranslateStub()}
     />,
   );
 

@@ -3,23 +3,24 @@ import {
   CommonActions,
   NavigationContainerRef,
 } from '@react-navigation/native';
-import { render } from '@testing-library/react-native';
+import { render, waitFor } from '@testing-library/react-native';
 import { Navigation, Routes } from '~/main/navigation';
 import { ReactNavigationAdapter } from '~/infra';
 
 describe('Infra: ReactNavigationAdapter', () => {
-  test('should dispatch navigate action of React Navigation', () => {
+  test('should dispatch navigate action of React Navigation', async () => {
     const { sut, navigateSpy } = makeSut();
 
     const routeName = Routes.WELCOME;
     const params = { param: 'any_param' };
 
-    sut.navigate(routeName, params);
-
-    expect(navigateSpy).toHaveBeenCalledTimes(1);
-    expect(navigateSpy).toHaveBeenCalledWith({
-      name: routeName,
-      params: params,
+    await waitFor(() => {
+      sut.navigate(routeName, params);
+      expect(navigateSpy).toHaveBeenCalledTimes(1);
+      expect(navigateSpy).toHaveBeenCalledWith({
+        name: routeName,
+        params: params,
+      });
     });
   });
 });

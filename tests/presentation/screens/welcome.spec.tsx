@@ -4,6 +4,7 @@ import { NavigationContainerRef } from '@react-navigation/native';
 import { Welcome } from '~/presentation/screens';
 import { NavigateScreenMyPlans } from '~/data/useCases';
 import { Navigation, Routes } from '../../../src/main/navigation';
+import valueTranslateStub from '../stubs/valueTranslateStub';
 
 describe('Presentation: Welcome', () => {
   test('should call componentsToggle function updating toggleEnabled with success', () => {
@@ -29,15 +30,7 @@ describe('Presentation: Welcome', () => {
 });
 
 const makeSut = (toggleEnabled = false, componentsToggle = () => {}) => {
-  let navigation = {} as NavigationContainerRef<any>;
-
-  render(
-    <Navigation
-      setNavigationTop={(navigationRef) => (navigation = navigationRef)}
-      initialRouteName={Routes.WELCOME}
-    />,
-  );
-
+  const navigation = renderNavigation();
   const navigate = new NavigateScreenMyPlans(navigation);
 
   const navigateToMyPlansSpy = jest.spyOn(navigate, 'navigateToMyPlans');
@@ -60,6 +53,15 @@ const makeSut = (toggleEnabled = false, componentsToggle = () => {}) => {
   return { sut, navigateToMyPlansSpy };
 };
 
-const valueTranslateStub = () => {
-  return { x: 0, y: 0 };
+const renderNavigation = () => {
+  let navigation = {} as NavigationContainerRef<any>;
+
+  render(
+    <Navigation
+      setNavigationTop={(navigationRef) => (navigation = navigationRef)}
+      initialRouteName={Routes.WELCOME}
+    />,
+  );
+
+  return navigation;
 };

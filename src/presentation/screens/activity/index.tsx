@@ -1,19 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { GetMyPlans, GetStatusAddPlan } from '~/domain/useCases';
 import Activity from './activity';
 
 type Props = {
   getMyPlans: GetMyPlans;
   getStatusAddPlan: GetStatusAddPlan;
+  myPlans: GetMyPlans.List<Date>;
+  setMyPlans: React.Dispatch<React.SetStateAction<GetMyPlans.List<Date>>>;
+  statusAddPlan: boolean;
+  setStatusAddPlan: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoading: (validation: () => boolean) => boolean;
 };
 
 const ActivityPresentation: React.FC<Props> = ({
   getMyPlans,
   getStatusAddPlan,
+  myPlans,
+  setMyPlans,
+  statusAddPlan,
+  setStatusAddPlan,
+  isLoading,
 }) => {
-  const [myPlans, setMyPlans] = useState<GetMyPlans.List<Date>>([]);
-  const [statusAddPlan, setStatusAddPlan] = useState<boolean>(false);
-
   useEffect(() => {
     requestMyPlans();
     requestStatusAddPlan();
@@ -29,11 +36,11 @@ const ActivityPresentation: React.FC<Props> = ({
     setStatusAddPlan(response);
   };
 
-  const isLoading = () => myPlans.length === 0;
+  const myPlansIsEmpty = () => myPlans.length === 0;
 
   return (
     <Activity
-      isLoading={isLoading()}
+      isLoading={isLoading(myPlansIsEmpty)}
       myPlans={myPlans}
       statusAddPlanButton={statusAddPlan}
     />

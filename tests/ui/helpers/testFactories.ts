@@ -1,4 +1,4 @@
-export const makeEventData = (x = 300, y = 300) => {
+export const makeEventData = (x: number, y: number) => {
   return {
     layout: {
       x,

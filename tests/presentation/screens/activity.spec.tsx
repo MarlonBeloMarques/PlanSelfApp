@@ -5,41 +5,26 @@ import {
   GetStatusAddPlanRemoteConfig,
 } from '~/data/useCases';
 import { Activity } from '~/presentation/screens';
-import ActivityView from '~/presentation/screens/activity/activity';
-import { GetMyPlans } from '~/domain/useCases';
+import { GetMyPlans, GetStatusAddPlan } from '~/domain/useCases';
 import { RemoteConfigSpy } from '../../data/remoteConfig/remoteConfigSpy';
 import GetDatabaseSpy from '../../data/database/getDatabaseSpy';
 import { myPlansFake } from '../../data/helpers';
 
 describe('Presentation: Activity', () => {
   test('should call getMyPlans of GetMyPlansDatabase only once', async () => {
-    const remoteConfig = new RemoteConfigSpy();
-    const getDatabase = new GetDatabaseSpy();
+    const { getMyPlans, getStatusAddPlan } = makeSutParams();
+    const getMyPlansSpy = jest.spyOn(GetMyPlansDatabase.prototype, 'get');
 
-    const getMyPlans = new GetMyPlansDatabase(getDatabase);
-    const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
-
-    const getMyPlansSpy = jest.spyOn(getMyPlans, 'get');
-
-    render(
-      <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,
-    );
+    makeSut(getMyPlans, getStatusAddPlan);
 
     expect(getMyPlansSpy).toHaveBeenCalledTimes(1);
   });
 
   test('should call getMyPlans of GetMyPlansDatabase with correct param', async () => {
-    const remoteConfig = new RemoteConfigSpy();
-    const getDatabase = new GetDatabaseSpy();
+    const { getMyPlans, getStatusAddPlan } = makeSutParams();
+    const getMyPlansSpy = jest.spyOn(GetMyPlansDatabase.prototype, 'get');
 
-    const getMyPlans = new GetMyPlansDatabase(getDatabase);
-    const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
-
-    const getMyPlansSpy = jest.spyOn(getMyPlans, 'get');
-
-    render(
-      <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,
-    );
+    makeSut(getMyPlans, getStatusAddPlan);
 
     expect(getMyPlansSpy).toHaveBeenCalledWith({
       user: { myPlans: 'myPlans' },
@@ -47,125 +32,171 @@ describe('Presentation: Activity', () => {
   });
 
   test('should call getMyPlans of GetMyPlansDatabase return my plans with success', async () => {
-    const myPlans = myPlansFake(true);
-    const remoteConfig = new RemoteConfigSpy();
-    const getDatabase = new GetDatabaseSpy();
+    let myPlans = [] as GetMyPlans.List<Date>;
+    const setMyPlans = (plans: GetMyPlans.List<Date>) => {
+      myPlans = plans;
+    };
 
-    const getMyPlans = new GetMyPlansDatabase(getDatabase);
-    const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
-
+    const myPlansResponse = myPlansFake(true);
+    const { getMyPlans, getStatusAddPlan } = makeSutParams();
     jest
-      .spyOn(getMyPlans, 'get')
-      .mockResolvedValueOnce(myPlans as GetMyPlans.List<Date>);
+      .spyOn(GetMyPlansDatabase.prototype, 'get')
+      .mockResolvedValueOnce(myPlansResponse as GetMyPlans.List<Date>);
 
-    const { UNSAFE_getByType } = render(
-      <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,
+    makeSut(
+      getMyPlans,
+      getStatusAddPlan,
+      myPlans as GetMyPlans.List<Date>,
+      false,
+      setMyPlans as React.Dispatch<React.SetStateAction<GetMyPlans.List<Date>>>,
     );
 
-    const activityView = UNSAFE_getByType(ActivityView);
-
     await waitFor(() => {
-      expect(activityView.props.myPlans).toEqual(myPlans);
+      expect(myPlans).toEqual(myPlansResponse);
     });
   });
 
   test('should call getStatusAddPlan of GetStatusAddPlanRemoteConfig only once', async () => {
-    const remoteConfig = new RemoteConfigSpy();
-    const getDatabase = new GetDatabaseSpy();
-
-    const getMyPlans = new GetMyPlansDatabase(getDatabase);
-    const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
-
-    const getStatusAddPlanSpy = jest.spyOn(getStatusAddPlan, 'get');
-
-    render(
-      <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,
+    const { getMyPlans, getStatusAddPlan } = makeSutParams();
+    const getStatusAddPlanSpy = jest.spyOn(
+      GetStatusAddPlanRemoteConfig.prototype,
+      'get',
     );
+
+    makeSut(getMyPlans, getStatusAddPlan);
 
     expect(getStatusAddPlanSpy).toHaveBeenCalledTimes(1);
   });
 
   test('should call getStatusAddPlan of GetStatusAddPlanRemoteConfig return status with success', async () => {
+    let statusAddPlanButton = false;
+    const setStatusAddPlan = (statusAddPlan: boolean) => {
+      statusAddPlanButton = statusAddPlan;
+    };
     const statusAddPlan = true;
-    const remoteConfig = new RemoteConfigSpy();
-    const getDatabase = new GetDatabaseSpy();
+    const { getMyPlans, getStatusAddPlan } = makeSutParams();
+    jest
+      .spyOn(GetStatusAddPlanRemoteConfig.prototype, 'get')
+      .mockResolvedValueOnce(statusAddPlan);
 
-    const getMyPlans = new GetMyPlansDatabase(getDatabase);
-    const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
-
-    jest.spyOn(getStatusAddPlan, 'get').mockResolvedValueOnce(statusAddPlan);
-
-    const { UNSAFE_getByType } = render(
-      <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,
+    makeSut(
+      getMyPlans,
+      getStatusAddPlan,
+      [],
+      statusAddPlan,
+      () => {},
+      () => false,
+      setStatusAddPlan as React.Dispatch<React.SetStateAction<boolean>>,
     );
 
-    const activityView = UNSAFE_getByType(ActivityView);
-
     await waitFor(() => {
-      expect(activityView.props.statusAddPlanButton).toEqual(statusAddPlan);
+      expect(statusAddPlanButton).toEqual(statusAddPlan);
     });
   });
 
   test('should call getStatusAddPlan of GetStatusAddPlanRemoteConfig with correct param', async () => {
     const statusAddPlan = true;
-    const remoteConfig = new RemoteConfigSpy();
-    const getDatabase = new GetDatabaseSpy();
-
-    const getMyPlans = new GetMyPlansDatabase(getDatabase);
-    const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
-
+    const { getMyPlans, getStatusAddPlan } = makeSutParams();
     const getStatusAddPlanSpy = jest
-      .spyOn(getStatusAddPlan, 'get')
+      .spyOn(GetStatusAddPlanRemoteConfig.prototype, 'get')
       .mockResolvedValueOnce(statusAddPlan);
 
-    render(
-      <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,
-    );
+    makeSut(getMyPlans, getStatusAddPlan, [], statusAddPlan);
 
     expect(getStatusAddPlanSpy).toHaveBeenCalledWith('addPlan');
   });
 
   test('should isLoading prop be true if myPlans is empty', async () => {
-    const remoteConfig = new RemoteConfigSpy();
-    const getDatabase = new GetDatabaseSpy();
-
-    const getMyPlans = new GetMyPlansDatabase(getDatabase);
-    const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
-
+    let loading = false;
+    const myPlansResponse = [] as GetMyPlans.List<Date>;
+    const isLoading = (validation: () => boolean) => {
+      loading = validation();
+      return loading;
+    };
+    const { getMyPlans, getStatusAddPlan } = makeSutParams();
     jest
-      .spyOn(getMyPlans, 'get')
-      .mockResolvedValueOnce([] as GetMyPlans.List<Date>);
+      .spyOn(GetMyPlansDatabase.prototype, 'get')
+      .mockResolvedValueOnce(myPlansResponse);
 
-    const { UNSAFE_getByType } = render(
-      <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,
+    makeSut(
+      getMyPlans,
+      getStatusAddPlan,
+      [] as GetMyPlans.List<Date>,
+      false,
+      () => {},
+      isLoading,
     );
 
-    const activityView = UNSAFE_getByType(ActivityView);
-
-    expect(activityView.props.isLoading).toEqual(true);
+    expect(loading).toEqual(true);
   });
 
   test('should isLoading prop be false if myPlans not is empty', async () => {
-    const myPlans = myPlansFake(true);
-    const remoteConfig = new RemoteConfigSpy();
-    const getDatabase = new GetDatabaseSpy();
+    let loading = true;
+    const isLoading = (validation: () => boolean) => {
+      loading = validation();
+      return loading;
+    };
 
-    const getMyPlans = new GetMyPlansDatabase(getDatabase);
-    const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
+    let myPlans = [] as GetMyPlans.List<Date>;
+    const setMyPlans = (plans: GetMyPlans.List<Date>) => {
+      myPlans = plans;
+    };
 
+    const myPlansResponse = myPlansFake(true);
+    const { getMyPlans, getStatusAddPlan } = makeSutParams();
     jest
-      .spyOn(getMyPlans, 'get')
-      .mockResolvedValueOnce(myPlans as GetMyPlans.List<Date>);
-
-    const { UNSAFE_getByType } = render(
-      <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />,
-    );
-
-    const activityView = UNSAFE_getByType(ActivityView);
+      .spyOn(GetMyPlansDatabase.prototype, 'get')
+      .mockResolvedValueOnce(myPlansResponse as GetMyPlans.List<Date>);
 
     await waitFor(() => {
-      expect(activityView.props.myPlans).toEqual(myPlans);
-      expect(activityView.props.isLoading).toEqual(false);
+      makeSut(
+        getMyPlans,
+        getStatusAddPlan,
+        myPlans as GetMyPlans.List<Date>,
+        false,
+        setMyPlans as React.Dispatch<
+          React.SetStateAction<GetMyPlans.List<Date>>
+        >,
+        isLoading,
+      );
+
+      expect(loading).toEqual(false);
     });
   });
 });
+
+const makeSutParams = () => {
+  const remoteConfig = new RemoteConfigSpy();
+  const getDatabase = new GetDatabaseSpy();
+
+  const getMyPlans = new GetMyPlansDatabase(getDatabase);
+  const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(remoteConfig);
+
+  return { getMyPlans, getStatusAddPlan };
+};
+
+const makeSut = (
+  getMyPlans: GetMyPlans,
+  getStatusAddPlan: GetStatusAddPlan,
+  myPlans: GetMyPlans.List<Date> = [],
+  statusAddPlan = false,
+  setMyPlans: React.Dispatch<
+    React.SetStateAction<GetMyPlans.List<Date>>
+  > = () => {},
+  isLoading: (validation: () => boolean) => boolean = () => false,
+  setStatusAddPlan: React.Dispatch<React.SetStateAction<boolean>> = () => {},
+) => {
+  const sut = render(
+    <Activity
+      getMyPlans={getMyPlans}
+      getStatusAddPlan={getStatusAddPlan}
+      myPlans={myPlans}
+      setMyPlans={setMyPlans}
+      statusAddPlan={statusAddPlan}
+      setStatusAddPlan={setStatusAddPlan}
+      isLoading={isLoading}
+    />,
+  );
+
+  return sut;
+};

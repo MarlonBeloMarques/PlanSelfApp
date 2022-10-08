@@ -6,6 +6,7 @@ import {
   GetMyPlansDatabase,
   GetStatusAddPlanRemoteConfig,
 } from '~/data/useCases';
+import useHandlerActivity from '~/presentation/screens/activity/useHandlerActivity';
 import { firebaseAdapterFactory } from '../infra';
 
 type Props = {
@@ -14,13 +15,23 @@ type Props = {
 };
 
 const ActivityFactory: React.FC<Props> = () => {
+  const { myPlans, setMyPlans, setStatusAddPlan, statusAddPlan, isLoading } =
+    useHandlerActivity();
   const firebase = firebaseAdapterFactory();
 
   const getMyPlans = new GetMyPlansDatabase(firebase);
   const getStatusAddPlan = new GetStatusAddPlanRemoteConfig(firebase);
 
   return (
-    <Activity getMyPlans={getMyPlans} getStatusAddPlan={getStatusAddPlan} />
+    <Activity
+      getMyPlans={getMyPlans}
+      getStatusAddPlan={getStatusAddPlan}
+      myPlans={myPlans}
+      statusAddPlan={statusAddPlan}
+      setMyPlans={setMyPlans}
+      setStatusAddPlan={setStatusAddPlan}
+      isLoading={isLoading}
+    />
   );
 };
 

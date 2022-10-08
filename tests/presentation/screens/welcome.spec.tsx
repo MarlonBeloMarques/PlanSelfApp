@@ -3,18 +3,20 @@ import { fireEvent, render } from '@testing-library/react-native';
 import { NavigationContainerRef } from '@react-navigation/native';
 import { Welcome } from '~/presentation/screens';
 import { NavigateScreenMyPlans } from '~/data/useCases';
-import WelcomeView from '~/presentation/screens/welcome/welcome';
 import { Navigation, Routes } from '../../../src/main/navigation';
 
 describe('Presentation: Welcome', () => {
   test('should call componentsToggle function updating toggleEnabled with success', () => {
-    const { sut } = makeSut();
-    const view = sut.UNSAFE_getByType(WelcomeView);
+    let toggleEnabled = false;
+    const setToggleEnabled = () => {
+      toggleEnabled = true;
+    };
+    const { sut } = makeSut(toggleEnabled, setToggleEnabled);
     const componentsSwitch = sut.getByTestId('components_switch_id');
 
-    expect(view.props.toggleEnabled).toBe(false);
+    expect(toggleEnabled).toBe(false);
     fireEvent(componentsSwitch, 'onValueChange', true);
-    expect(view.props.toggleEnabled).toBe(true);
+    expect(toggleEnabled).toBe(true);
   });
 
   test('should navigate with success when button press', () => {
@@ -26,7 +28,7 @@ describe('Presentation: Welcome', () => {
   });
 });
 
-const makeSut = () => {
+const makeSut = (toggleEnabled = false, componentsToggle = () => {}) => {
   let navigation = {} as NavigationContainerRef<any>;
 
   render(
@@ -40,6 +42,24 @@ const makeSut = () => {
 
   const navigateToMyPlansSpy = jest.spyOn(navigate, 'navigateToMyPlans');
 
-  const sut = render(<Welcome navigate={navigate} />);
+  const sut = render(
+    <Welcome
+      navigate={navigate}
+      componentsToggle={componentsToggle}
+      toggleEnabled={toggleEnabled}
+      setValueTranslateButton={() => {}}
+      setValueTranslateIcon={() => {}}
+      setValueTranslateSubtitle={() => {}}
+      setValueTranslateTitle={() => {}}
+      valueTranslateButton={valueTranslateStub()}
+      valueTranslateSubtitle={valueTranslateStub()}
+      valueTranslateIcon={valueTranslateStub()}
+      valueTranslateTitle={valueTranslateStub()}
+    />,
+  );
   return { sut, navigateToMyPlansSpy };
+};
+
+const valueTranslateStub = () => {
+  return { x: 0, y: 0 };
 };

@@ -1,31 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navigate } from '~/domain/useCases';
 import Welcome from './welcome';
 
-type Props = {
-  navigate: Navigate;
+type ValueTranslate = {
+  x: number;
+  y: number;
 };
 
-const WelcomePresenter: React.FC<Props> = ({ navigate }) => {
-  const [toggleEnabled, componentsToggle] = useState(false);
+type Props = {
+  navigate: Navigate;
+  componentsToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleEnabled: boolean;
+  setValueTranslateButton: React.Dispatch<React.SetStateAction<ValueTranslate>>;
+  setValueTranslateIcon: React.Dispatch<React.SetStateAction<ValueTranslate>>;
+  setValueTranslateSubtitle: React.Dispatch<
+    React.SetStateAction<ValueTranslate>
+  >;
+  setValueTranslateTitle: React.Dispatch<React.SetStateAction<ValueTranslate>>;
+  valueTranslateButton: ValueTranslate;
+  valueTranslateSubtitle: ValueTranslate;
+  valueTranslateIcon: ValueTranslate;
+  valueTranslateTitle: ValueTranslate;
+};
 
-  const [valueTranslateButton, setValueTranslateButton] = useState({
-    x: 0,
-    y: 0,
-  });
-  const [valueTranslateSubtitle, setValueTranslateSubtitle] = useState({
-    x: 0,
-    y: 0,
-  });
-  const [valueTranslateTitle, setValueTranslateTitle] = useState({
-    x: 0,
-    y: 0,
-  });
-  const [valueTranslateIcon, setValueTranslateIcon] = useState({
-    x: 0,
-    y: 0,
-  });
-
+const WelcomePresenter: React.FC<Props> = ({
+  navigate,
+  componentsToggle,
+  setValueTranslateButton,
+  setValueTranslateIcon,
+  setValueTranslateSubtitle,
+  setValueTranslateTitle,
+  toggleEnabled,
+  valueTranslateTitle,
+  valueTranslateButton,
+  valueTranslateIcon,
+  valueTranslateSubtitle,
+}) => {
   const buttonAction = () => {
     navigate.navigateToMyPlans();
   };

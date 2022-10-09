@@ -12,6 +12,10 @@ import { myPlansFake } from '../../data/helpers';
 import getMyPlansMock from '../mocks/getMyPlansMock';
 import getStatusAddPlanMock from '../mocks/getStatusAddPlanMock';
 
+let loading = true;
+let myPlans: GetMyPlans.List<Date> = [];
+let statusAddPlanButton = false;
+
 describe('Presentation: Activity', () => {
   test('should call getMyPlans of GetMyPlansDatabase only once', async () => {
     const { getMyPlans, getStatusAddPlan } = makeSutParams();
@@ -34,10 +38,6 @@ describe('Presentation: Activity', () => {
   });
 
   test('should call getMyPlans of GetMyPlansDatabase return my plans with success', async () => {
-    let myPlans: GetMyPlans.List<Date> = [];
-    const setMyPlans = (plans: GetMyPlans.List<Date>) => {
-      myPlans = plans;
-    };
     const myPlansResponse = myPlansFake(true);
     const { getMyPlans, getStatusAddPlan } = makeSutParams();
     getMyPlansMock();
@@ -64,13 +64,7 @@ describe('Presentation: Activity', () => {
   });
 
   test('should call getStatusAddPlan of GetStatusAddPlanRemoteConfig return status with success', async () => {
-    let statusAddPlanButton = false;
-    const setStatusAddPlan = (statusAddPlan: boolean) => {
-      statusAddPlanButton = statusAddPlan;
-    };
-
     const { getMyPlans, getStatusAddPlan } = makeSutParams();
-
     const statusAddPlan = true;
     getStatusAddPlanMock(statusAddPlan);
     makeSut(
@@ -98,43 +92,25 @@ describe('Presentation: Activity', () => {
   });
 
   test('should isLoading prop be true if myPlans is empty', async () => {
-    let loading = false;
-    const isLoading = (validation: () => boolean) => {
-      loading = validation();
-      return loading;
-    };
-    let myPlans = [] as GetMyPlans.List<Date>;
-    const setMyPlans = (plans: GetMyPlans.List<Date>) => {
-      myPlans = plans;
-    };
-
-    getMyPlansMock([]);
+    loading = false;
     const { getMyPlans, getStatusAddPlan } = makeSutParams();
-    makeSut(
-      getMyPlans,
-      getStatusAddPlan,
-      myPlans as GetMyPlans.List<Date>,
-      false,
-      setMyPlans as SetMyPlansType,
-      isLoading,
-    );
+    getMyPlansMock([]);
 
     await waitFor(() => {
+      makeSut(
+        getMyPlans,
+        getStatusAddPlan,
+        myPlans as GetMyPlans.List<Date>,
+        false,
+        setMyPlans as SetMyPlansType,
+        isLoading,
+      );
       expect(loading).toEqual(true);
     });
   });
 
   test('should isLoading prop be false if myPlans not is empty', async () => {
-    let loading = true;
-    const isLoading = (validation: () => boolean) => {
-      loading = validation();
-      return loading;
-    };
-    let myPlans = [] as GetMyPlans.List<Date>;
-    const setMyPlans = (plans: GetMyPlans.List<Date>) => {
-      myPlans = plans;
-    };
-
+    loading = true;
     getMyPlansMock();
     const { getMyPlans, getStatusAddPlan } = makeSutParams();
 
@@ -151,6 +127,19 @@ describe('Presentation: Activity', () => {
     });
   });
 });
+
+const isLoading = (validation: () => boolean) => {
+  loading = validation();
+  return loading;
+};
+
+const setMyPlans = (plans: GetMyPlans.List<Date>) => {
+  myPlans = plans;
+};
+
+const setStatusAddPlan = (statusAddPlan: boolean) => {
+  statusAddPlanButton = statusAddPlan;
+};
 
 const makeSut = (
   getMyPlans: GetMyPlans,

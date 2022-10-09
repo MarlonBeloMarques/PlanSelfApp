@@ -34,7 +34,7 @@ describe('Presentation: Activity', () => {
   });
 
   test('should call getMyPlans of GetMyPlansDatabase return my plans with success', async () => {
-    let myPlans = [] as GetMyPlans.List<Date>;
+    let myPlans: GetMyPlans.List<Date> = [];
     const setMyPlans = (plans: GetMyPlans.List<Date>) => {
       myPlans = plans;
     };
@@ -45,9 +45,9 @@ describe('Presentation: Activity', () => {
     makeSut(
       getMyPlans,
       getStatusAddPlan,
-      myPlans as GetMyPlans.List<Date>,
+      myPlans,
       false,
-      setMyPlans as Dispatch<SetStateAction<GetMyPlans.List<Date>>>,
+      setMyPlans as SetMyPlansType,
     );
 
     await waitFor(() => {
@@ -68,10 +68,11 @@ describe('Presentation: Activity', () => {
     const setStatusAddPlan = (statusAddPlan: boolean) => {
       statusAddPlanButton = statusAddPlan;
     };
-    const statusAddPlan = true;
-    const { getMyPlans, getStatusAddPlan } = makeSutParams();
-    getStatusAddPlanMock(statusAddPlan);
 
+    const { getMyPlans, getStatusAddPlan } = makeSutParams();
+
+    const statusAddPlan = true;
+    getStatusAddPlanMock(statusAddPlan);
     makeSut(
       getMyPlans,
       getStatusAddPlan,
@@ -102,19 +103,25 @@ describe('Presentation: Activity', () => {
       loading = validation();
       return loading;
     };
+    let myPlans = [] as GetMyPlans.List<Date>;
+    const setMyPlans = (plans: GetMyPlans.List<Date>) => {
+      myPlans = plans;
+    };
+
     getMyPlansMock([]);
     const { getMyPlans, getStatusAddPlan } = makeSutParams();
-
     makeSut(
       getMyPlans,
       getStatusAddPlan,
-      [] as GetMyPlans.List<Date>,
+      myPlans as GetMyPlans.List<Date>,
       false,
-      () => {},
+      setMyPlans as SetMyPlansType,
       isLoading,
     );
 
-    expect(loading).toEqual(true);
+    await waitFor(() => {
+      expect(loading).toEqual(true);
+    });
   });
 
   test('should isLoading prop be false if myPlans not is empty', async () => {
@@ -127,6 +134,7 @@ describe('Presentation: Activity', () => {
     const setMyPlans = (plans: GetMyPlans.List<Date>) => {
       myPlans = plans;
     };
+
     getMyPlansMock();
     const { getMyPlans, getStatusAddPlan } = makeSutParams();
 
@@ -139,7 +147,6 @@ describe('Presentation: Activity', () => {
         setMyPlans as SetMyPlansType,
         isLoading,
       );
-
       expect(loading).toEqual(false);
     });
   });

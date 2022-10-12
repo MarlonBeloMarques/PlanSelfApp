@@ -42,13 +42,7 @@ describe('Presentation: Activity', () => {
     const { getMyPlans, getStatusAddPlan } = makeSutParams();
     getMyPlansMock();
 
-    makeSut(
-      getMyPlans,
-      getStatusAddPlan,
-      myPlans,
-      false,
-      setMyPlans as SetMyPlansType,
-    );
+    makeSut(getMyPlans, getStatusAddPlan, myPlans, false, setMyPlans);
 
     await waitFor(() => {
       expect(myPlans).toEqual(myPlansResponse);
@@ -64,17 +58,20 @@ describe('Presentation: Activity', () => {
   });
 
   test('should call getStatusAddPlan of GetStatusAddPlanRemoteConfig return status with success', async () => {
+    const setMyPlans = () => {};
+    const isLoading = () => false;
     const { getMyPlans, getStatusAddPlan } = makeSutParams();
     const statusAddPlan = true;
     getStatusAddPlanMock(statusAddPlan);
+
     makeSut(
       getMyPlans,
       getStatusAddPlan,
-      [],
+      myPlans,
       statusAddPlan,
-      () => {},
-      () => false,
-      setStatusAddPlan as SetStatusAddPlanType,
+      setMyPlans,
+      isLoading,
+      setStatusAddPlan,
     );
 
     await waitFor(() => {
@@ -100,9 +97,9 @@ describe('Presentation: Activity', () => {
       makeSut(
         getMyPlans,
         getStatusAddPlan,
-        myPlans as GetMyPlans.List<Date>,
+        myPlans,
         false,
-        setMyPlans as SetMyPlansType,
+        setMyPlans,
         isLoading,
       );
       expect(loading).toEqual(true);
@@ -118,9 +115,9 @@ describe('Presentation: Activity', () => {
       makeSut(
         getMyPlans,
         getStatusAddPlan,
-        myPlans as GetMyPlans.List<Date>,
+        myPlans,
         false,
-        setMyPlans as SetMyPlansType,
+        setMyPlans,
         isLoading,
       );
       expect(loading).toEqual(false);
@@ -146,18 +143,18 @@ const makeSut = (
   getStatusAddPlan: GetStatusAddPlan,
   myPlans: GetMyPlans.List<Date> = [],
   statusAddPlan = false,
-  setMyPlans: SetMyPlansType = () => {},
-  isLoading: IsLoadingType = () => false,
-  setStatusAddPlan: SetStatusAddPlanType = () => {},
+  setMyPlans: (plans: GetMyPlans.List<Date>) => void = () => {},
+  isLoading: (validation: () => boolean) => boolean = () => false,
+  setStatusAddPlan: (statusAddPlan: boolean) => void = () => {},
 ) => {
   const sut = render(
     <Activity
       getMyPlans={getMyPlans}
       getStatusAddPlan={getStatusAddPlan}
       myPlans={myPlans}
-      setMyPlans={setMyPlans}
+      setMyPlans={setMyPlans as SetMyPlansType}
       statusAddPlan={statusAddPlan}
-      setStatusAddPlan={setStatusAddPlan}
+      setStatusAddPlan={setStatusAddPlan as SetStatusAddPlanType}
       isLoading={isLoading}
     />,
   );
@@ -167,7 +164,6 @@ const makeSut = (
 
 type SetMyPlansType = Dispatch<SetStateAction<GetMyPlans.List<Date>>>;
 type SetStatusAddPlanType = Dispatch<SetStateAction<boolean>>;
-type IsLoadingType = (validation: () => boolean) => boolean;
 
 const makeSutParams = () => {
   const remoteConfig = new RemoteConfigSpy();

@@ -7,17 +7,11 @@ interface AnimatedProps {
 }
 
 type WrapperProps = {
-  flex?: number;
   width?: number;
   height?: number;
 };
 
 export const Wrapper = styled.View<WrapperProps>`
-  ${({ flex }) =>
-    flex &&
-    `
-    flex: ${flex}
-  `}
   ${({ height }) =>
     height &&
     `

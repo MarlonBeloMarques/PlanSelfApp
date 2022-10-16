@@ -10,24 +10,7 @@ export const WrapperAnimated = styled(Animated.View)<AnimatedWrapperProps>`
   position: ${({ position }) => position};
 `;
 
-type WrapperProps = {
-  flex?: number;
-  width?: number;
-  height?: number;
-};
-
-export const Wrapper = styled.View<WrapperProps>`
-  ${({ flex }) =>
-    flex &&
-    `
-    flex: ${flex}
-  `}
-  ${({ height }) =>
-    height &&
-    `
-    height: ${height}px
-  `}
-`;
+export const Wrapper = styled.View``;
 
 export const TitleWrapper = styled.View`
   justify-content: center;
